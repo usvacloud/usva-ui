@@ -1,0 +1,29 @@
+* {
+    font-weight: 400;
+}
+
+.title {
+    margin: 5px 0;
+    font-family: var(--font-titles);
+    
+    &.big {
+        font-size: 2.5em;
+    } 
+}
+
+.description {
+    font-weight: 300;
+    font-family: var(--font-titles);
+    color: var(--secondary-fg);
+
+    font-size: 1.5em;
+
+    &.small {
+        font-family: var(--font);
+        font-size: 1.1em;
+    }
+}
+
+.special {
+    color: var(--accent-color);
+}

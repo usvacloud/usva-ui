@@ -1,0 +1,89 @@
+
+.landing {
+    height: 100vh;
+    min-height: 800px;
+    max-height: 1200px;
+
+    background: var(--primary-bg) url(../public/images/primary-wallpaper.jpg);
+    background-size: cover;
+    background-position: bottom;
+
+    position: relative;
+    
+    & .centerContainer {
+        width: 100%;
+        max-width: var(--maximum-content-width);
+        height: 100%;
+
+        display: flex;
+        flex-direction: column;
+        
+        padding: 20px var(--section-horizontal-padding);
+        gap: 50px;
+
+        margin: auto;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+
+        & .header h2 {
+            color: var(--accent-color);
+        }
+
+        & .fileUpload {
+            background-color: var(--widget-primary-bg);
+            transition: var(--transition);
+            cursor: pointer;
+
+            border: 1px solid var(--primary-fg);
+            border-radius: var(--global-border-radius);
+            padding: 70px 0;
+            width: 80%;
+
+            & .fileDescription {
+                margin: 0;
+                font-size: 1.25em;
+                font-family: var(--font-titles);
+            }
+
+            & input[type=file] {
+                display: none;
+            }
+            &:hover {
+                background-color: var(--widget-primary-bg-hover);
+            }
+        }
+    }
+}
+
+.highlights {
+    width: 100%;
+    padding: 100px var(--section-horizontal-padding) 50px;
+    max-width: var(--maximum-content-width);
+    margin: auto;
+
+    & .list {
+        display: grid;
+        grid-template-columns: auto auto auto;
+        margin: 50px 0 40px;
+        gap: 40px;
+    }
+}
+
+.faq {
+    width: 100%;
+    padding: 50px var(--section-horizontal-padding);
+    max-width: var(--maximum-content-width);
+    margin: auto;
+
+    & .list {
+        margin-top: 70px;
+        display: grid;
+        grid-template-columns: auto auto auto;
+        gap: 50px;
+
+        & .question {
+            
+        }
+    }    
+}

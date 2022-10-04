@@ -1,0 +1,55 @@
+// Load fonts from Google Fonts
+@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&family=Red+Rose:wght@300;400;500;600;700&display=swap');
+
+// Set variables
+:root {
+    // General
+    --transition: 150ms ease;
+    --font: 'Mukta', Cantarell, 'Open Sans', sans-serif;
+    --font-titles: 'Red Rose', var(--font);
+    --maximum-content-width: 1200px;
+    --global-border-radius: 2px;
+    
+    --section-horizontal-padding: 20px;
+
+    // Colors
+    --accent-color: rgb(109, 49, 49);
+
+    --primary-bg: #e6e6e6;
+    --primary-fg: #111111;
+    --secondary-fg: #363636;
+    
+    --footer-bg: #bfbfbf;
+    --footer-fg: rgb(77, 77, 77);
+    --footer-link-mail: gray;
+
+    --link-fg: rgb(66, 82, 161);
+    --widget-primary-bg: #e6e6e6;
+    --widget-primary-bg-hover: #b5b5b5;
+    --widget-secondary-bg: #cccccc;
+    --widget-primary-fg: #222222;
+
+
+}
+
+// Switch colors from light when user prefers dark color scheme
+//@media (prefers-color-scheme: dark) { }
+
+
+* {
+    box-sizing: border-box;
+    color: var(--primaryfg);
+}
+
+html,
+body {
+    padding: 0;
+    margin: 0;
+    font-family: var(--font);
+    background-color: var(--primary-bg);
+}
+
+a {
+    color: var(--link-fg);
+    text-decoration: none;
+}
