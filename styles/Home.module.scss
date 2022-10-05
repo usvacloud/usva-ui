@@ -40,6 +40,7 @@
             padding: 70px 0;
             width: 80%;
 
+
             & .fileDescription {
                 margin: 0;
                 font-size: 1.25em;
@@ -52,6 +53,22 @@
 
             &:hover {
                 background-color: var(--form-bg-hover);
+            }
+
+            @media screen and (max-width: 900px) {
+                padding: 40px 0;
+                & .fileDescription {
+                    font-size: 1em;
+                }
+            }
+            @media screen and (max-width: 600px) {
+                width: 100%;
+                padding: 20px 0;
+
+                max-width: 400px;
+                & .fileDescription {
+                    font-size: 1em;
+                }
             }
         }
     }
@@ -99,6 +116,13 @@
                 }
             }
         }
+
+        @media screen and (max-width: 900px) {
+            grid-template-columns: auto auto;
+        }
+        @media screen and (max-width: 600px) {
+            grid-template-columns: auto;
+        }
     }
 }
 
@@ -113,31 +137,45 @@
         display: grid;
         grid-template-columns: auto auto auto;
         gap: 50px;
+
+        @media screen and (max-width: 900px) {
+            gap: 20px;
+            grid-template-columns: auto auto;
+        }
+        @media screen and (max-width: 600px) {
+            grid-template-columns: auto;
+        }
     }
 }
 
 .support { 
     border-radius: var(--global-border-radius);
     width: 100%;
-    max-width: var(--maximum-content-width);
-    padding: 20px;
+    max-width: calc(var(--maximum-content-width) + 100px);
+    padding: 50px 0;
     margin: 60px auto 80px;
     background: rgb(242,144,144) linear-gradient(250deg, rgb(255, 195, 195) 0%, rgb(255, 183, 218) 100%);
 
-    & .links {
-        margin-top: 45px;
-        display: flex;
-        gap: 10px;
-        .button {
-            transition: var(--transition);
-            border-radius: 20px;
-            color: var(--inverted-fg);
-            cursor: pointer;
-            font-size: 1.2em;
-            background-color: var(--inverted-bg);
-            padding: 3px 20px;
-            &:hover {
-                background-color: var(--inverted-bg-hover);
+    & .content {
+        max-width: var(--maximum-content-width);
+        margin: auto;
+        width: 100%;
+        padding: 0 var(--section-horizontal-padding);
+        & .links {
+            margin-top: 45px;
+            display: flex;
+            gap: 10px;
+            .button {
+                transition: var(--transition);
+                border-radius: 20px;
+                color: var(--inverted-fg);
+                cursor: pointer;
+                font-size: 1.2em;
+                background-color: var(--inverted-bg);
+                padding: 3px 20px;
+                &:hover {
+                    background-color: var(--inverted-bg-hover);
+                }
             }
         }
     }
@@ -157,6 +195,10 @@
         display: grid;
         grid-template-columns: calc(50% - ($gap / 2)) calc(50% - ($gap / 2));
         gap: $gap;
+
+        @media screen and (max-width: 800px) {
+            grid-template-columns: auto;
+        }
 
         & .terms {
             $padding: 20px;
