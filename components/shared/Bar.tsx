@@ -1,12 +1,12 @@
 export default function Bar() {
     return <div className="bar">
         <div className="content">
-            <span>Usva</span>
+            <a href="/">Usva</a>
 
             <div className="links">
-                <a href="" className="link">Join the community</a>
-                <a href="" className="link">Download a file</a>
-                <a href="" className="link">Contact the developer</a>
+                <a href="/join-the-community" className="animated">Join the community</a>
+                <a href="/download-file" className="animated">Download a file</a>
+                <a href="/support" className="animated">Support</a>
             </div>
         </div>
     </div>
