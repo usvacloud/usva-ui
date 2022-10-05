@@ -3,9 +3,12 @@ import Header from "./Header"
 
 function Feature(props: {
     title: string,
-    description: string
+    description: string,
+    id: Number,
 }) {
     return <div className={styles.item}>
+        <div className={[styles.bgbox, styles["i"+props.id.toString()]].join(" ")} />
+
         <h2 className="title">{props.title}</h2>
         <p className="description small">{props.description}</p>
     </div>
@@ -19,6 +22,7 @@ function FeatureList() {
                 For the sake of scalability and reliability, 
                 it’s possible to delete all information from a specific file.
             `}
+            id={1}
         />
         <Feature 
             title="Extreme Privacy"
@@ -26,6 +30,7 @@ function FeatureList() {
                 For the sake of scalability and reliability, 
                 it’s possible to delete all information from a specific file.
             `}
+            id={2}
         />
         <Feature 
             title="Extreme Privacy"
@@ -33,6 +38,7 @@ function FeatureList() {
                 For the sake of scalability and reliability, 
                 it’s possible to delete all information from a specific file.
             `}
+            id={3}
         />
     </div>
 }

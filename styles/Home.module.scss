@@ -64,10 +64,41 @@
     margin: auto;
 
     & .list {
+        position: relative;
         display: grid;
         grid-template-columns: auto auto auto;
         margin: 70px 0 40px;
         gap: 40px;
+
+        & .item {
+            position: relative;
+            & h2, p {
+                position: relative;
+                z-index: 2;
+            }
+            & .bgbox {
+                position: absolute;
+                border-radius: var(--global-border-radius);
+                padding: 40px;
+                overflow: hidden;
+                background-color: var(--widget-primary-bg);
+                z-index: 1 !important;
+                transform: translate(-50%, -50%);
+
+                &.i1 {
+                    top: 50%;
+                    left: 50%;
+                }
+                &.i2 {
+                    top: 25%;
+                    left: 10%;
+                }
+                &.i3 {
+                    right: 50%;
+                    top: 50%;
+                }
+            }
+        }
     }
 }
 
