@@ -1,19 +1,18 @@
 .bar {
     display: flex;
-    
     position: fixed;
     z-index: 10;
 
-    backdrop-filter: blur(7px);
+    backdrop-filter: blur(3px);
     width: 100%;
-    padding: 20px;
+    padding: 10px;
     display: flex;
     font-size: 1.1em;
 
     & .content {
         display: flex;
         width: 100%;
-        max-width: var(--maximum-content-width);
+        max-width: calc(var(--maximum-content-width) + 200px);
         margin: auto;
 
         & span {
@@ -25,8 +24,7 @@
             gap: 40px;
             display: flex;
 
-            & a {
-                color: var(--primary-fg);
+            & .link {
             }
         }
     }
@@ -34,7 +32,7 @@
 
 
 .header {
-    max-width: 65%;
+    max-width: 75%;
     & .title.primary {
         font-size: 2em;
     }
@@ -43,10 +41,17 @@
 .footer {
     background-color: var(--footer-bg);
     width: 100%;
-    padding: 60px 60px;
-    max-width: var(--maximum-content-width);
+    padding: 60px var(--section-horizontal-padding);
     margin: 90px auto 0;
 
+    & .content {
+        width: 100%;
+        max-width: var(--maximum-content-width);
+        margin: auto;
+    }
+    & .header {
+        margin-bottom: 30px;
+    }
     & .links {
         display: grid;
         grid-template-columns: auto auto;
@@ -56,25 +61,35 @@
             flex-direction: column;
             gap: 5px;
 
-            & span {
-                margin: 0;
-                padding: 0;
-                font-size: 1.4em;
-                color: var(--footer-fg);
+            & .linkwithlabel {
+                display: flex;
+                gap: 7px;
+
+                & span {
+                    margin: 0;
+                    padding: 0;
+                    font-size: 1.4em;
+                    color: var(--footer-fg);
+                }
+
+                a.mail {
+                    color: var(--footer-link-mail);
+                }
             }
             a {
-                margin: 0px 8px;
-                font-size: 1.4em;
-            }
-
-            a.mail {
-                color: var(--footer-link-mail);
+                font-size: 1.2em;
+                margin-top: 4px;
             }
         }
 
         & .legal {
-            float: right;
             text-align: right;
+            width: 100%;
+            align-items: flex-end;
+            & a {
+                width: fit-content;
+                
+            }
         }
     }
 }
