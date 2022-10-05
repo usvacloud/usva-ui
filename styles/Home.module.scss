@@ -31,7 +31,7 @@
         }
 
         & .fileUpload {
-            background-color: var(--widget-primary-bg);
+            background-color: var(--form-bg);
             transition: var(--transition);
             cursor: pointer;
 
@@ -49,8 +49,9 @@
             & input[type=file] {
                 display: none;
             }
+
             &:hover {
-                background-color: var(--widget-primary-bg-hover);
+                background-color: var(--form-bg-hover);
             }
         }
     }
@@ -65,7 +66,7 @@
     & .list {
         display: grid;
         grid-template-columns: auto auto auto;
-        margin: 50px 0 40px;
+        margin: 70px 0 40px;
         gap: 40px;
     }
 }
@@ -81,9 +82,93 @@
         display: grid;
         grid-template-columns: auto auto auto;
         gap: 50px;
-
-        & .question {
-            
-        }
-    }    
+    }
 }
+
+.support { 
+    border-radius: var(--global-border-radius);
+    width: 100%;
+    max-width: var(--maximum-content-width);
+    padding: 20px;
+    margin: 60px auto 80px;
+    background: rgb(242,144,144) linear-gradient(250deg, rgb(255, 195, 195) 0%, rgb(255, 183, 218) 100%);
+
+    & .links {
+        margin-top: 45px;
+        display: flex;
+        gap: 10px;
+        .button {
+            transition: var(--transition);
+            border-radius: 12px;
+            color: var(--inverted-fg);
+            cursor: pointer;
+            font-size: 1.2em;
+            background-color: var(--inverted-bg);
+            padding: 3px 20px;
+            &:hover {
+                background-color: var(--inverted-bg-hover);
+            }
+        }
+    }
+}
+
+.termscondensed {
+    position: relative;
+    width: 100%;
+    padding: var(--section-horizontal-padding);
+    max-width: var(--maximum-content-width);
+    margin: 70px auto 40px;
+
+    & .content {
+        margin-top: 70px;
+
+        $gap: 40px;
+        display: grid;
+        grid-template-columns: calc(50% - ($gap / 2)) calc(50% - ($gap / 2));
+        gap: $gap;
+
+        & .terms {
+            $padding: 20px;
+
+            & h2.title {
+                margin-left: $padding;
+                font-family: var(--font-titles);
+            }
+            & p.desc, ul {
+                color: var(--secondary-fg);
+                background-color: var(--widget-primary-bg);
+                border-radius: var(--global-border-radius);
+                padding: $padding;
+                font-family: var(--font-titles);
+                font-size: 1.2em;
+            }
+
+            & ul { 
+                display: grid;
+                gap: 10px;
+                padding-left: $padding;
+                & li {
+                    $identifierwidth: 10px;
+                    position: relative;
+                    list-style-type: none;
+                    margin-left: calc($identifierwidth * 2);
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        padding: 2px calc($identifierwidth / 2);
+                        border-radius: var(--global-border-radius);
+                        top: 10px;
+                        left: 0 - calc($identifierwidth * 1.5 + 5px);
+                        background: var(--list-identifier);
+                    }
+                }
+            }
+            
+            & .tosnotice {
+                color: var(--accent-color);
+                padding: 0 10px;
+            }
+        }
+    }
+}
+
