@@ -1,6 +1,6 @@
 export default function Header(props: {
     title: string,
-    description: string|null,
+    description?: string|null
 }) {
     return <>
         <div className="header">
@@ -8,7 +8,10 @@ export default function Header(props: {
                 {props.title}
                 <span className="special">.</span>
             </h1>
-            <h3 className="description">{props.description}</h3>
+            {
+                props.description && 
+                    <h3 className="description">{props.description}</h3>
+            }
         </div>
     </>
 }
