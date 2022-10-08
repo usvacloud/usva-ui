@@ -31,14 +31,6 @@ export default function FAQ() {
                 question="How do I use this?"
                 answer={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`}
             />
-            <Question
-                question="How do I use this?"
-                answer={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`}
-            />
-            <Question
-                question="How do I use this?"
-                answer={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`}
-            />
         </div>
     </div>
 }
