@@ -2,19 +2,17 @@ import styles from "@/styles/Home.module.scss"
 import Header from "./Header"
 
 export default function Support() {
-    return <div className={styles.support}>
+    return <div className={styles.box}>
         <div className={styles.content}>
             <Header
-                title="Hi friend! Just a really quick notice for you"
-                description={`
-                    We are alive, but unfortunately it isn't free for us.
-                    Show your support by donating a small amount
-                    to keep this website running. Thank you and remember to have a great day!
-                    With love, developer :)
-                `}
+                title="Hi friend, just a quick note"
             />
+            <p className="description small">
+                We live because of donation money, and you can show your support by donating a small amount
+                to keep this website running. Anyways nothing more than that, thank you and have a great day!
+            </p>
             <div className={styles.links}>
-                <div className={styles.button}>Make a donation</div>
+                <a href="///paypal.me/tvalkonen" target="_blank" className={styles.button}>Make a donation</a>
             </div>
         </div>
     </div>
