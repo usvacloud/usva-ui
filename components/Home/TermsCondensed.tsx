@@ -5,11 +5,10 @@ export default function TermsCondensed() {
     return <div className={styles.termscondensed}>
         <Header
             title="Summary of Usva's terms and policies"
-            description={`A few want to read the entirety of legal texts, 
-                but many care about their privacy and rights. 
-                Because I want this service to be extremely simple and trustworthy to use,
-                I’ve listed below the most important parts of privacy policy and terms of service.`
-            }
+            description={`
+                A quick overview of your privacy and rights with Usva. 
+                Here you can find the most notable parts of both privacy policy and terms of service.
+            `}
         />
 
         <div className={styles.content}>
@@ -31,13 +30,12 @@ export default function TermsCondensed() {
             <div className={styles.terms}>
                 <h2 className={styles.title}>Privacy Policy</h2>
                 <p className={styles.desc}>
-                    Your IP address is, depending on the server’s configuration,
-                    going to be saved for the file’s lifetime.
-                    This security practice is only done to prevent possible breaking of the Terms of Service.
-                    I’m personally all against breaking any privacy regulations,
-                    and building services with distorted privacy policies. 
-                    The saved IP address is hashed, as well as any other personal information are strictly
-                    processed to enhance security of the client.
+                    Usva is not meant to be another service with distorted privacy policies, nor
+                    want it to be disrespectful to user's privacy. In nutshell,
+                    we save IP addresses of file uploaders as hashed strings to make temporary banning 
+                    of guilty uploaders possible.
+                    All personal information is strictly processed either in the browser or at the latest in the 
+                    server.
                 </p>
             </div>
         </div>
