@@ -20,16 +20,26 @@ export default function FAQ() {
 
         <div className={styles.list}>
             <Question
-                question="How do I use this?"
-                answer={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`}
+                question="How do I upload my file or files?"
+                answer={`
+                    To upload a file, drop the file to the white box on top of this page.
+                    We are constantly improving our service to make uploads easier and faster.
+                `}
             />
             <Question
-                question="How do I use this?"
-                answer={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`}
+                question="How can you know what I upload?"
+                answer={`
+                    I can't keep track of what you upload, and that is the main concept of privacy.
+                    To keep track of the quality and legality of uploads, 
+                    we provide a file reporting feature.
+                `}
             />
             <Question
-                question="How do I use this?"
-                answer={`Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.`}
+                question="What is the main concept of Usva?"
+                answer={`
+                    The ideology behind Usva is to offer a service for extremely simple bulk file
+                    uploads securely. Usva is completely free and we run it with users' donations.
+                `}
             />
         </div>
     </div>
