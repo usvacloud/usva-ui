@@ -51,6 +51,8 @@
                 gap: 5px;
                 flex-direction: column;
                 margin: 20px 0 0 0;
+                align-items: center;
+                justify-content: center;
 
                 & .animated {
                     width: var(--basewidth);
@@ -91,7 +93,7 @@
     background-color: var(--footer-bg);
     width: 100%;
     padding: 60px var(--section-horizontal-padding);
-    margin: 90px auto 0;
+    margin: 0 auto;
 
     & .content {
         width: 100%;

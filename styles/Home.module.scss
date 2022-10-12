@@ -2,7 +2,7 @@
 .landing {
     height: 100vh;
     min-height: 800px;
-    max-height: 1200px;
+    max-height: 1300px;
 
     background: var(--secondary-bg) url(../public/images/primary-wallpaper.jpg);
     background-size: cover;
@@ -26,8 +26,11 @@
         justify-content: center;
         text-align: center;
 
-        & .header h2 {
-            color: var(--accent-color);
+        & .header {
+            animation: 0.5s var(--transition) popup;
+            & h2 {
+                color: var(--accent-color);
+            }
         }
 
         & .fileUpload {
@@ -194,7 +197,7 @@
             @media screen and (max-width: 800px) {
                 flex-direction: column;
                 & .button {
-                    font-size: 0.9em;
+                    font-size: 1em;
                     width: fit-content;
                 }
             }
@@ -208,14 +211,12 @@
 
 .fullscreenform {
     position: fixed;
-    height: 100%;
-    width: 100%;
-    background-color: rgba(49, 49, 49, 0.509);
-    backdrop-filter: blur(px);
-    top: 0;
+    backdrop-filter: blur(3px);
+    bottom: 0;
     left: 0;
     overflow: auto;
-    z-index: 1000;
+    z-index: 1000 !important;
+    width: 100%;
 
     & .content {
         position: absolute;
@@ -225,9 +226,8 @@
         width: 90%;
         max-width: 700px;
 
-        background: rgb(242,144,144) linear-gradient(120deg, rgb(221, 178, 214) 0%, rgb(152, 184, 196) 100%);
+        background: rgb(152, 163, 192) linear-gradient(290deg, rgb(206, 189, 226) 0%, rgb(255, 206, 206) 100%);
         
-
         & .form {
             display: flex;
             flex-direction: column;
@@ -277,21 +277,17 @@
                     & input[type=checkbox] {
                         transition: var(--transition);
                         appearance: none;
-                        background: rgba(230, 230, 230, 0.461);
                         cursor: pointer;
                         width: 100%;
                         
                         border-radius: var(--global-border-radius);
                         padding: 22px;
+                        background-color: var(--form-bg);
                         margin: 0;
 
+                        border: 2px solid rgba(0, 0, 0, 0.18);
                         &:checked {
-                            background: var(--widget-primary-bg);
-                            transform: scale(1);
-                            box-shadow: 0px 0px 10px rgba(143, 237, 227, 0.41);
-                            & + label {
-                                color: rgb(0, 0, 0);
-                            }
+                            border: 2px solid rgb(98, 143, 220);
                         }
                         & + label {
                             position: absolute;
@@ -300,7 +296,7 @@
                             left: 50%;
                             transform: translate(-50%, -50%);
                             width: 90%;
-                            color: rgb(71, 71, 71);
+                            color: var(--primary-fg);
                             line-height: 1.1em;
                         }
                     }
@@ -309,6 +305,7 @@
 
             & .buttons {
                 display: flex;
+                color: var(--primary-fg);
 
                 gap: 10px;
             }
@@ -317,7 +314,7 @@
                 width: 100%;
                 cursor: pointer;
                 transition: var(--transition);
-                padding: 5px;
+                padding: 2.5px;
                 font-size: 1.1em;
                 border-radius: var(--global-border-radius);
                 font-family: var(--font);
@@ -348,9 +345,13 @@
             }
             margin-top: 0;
             width: 90%;
-            max-height: 50%;
+            max-height: 80%;
             overflow: auto;
         }
+    }
+    @media screen and (max-width: 700px) {
+        background-color: rgba(0, 0, 0, 0.281);
+
     }
 }
 
@@ -359,7 +360,7 @@
     width: var(--basewidth);
     padding: var(--section-horizontal-padding);
     max-width: var(--maximum-content-width);
-    margin: 70px auto 40px;
+    margin: 70px auto 120px;
 
     & .content {
         margin-top: 70px;
@@ -417,3 +418,16 @@
     }
 }
 
+
+@keyframes popup {
+    0% {
+        transform: translateY(50px);
+        overflow: hidden;
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0px);
+        overflow: initial;
+        opacity: 1;
+    }
+}
