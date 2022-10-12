@@ -17,26 +17,26 @@ function Feature(props: {
 function FeatureList() {
     return <div className={styles.list}>
         <Feature 
-            title="Extreme Privacy"
+            title="Optimal File Preservation"
             description={`
-                For the sake of scalability and reliability, 
-                it’s possible to delete all information from a specific file.
+                Files are saved for specific amount of time by default, but
+                they can also be removed at any time before they expire.
             `}
             id={1}
         />
         <Feature 
-            title="Extreme Privacy"
+            title="Very Very Very Good Security"
             description={`
-                For the sake of scalability and reliability, 
-                it’s possible to delete all information from a specific file.
-            `}
+                All uploaded files are processed with strong cryptography algorithms
+                before upload.
+                `}
             id={2}
         />
         <Feature 
-            title="Extreme Privacy"
+            title="Easy and Fast Workflow"
             description={`
-                For the sake of scalability and reliability, 
-                it’s possible to delete all information from a specific file.
+                Encrypted files are compressed before upload to minimize the amount
+                of uploaded data, and everything is done in just a few steps.
             `}
             id={3}
         />
@@ -44,7 +44,9 @@ function FeatureList() {
 }
 
 export default function Highlights() {
-    const description = `There is many reasons to use Usva. For example, it’s easy to use and it’s completely handcrafted. Usva hears it’s users, and adapts to users’ needs when possible.`
+    const description = `
+        Most notable features of Usva condensed.
+    `
 
     return <div className={styles.highlights}>
         <Header title="Highlights" description={description} />
