@@ -4,7 +4,6 @@ import { motion } from "framer-motion"
 
 export default function Bar() {
     const [barVisible, setBarVisible] = useState(false)
-    let contentRef = createRef<HTMLDivElement>()
 
     const updateBarState = () => {
         if (typeof window !== "undefined") {
@@ -21,7 +20,7 @@ export default function Bar() {
     useEffect(updateBarState, [])
 
     return <div className="bar">
-        <div className="content" ref={contentRef}>
+        <div className="content">
             <div className="top">
                 <a className="logo" href="/">Usva</a>
                 <div onClick={toggleBar} className="menuicon">
@@ -33,15 +32,15 @@ export default function Bar() {
                 </div>
             </div>
             {
-                (typeof window !== "undefined" && window.innerWidth < 600) 
+                (typeof window !== "undefined" && window.innerWidth < 650) 
                 ? (
                     <motion.div 
                         animate={{
-                            height: barVisible ? 140 : 0,
-                            display: barVisible ? "block" : "none",
-                            opacity: barVisible ? 1 : 0,
+                            height: barVisible ? "inherit":0,
+                            display: barVisible ? "block":"none",
+                            opacity: barVisible ? 1:0
                         }}
-                        transition={{ ease: "easeInOut", duration: 0.15 }}
+                        transition={{ ease: "easeInOut", duration: .1 }}
                     >
                         <div className="links">
                             <a href="/join-the-community" className="animated">Join the community</a>
