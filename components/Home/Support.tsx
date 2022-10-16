@@ -7,7 +7,7 @@ export default function Support() {
             <Header
                 title="Hi friend, just a quick note"
             />
-            <p className="description small">
+            <p className="description">
                 We live because of donation money, and you can show your support by donating a small amount
                 to keep this website running. Anyways nothing more than that, thank you and have a great day!
             </p>

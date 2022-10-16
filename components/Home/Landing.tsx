@@ -1,6 +1,10 @@
 import styles from "@/styles/Home.module.scss"
+import { useState } from "react"
+import FileUpload from "./FileUpload"
 
 export default function Landing() {
+    const [uploadOverviewShown, setUploadOverviewShown] = useState(false)
+
     return <>
         <div className={styles.landing}>
             <div className={styles.centerContainer}>
@@ -14,12 +18,7 @@ export default function Landing() {
                     </h3>
 
                 </div>
-
-                <div className={styles.fileUpload}>
-                    <p className={styles.fileDescription}>Select or drop files here</p>
-
-                    <input type="file" />
-                </div>
+                <FileUpload />
             </div>
         </div>
     </>

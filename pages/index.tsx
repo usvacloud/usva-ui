@@ -4,16 +4,19 @@ import FAQ from "@/components/Home/FAQ"
 import TermsCondensed from "@/components/Home/TermsCondensed"
 import Support from "@/components/Home/Support"
 import Feedback from "@/components/Home/Feedback"
+import { MotionConfig } from "framer-motion"
 
 export default function Home() {
   return (
     <>
-      <Landing />
-      <Highlights />
-      <Feedback />
-      <FAQ />
-      <Support />
-      <TermsCondensed />
+        <MotionConfig transition={{ duration: 0.2, ease: "easeInOut" }} reducedMotion="always">
+            <Landing />
+            <Highlights />
+            <Feedback />
+            <FAQ />
+            <Support />
+            <TermsCondensed />
+        </MotionConfig>
     </>
   )
 }

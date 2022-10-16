@@ -4,6 +4,7 @@ import { motion } from "framer-motion"
 
 export default function Bar() {
     const [barVisible, setBarVisible] = useState(false)
+    const [windowWidth, setWindowWidth] = useState<Number>()
 
     const updateBarState = () => {
         if (typeof window !== "undefined") {
@@ -16,8 +17,12 @@ export default function Bar() {
         setBarVisible(!barVisible)
     }
 
-    if (typeof window !== "undefined") window.onresize = updateBarState
     useEffect(updateBarState, [])
+    useEffect(() => {
+        if (typeof window !== "undefined") setWindowWidth(window.innerWidth)
+    }, [barVisible])
+
+    if (typeof window !== "undefined") window.onresize = updateBarState
 
     return <div className="bar">
         <div className="content">
@@ -32,7 +37,7 @@ export default function Bar() {
                 </div>
             </div>
             {
-                (typeof window !== "undefined" && window.innerWidth < 650) 
+                ((windowWidth || 0) < 650) 
                 ? (
                     <motion.div 
                         animate={{

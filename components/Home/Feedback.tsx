@@ -2,9 +2,9 @@ import styles from "@/styles/Home.module.scss"
 import { useEffect, useState } from "react"
 import Header from "./Header"
 import { motion } from "framer-motion";
-import { FaSpinner } from "react-icons/fa";
+import { FaSpinner, FaTimes } from "react-icons/fa";
 
-export default function Accounts() {
+export default function Feedback() {
     const [quickFeedback, setQuickFeedback] = useState(false);
     const [processing, setProcessing] = useState(false);
 
@@ -34,68 +34,72 @@ export default function Accounts() {
     
         <motion.div
             animate={{
-                height: quickFeedback ? "100%" : "0%",
+                transform: quickFeedback ? "scaleY(1)" : "scaleY(0)",
                 opacity: quickFeedback ? 1 : 0
             }}
-            transition={{ ease: "backInOut", duration: 0.55}}
             className={styles.fullscreenform}
         >
             <div className={styles.content}>
+                <FaTimes className={styles.close} onClick={() => setQuickFeedback(false)} />
+
                 <div>
                     <Header 
                         title="Give feedback"
                     />
-                    <p className="description small">
+                    <p className="description">
                         We are always happy to hear you. If you'd for example like a new feature, 
                         you can now tell it below.
                     </p>
                 </div>
                 
                 <div className={styles.form}>
+
                     <div className={styles.container}>
-                        <h2 className="title">Please select boxes that match your opinion.</h2>
+                        <h3 className="title">Shortly in your own beautiful words (optional):</h3>
+                        <textarea placeholder="I love the colors!" />
+                    </div>
+
+                    <div className={styles.container}>
+                        <h3 className="title">Please select boxes that match your opinion.</h3>
                         <div className={styles.checkboxes}>
+
                             <div className={styles.container}>
                                 <input type="checkbox" id="1" name="fav_language" value="HTML" />
-                                <label htmlFor="1">UI/UX is slow or unpleasant</label>
-                            </div>
-                            <div className={styles.container}>
-                                <input type="checkbox" id="2" name="fav_language" value="HTML" />
-                                <label htmlFor="2">Not user friendly</label>
-                            </div>
-                            <div className={styles.container}>
-                                <input type="checkbox" id="3" name="fav_language" value="HTML" />
-                                <label htmlFor="3">Too few features</label>
+                                <label htmlFor="1">Too few features</label>
                             </div>
 
                             <div className={styles.container}>
                                 <input type="checkbox" id="4" name="fav_language" value="HTML" />
-                                <label htmlFor="4">Insecure (please justify)</label>
+                                <label htmlFor="4">Positive in general</label>
                             </div>
+
                             <div className={styles.container}>
                                 <input type="checkbox" id="5" name="fav_language" value="HTML" />
                                 <label htmlFor="5">Untrustworthy</label>
                             </div>
+
                             <div className={styles.container}>
                                 <input type="checkbox" id="6" name="fav_language" value="HTML" />
                                 <label htmlFor="6">Something else</label>
                             </div>
+
+                            <div className={styles.container}>
+                                <input type="checkbox" id="2" name="fav_language" value="HTML" />
+                                <label htmlFor="2">Untrustworthy</label>
+                            </div>
+
+                            <div className={styles.container}>
+                                <input type="checkbox" id="3" name="fav_language" value="HTML" />
+                                <label htmlFor="3">Something else</label>
+                            </div>
                         </div>
                     </div>
 
-                    <div className={styles.container}>
-                        <h2 className="title">Anything else? Write below.</h2>
-                        <input placeholder="I love the colors!" type="text"/>
-                    </div>
-
-                    <div className={styles.buttons}>
-                        <button className={styles.close} onClick={() => setQuickFeedback(false)}>Close</button>
-                        <button className={styles.button} onClick={processUpload}>
-                            {processing
-                                ? <div className="spinner light"><FaSpinner /></div> 
-                                : "Send my feedback"}
-                        </button>
-                    </div>
+                    <button className={styles.button} onClick={processUpload}>
+                        {processing
+                            ? <div className="spinner light"><FaSpinner /></div> 
+                            : "Send my feedback"}
+                    </button>
                 </div>
             </div>
         </motion.div>

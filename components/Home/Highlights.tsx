@@ -35,8 +35,8 @@ function FeatureList() {
         <Feature 
             title="Easy and Fast Workflow"
             description={`
-                Encrypted files are compressed before upload to minimize the amount
-                of uploaded data, and everything is done in just a few steps.
+                All files are compressed before upload to minimize the amount
+                of uploaded data. Even better, everything can be done in under 20 seconds.
             `}
             id={3}
         />
