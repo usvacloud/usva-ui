@@ -54,37 +54,49 @@
                 color: var(--accent-color);
                 margin: 0 10px;
             }
+
             & .warning {
                 color: var(--primary-fg);
                 margin: 5px 0 0;
             }
+            
 
             & .buttons {
                 margin-top: 15px;
                 display: flex;
-                & .icon {
-                    border: 0;
-                    background-color: transparent;
-                    cursor: pointer;
-                    transition: var(--transition);
-                    color: var(--widget-secondary-bg);
-                    width: 40px;
-                    & svg {
-                        height: 100%;
-                        width: 100%;
-                    }
-                    &:hover {
-                        color: var(--secondary-fg);
+
+                & .icons {
+                    display: flex;
+                    margin-right: 10px;
+
+                    & .icon {
+                        border: 0;
+                        background-color: transparent;
+                        cursor: pointer;
+                        transition: var(--transition);
+                        color: var(--widget-secondary-bg);
+                        width: 40px;
+                        & svg {
+                            height: 80%;
+                            width: 80%;
+                        }
+                        &:hover {
+                            color: var(--secondary-fg);
+                        }
                     }
                 }
                 & .button {
                     width: 100%;
-                    background-color: var(--form-primary);
-                    color: var(--form-primary-fg);
+                    color: var(--form-fg);
+                    border: 2px solid var(--widget-secondary-bg);
 
                     padding: 5px 2px;
-                    &:hover {
-                        background-color: var(--form-primary-hover);
+                    &.primary {
+                        color: var(--form-primary-fg);
+                        background-color: var(--form-primary);
+                        &:hover {
+                            background-color: var(--form-primary-hover);
+                        }
                     }
 
                     &.disabled {
@@ -99,6 +111,21 @@
                         transition: var(--transition);
                     }
                 }
+            }
+
+            & .uploadinfo {
+                padding: 5px;
+                & a.manualcopylink {
+                    width: 100%;
+                    margin: 0;
+                    transition: var(--transition);
+                    text-align: right;
+                    color: var(--accent-color);
+                }
+                & .buttons {
+                    margin-top: 40px;
+                }
+
             }
 
             & .fileContainer {
@@ -156,6 +183,17 @@
                 &:hover {
                     background-color: var(--form-bg-hover);
                 }
+
+                & .loadicon {
+                    width: 100%;
+                    text-align: center;
+                    margin-bottom: 10px;
+                    & svg {
+                        font-size: 2rem;
+                        color: var(--neutral-icon);
+                        
+                    }
+                }
             }
 
             &.critical {
@@ -172,7 +210,6 @@
                 margin: 0;
                 font-size: 1.25rem;
                 font-family: var(--font-titles);
-
             }
 
             & input[type=file] {
@@ -240,17 +277,6 @@
             }
         }
 
-        & .button {
-            margin-top: 20px;
-            padding: 2px;
-            width: 30%;
-            border: 1px solid var(--widget-secondary-bg);
-            @media screen and (max-width: 520px) {
-                width: 100%;
-            }
-
-        }
-
         & .filesAdvanced {
             transition: var(--transition);
             display: grid;
@@ -263,7 +289,7 @@
             align-content: flex-start;
 
             height: 100%;
-            max-height: 200px;
+            max-height: 250px;
 
             @media screen and (max-width: 600px) {
                 max-height: 200px;

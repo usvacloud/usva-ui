@@ -32,7 +32,7 @@ function UploadOverview(props: {
 
             <div className={styles.content}>
                 <div className={styles.close} onClick={() => props.setShown(false)}><FaTimes /></div>
-                <h2 className='title primary'>Overview</h2>
+                <h1 className='title primary'>Overview</h1>
 
                 <div className={styles.s}>
                     <h3 className='title'>General settings</h3>
