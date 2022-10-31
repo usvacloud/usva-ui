@@ -1,14 +1,7 @@
-* {
-    font-weight: 400;
-}
-
 .title {
     margin: 5px 0;
     font-family: var(--font-titles);
-    font-weight: 500;
-    
     &.big {
-        font-weight: 700;
         font-size: 2em;
     }
 }
@@ -16,12 +9,14 @@
 .description {
     font-weight: 400;
     color: var(--secondary-fg);
-
-    font-size: 1.15em !important;
+    font-size: 1.15rem !important;
     
     &.small {
         font-family: var(--font);
-        font-size: 1em;
+        font-size: 1rem;
+    }
+    &.nomargin {
+        margin: 0;
     }
 }
 
@@ -35,9 +30,6 @@
     }
     h2 {
         font-size: 1.25rem;
-        &.title.primary {
-            font-size: 1.25rem !important;
-        }
     }
     h3 {
         font-size: 1.05rem;

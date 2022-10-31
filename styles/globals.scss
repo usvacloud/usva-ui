@@ -1,14 +1,12 @@
-// Load fonts from Google Fonts
-@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&family=Red+Rose:wght@300;400;500;600;700&display=swap');
-
+ @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap');
 // Set variables
 :root {
     // General
     --transition: 100ms cubic-bezier(0.25, 0.5, 0.25, 1);
     --font: 'Mukta', Cantarell, 'Open Sans', sans-serif;
-    --font-titles: 'Red Rose', var(--font);
-    --maximum-content-width: 1150px;
-    --global-border-radius: 3px;
+    --font-titles: var(--font);
+    --maximum-content-width: 1000px;
+    --global-border-radius: 10px;
     --default-bg-blur: 30px;
     --basewidth: 90%;
     
@@ -19,53 +17,55 @@
     --critical-hover: rgb(116, 62, 62);
     --critical-fg: rgb(242, 242, 242);
     --accent-color: rgb(109, 49, 49);
-    
-    --primary-bg: #f1f1f1;
-    --primary-fg: #111111;
-    --secondary-bg: #d7d7d7;
-    --secondary-fg: #363636;
-    --list-identifier: #6f6f6f;
 
-    --inverted-bg: #141414;
-    --inverted-fg: #ededed;
-    --inverted-bg-hover: #5d5d5d;
+    --landing-bg: linear-gradient(0deg, hsl(45, 21%, 69%), hsl(56, 34%, 75%));
+    --primary-bg: hsl(0, 0%, 95%);
+    --primary-fg: hsl(0, 0%, 7%);
+    --secondary-bg: hsl(0, 0%, 84%);
+    --secondary-fg: hsl(0, 0%, 21%);
+    --list-identifier: hsl(0, 0%, 44%);
 
-    --positive-icon: rgb(77, 152, 77);
-    --negative-icon: rgb(210, 87, 87);
+    --inverted-bg: hsl(0, 0%, 8%);
+    --inverted-fg: hsl(0, 0%, 93%);
+    --inverted-bg-hover: hsl(0, 0%, 36%);
+
+    --positive-icon: hsl(120, 33%, 45%);
+    --negative-icon: hsl(0, 58%, 58%);
     --neutral-icon: var(--widget-secondary-bg);
 
-    --form-bg: #e5e5e5;
-    --form-disabled-bg: #cdcdcd;
-    --form-disabled-fg: #b8b8b8;
-    --form-disabled-img: #ababab;
-    --form-bg-hover: #cdcdcd;
+    --form-bg: hsl(0, 0%, 90%);
+    --form-disabled-bg: hsl(0, 0%, 80%);
+    --form-disabled-fg: hsl(0, 0%, 72%);
+    --form-disabled-img: hsl(0, 0%, 67%);
+    --form-bg-hover: hsl(0, 0%, 85%);
+    --form-icon: hsl(0, 0%, 72%);
+    --form-border: hsla(0, 0%, 78%, 0.65);
 
-    --form-primary: #564CD1;
-    --form-primary-fg: #e1e1e1;
-    --form-primary-hover: #463dac;
-    --form-primary-disabled: #504ba1;
+    --form-primary: hsl(245, 59%, 56%);
+    --form-primary-fg: hsl(0, 0%, 88%);
+    --form-primary-hover: hsl(245, 48%, 46%);
+    --form-primary-disabled: hsl(243, 36%, 46%);
     
-    --footer-bg: rgb(209, 209, 209);
-    --footer-fg: #2f2f2f;
-    --footer-link-mail: #2b6c77;
+    --footer-bg: hsl(0, 0%, 82%);
+    --footer-fg: hsl(0, 0%, 18%);
+    --footer-link-mail: hsl(189, 47%, 32%);
 
-    --link-fg: #29305a;
+    --link-fg: hsl(231, 37%, 26%);
 
-    --widget-primary-bg: #e9e9e9;
-    --widget-primary-bg-hover: #b5b5b5;
-    --widget-secondary-bg: #bababa;
-    --widget-primary-fg: #222222;
+    --widget-primary-bg: hsl(0, 0%, 91%);
+    --widget-primary-bg-hover: hsl(0, 0%, 71%);
+    --widget-secondary-bg: hsl(0, 0%, 73%);
+    --widget-primary-fg: hsl(0, 0%, 13%);
 
 
     @media screen and (max-width: 700px) {
         --basewidth: 100%;
     }
 
+
+    // Switch colors from light when user prefers dark color scheme
+    //@media (prefers-color-scheme: dark) {}
 }
-
-// Switch colors from light when user prefers dark color scheme
-//@media (prefers-color-scheme: dark) { }
-
 
 * {
     box-sizing: border-box;
@@ -129,7 +129,6 @@ input {
     justify-content: center;
     align-items: center;
     & svg {
-        font-size: 1.2em;
         padding: 2px 0;
         animation: 1.2s infinite var(--transition) spinner;
     }

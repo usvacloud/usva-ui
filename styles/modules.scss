@@ -39,8 +39,7 @@
         }
     }
     @media screen and (max-width: 650px) {
-        background-color: var(--primary-bg);
-
+        background-color: rgba(214, 214, 214, 1);
         & .content {
             flex-direction: column;
             & a {
