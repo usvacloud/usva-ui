@@ -16,14 +16,19 @@ import {
 } from "react-icons/fa"
 
 export default function Feedback() {
-    const [quickFeedback, setQuickFeedback] = useState(false)
+    const [showForm, setShowForm] = useState(false)
+    const [showThankYou, setShowThankYou] = useState(false)
     const [processing, setProcessing] = useState(false)
 
     function processUpload() {
         setProcessing(true)
         setTimeout(() => {
             setProcessing(false)
-            setQuickFeedback(false)
+            setShowForm(false)
+            setShowThankYou(true)
+            setTimeout(() => {
+                setShowThankYou(false)
+            }, 5000)
         }, 500)
     }
 
@@ -36,7 +41,7 @@ export default function Feedback() {
                     and we&apos;d love to hear your opinion to improve our service.
                 </p>
                 <div className={styles.links}>
-                    <a className={styles.button} onClick={() => setQuickFeedback(true)}>
+                    <a className={styles.button} onClick={() => setShowForm(true)}>
                         Let&apos;s do it!
                     </a>
                     <a className={styles.button} href="mailto:feedback@usva.cc">
@@ -47,8 +52,8 @@ export default function Feedback() {
 
             <motion.div
                 animate={{
-                    transform: quickFeedback ? "scaleY(1)" : "scaleY(0)",
-                    opacity: quickFeedback ? 1 : 0,
+                    transform: showForm ? "scaleY(1)" : "scaleY(0)",
+                    opacity: showForm ? 1 : 0,
                 }}
                 className={[styles.fullscreenform, overlays.fullscreenform].join(" ")}
             >
@@ -56,10 +61,10 @@ export default function Feedback() {
                     <div className={feedbackstyles.content}>
                         <FaTimes
                             className={[styles.close, overlays.close].join(" ")}
-                            onClick={() => setQuickFeedback(false)}
+                            onClick={() => setShowForm(false)}
                         />
 
-                        <h2 className="title">Feedback form</h2>
+                        <h2 className="title">Give feedback!</h2>
                         <div className={feedbackstyles.form}>
                             <div className={feedbackstyles.container}>
                                 <textarea
@@ -122,6 +127,27 @@ export default function Feedback() {
                             </button>
                         </div>
                     </div>
+                </div>
+            </motion.div>
+            <motion.div
+                animate={{
+                    transform: showThankYou ? "scaleY(1)" : "scaleY(0)",
+                    opacity: showThankYou ? 1 : 0,
+                }}
+                className={[styles.fullscreenform, overlays.fullscreenform].join(" ")}
+            >
+                <div className={[styles.contentbox, overlays.contentbox].join(" ")}>
+                    <FaTimes
+                        className={[styles.close, overlays.close].join(" ")}
+                        onClick={() => setShowThankYou(false)}
+                    />
+                    <Header
+                        title="Thank you"
+                        endChar="!"
+                        description={
+                            "Thank you for giving feedback! We read our feedbacks once per day. This window closes automatically in a few seconds."
+                        }
+                    />
                 </div>
             </motion.div>
         </div>

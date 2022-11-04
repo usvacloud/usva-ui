@@ -2,32 +2,40 @@
 :root {
     // General
     --transition: 100ms cubic-bezier(0.25, 0.5, 0.25, 1);
-    --font: 'Mukta', Cantarell, 'Open Sans', sans-serif;
+    --font: "Mukta", Cantarell, "Open Sans", sans-serif;
+    --font-title: "Wendy One", var(--font);
     --font-titles: var(--font);
     --maximum-content-width: 1150px;
     --global-border-radius: 10px;
     --default-bg-blur: 30px;
     --basewidth: 90%;
-    
+
     --section-horizontal-padding: 20px;
 
     // Colors
-    --accent-color: hsl(0, 38%, 31%);
+    --accent-color: hsl(150, 38%, 31%);
 
-    --tint: 223;
+    --tint: 160;
     --critical: hsl(var(--tint), 23%, 25%);
     --critical-hover: hsl(var(--tint), 23%, 15%);
     --critical-fg: hsl(var(--tint), 23%, 80%);
     --critical-icon: hsl(var(--tint), 23%, 35%);
+    --critical-button: hsl(var(--tint), 23%, 35%);
+    --critical-button-hover: hsl(var(--tint), 23%, 45%);
 
-    --gradient-start: hsl(227, 43%, 83%);
-    --gradient-stop: hsl(257, 33%, 83%);
+    --gradient-start: hsl(130, 43%, 83%);
+    --gradient-stop: hsl(170, 33%, 83%);
 
-    --landing-bg: hsl(223, 40%, 77%);
-    --landing-bg-alt: hsl(172, 30%, 69%);
+    --landing-bg: hsl(158, 28%, 60%);
+    --landing-bg-alt: hsl(122, 35%, 69%);
+
     --landing-title: hsl(213, 33%, 15%);
+    --landing-title-special: hsl(162, 51%, 27%);
+    --landing-form-icon: hsl(172, 47%, 16%);
+    --landing-form-fg: hsl(162, 51%, 27%);
+
     --landing-fg: hsl(213, 35%, 29%);
-    --primary-bg: hsl(0, 0%, 93%);
+    --primary-bg: hsl(0, 0%, 95%);
     --primary-fg: hsl(0, 0%, 7%);
     --secondary-bg: hsl(0, 0%, 84%);
     --secondary-fg: hsl(0, 0%, 21%);
@@ -49,11 +57,11 @@
     --form-bg-hover: hsl(0, 0%, 85%);
     --form-icon: hsl(0, 0%, 72%);
 
-    --form-primary: hsl(245, 59%, 56%);
+    --form-primary: hsl(150, 29%, 36%);
     --form-primary-fg: hsl(0, 0%, 88%);
-    --form-primary-hover: hsl(245, 48%, 46%);
-    --form-primary-disabled: hsl(243, 36%, 46%);
-    
+    --form-primary-hover: hsl(150, 29%, 46%);
+    --form-primary-disabled: hsl(150, 29%, 26%);
+
     --footer-bg: var(--secondary-bg);
     --footer-fg: hsl(0, 0%, 10%);
     --footer-link-mail: hsl(219, 47%, 32%);
@@ -65,11 +73,9 @@
     --widget-secondary-bg: hsl(0, 0%, 73%);
     --widget-primary-fg: hsl(0, 0%, 13%);
 
-
     @media screen and (max-width: 700px) {
         --basewidth: 100%;
     }
-
 
     // Switch colors from light when user prefers dark color scheme
     //@media (prefers-color-scheme: dark) {}
@@ -116,11 +122,10 @@ a.animated {
         width: 100%;
         overflow: hidden;
         padding: 0 5px;
-    
+
         background-color: rgba(0, 0, 0, 0.09);
     }
     &:hover::before {
-
         height: 100%;
     }
 }
@@ -164,4 +169,3 @@ input {
         opacity: 1;
     }
 }
-

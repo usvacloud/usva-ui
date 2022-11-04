@@ -2,7 +2,7 @@
 .overview {
     position: absolute;
     backdrop-filter: blur(var(--default-bg-blur));
-    background: hsla(216, 30%, 30%, 0.546);
+    background: hsla(130, 10%, 50%, 0.546);
     top: 0;
     left: 0;
     overflow: auto;
@@ -30,7 +30,6 @@
             max-width: none;
             width: 100%;
             max-height: 80%;
-
         }
     }
 

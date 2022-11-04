@@ -9,8 +9,8 @@
             display: flex;
             flex-direction: column;
 
-            & input[type=text],
-            input[type=password],
+            & input[type="text"],
+            input[type="password"],
             textarea {
                 transition: var(--transition);
                 font-size: 1rem;
@@ -54,7 +54,7 @@
             & .checkbox input[type="checkbox"] {
                 display: none;
 
-                &+label {
+                & + label {
                     width: 100%;
                     transition: var(--transition);
                     border-radius: var(--global-border-radius);
@@ -73,11 +73,12 @@
                     }
                 }
 
-                &:focus+label, +label:hover {
+                &:focus + label,
+                + label:hover {
                     color: hsl(170, 20%, 33%);
                 }
 
-                &:checked+label {
+                &:checked + label {
                     background: var(--form-bg);
                 }
             }
@@ -97,7 +98,7 @@
             outline: none;
             background-color: var(--form-bg);
             border: none;
-            font-family: 1rem;
+            font-size: 1rem;
 
             &:hover {
                 background-color: var(--form-bg-hover);
@@ -105,7 +106,7 @@
         }
 
         @media screen and (max-width: 700px) {
-            & .checkboxes .container input[type=checkbox] {
+            & .checkboxes .container input[type="checkbox"] {
                 padding: 30px 0;
             }
 

@@ -7,7 +7,7 @@ function Links() {
     return (
         <>
             <div className="links">
-                <a href="/Log In" className="animated">
+                <a href="https://github.com/romeq/usva" className="animated">
                     For developers
                 </a>
                 <a href="/about" className="animated">
@@ -47,8 +47,12 @@ export default function Bar() {
         <div className="bar">
             <div className="content">
                 <div className="top">
-                    <Link className="logo" href="/">
-                        Usva
+                    <Link href="/">
+                        <div className="logo">
+                            <div className="first"></div>
+                            <div className="second"></div>
+                            <div className="third"></div>
+                        </div>
                     </Link>
                     <div onClick={toggleBar} className="menuicon">
                         {barVisible ? <FaTimes /> : <FaBars />}

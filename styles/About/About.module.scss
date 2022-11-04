@@ -1,21 +1,19 @@
-
 .landing {
-    height: 450px;
+    height: 80vh;
+    min-height: 400px;
     background: var(--landing-bg-alt);
     background-size: cover;
     background-position: center;
     position: relative;
 
-    @media screen and (max-width: 700px) {
-        height: auto;
-        padding: 100px 0 100px;
-    }
-
     @media screen and (max-height: 700px) {
         height: auto;
-        padding: 100px 0 100px;
+        padding: 150px 0 100px;
     }
-
+    @media screen and (max-width: 700px) {
+        height: auto;
+        padding: 150px 0 100px;
+    }
 
     & .centerContainer {
         width: var(--basewidth);
@@ -39,6 +37,7 @@
                 font-weight: 800;
                 animation: 400ms var(--transition) popup;
                 color: var(--landing-title);
+                font-family: var(--font-title);
             }
 
             & h3 {
@@ -46,6 +45,9 @@
                 font-weight: 400;
                 animation: 350ms var(--transition) popup;
                 color: var(--landing-fg);
+            }
+            @media screen and (max-width: 900px) {
+                text-align: left;
             }
         }
     }
@@ -146,7 +148,8 @@
         max-width: calc(var(--maximum-content-width) + $additionalWidth);
         border-radius: var(--global-border-radius);
         margin: auto;
-            background: rgb(242, 144, 144) linear-gradient(190deg, var(--gradient-start) 0%, var(--gradient-stop) 100%);
+        background: rgb(242, 144, 144)
+            linear-gradient(190deg, var(--gradient-start) 0%, var(--gradient-stop) 100%);
 
         @media screen and (max-width: 700px) {
             padding: 25px var(--section-horizontal-padding);
@@ -261,8 +264,6 @@
         }
     }
 }
-
-
 @keyframes popup {
     0% {
         transform: translateY(10px) scale(0.9);

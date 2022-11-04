@@ -2,6 +2,7 @@ import styles from "@/styles/Home/Home.module.scss"
 import { useEffect, useMemo, useRef, useState } from "react"
 import {
     FaArrowUp,
+    FaCloud,
     FaEllipsisH,
     FaExclamationCircle,
     FaFileArchive,
@@ -14,8 +15,8 @@ import IconByExtension from "./IconByExtension"
 import { motion } from "framer-motion"
 import config from "../../config"
 import { ApiWrapper, Errors } from "apiwrapper/main"
-import { Archiver } from "utils/archiver"
 import { HumanReadableSize } from "utils/units"
+import { archive } from "utils/archiver"
 
 //TODO: get rid of the damn useState-hell
 export default function FileUpload() {
@@ -104,8 +105,8 @@ export default function FileUpload() {
         if (files.length == 0 || isLocked) return
         setFileUploadState((prev) => ({ ...prev, uploading: true }))
 
-        const archive = await new Archiver().archive(files)
-        const req = await new ApiWrapper(config.api_base).newFile(archive)
+        const tarfile = await archive(files)
+        const req = await new ApiWrapper(config.api_base).newFile(tarfile)
 
         if (typeof req !== "string") {
             setFileUploadState((prev) => ({ ...prev, uploading: false, uploaded: true }))
@@ -145,7 +146,7 @@ export default function FileUpload() {
             } catch (e) {
                 setErrorState((prev) => ({
                     ...prev,
-                    error: "We are having issues in reaching our servers. Please try again later.",
+                    error: "We are currently having issues in reaching our servers. Don't worry; it most definitely won't last long.",
                 }))
             }
         })()
@@ -188,7 +189,7 @@ export default function FileUpload() {
                                     <>
                                         <h3 className="title">Congratulations, your upload was processed!</h3>
                                         <p>
-                                            Thank you! The files you uploaded have now been uploaded
+                                            Thank you! Your files have now been processed and uploaded
                                             successfully. This means that you can now send your files forward.
                                             Just copy the link to your files below!
                                         </p>
@@ -369,10 +370,12 @@ export default function FileUpload() {
                     ) : (
                         <>
                             <div className={styles.loadicon}>
-                                {errorState.error ? <FaExclamationCircle /> : <FaFileArchive />}
+                                {errorState.error ? <FaExclamationCircle /> : <FaCloud />}
                             </div>
                             <p className={styles.uploadDescription}>
-                                {errorState.error ? errorState.error : "Select or drop files here"}
+                                {errorState.error
+                                    ? errorState.error
+                                    : "Your all-new file upload experience is started here"}
                             </p>
                         </>
                     )}
