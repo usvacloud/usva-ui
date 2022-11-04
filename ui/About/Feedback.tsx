@@ -1,25 +1,17 @@
-import feedbackstyles from "@/styles/Home/Feedback.module.scss"
-import styles from "@/styles/Home.module.scss"
-import { useEffect, useState } from "react"
-import Header from "./Header"
+import feedbackstyles from "@/styles/About/Feedback.module.scss"
+import styles from "@/styles/About/About.module.scss"
+import { useState } from "react"
+import Header from "ui/shared/Header"
 import { motion } from "framer-motion"
 import {
     FaBug,
-    FaCloudUploadAlt,
     FaCommentDots,
-    FaExpand,
     FaFileUpload,
     FaFrown,
     FaProjectDiagram,
-    FaQuestion,
-    FaRegQuestionCircle,
-    FaShieldVirus,
     FaSmileBeam,
     FaSpinner,
-    FaTheaterMasks,
     FaTimes,
-    FaUserShield,
-    FaViruses,
 } from "react-icons/fa"
 
 export default function Feedback() {
@@ -31,7 +23,7 @@ export default function Feedback() {
         setTimeout(() => {
             setProcessing(false)
             setQuickFeedback(false)
-        }, 1000)
+        }, 500)
     }
 
     return (

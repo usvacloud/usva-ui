@@ -13,11 +13,11 @@
             input[type=password],
             textarea {
                 transition: var(--transition);
-                resize: none;
-                border-radius: var(--global-border-radius);
                 font-size: 1rem;
                 font-family: var(--font);
+                resize: none;
                 background-color: var(--form-bg);
+                border-radius: 10px;
                 padding: 5px 10px;
                 width: auto;
                 border: 0;
@@ -26,7 +26,7 @@
 
             & textarea {
                 padding: 8px 10px;
-                height: 60px;
+                height: fit-content;
             }
         }
 

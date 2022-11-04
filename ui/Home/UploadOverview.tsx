@@ -1,7 +1,7 @@
 import { motion } from "framer-motion"
 import React, { useEffect, useState } from "react"
 import { FaRegFrown, FaRegSmileBeam, FaSpinner, FaTimes } from "react-icons/fa"
-import styles from "../../styles/Home.module.scss"
+import styles from "@/styles/Home/Home.module.scss"
 import IconByExtension from "./IconByExtension"
 
 function UploadOverview(props: {
@@ -39,20 +39,23 @@ function UploadOverview(props: {
                     <div className={styles.settings}>
                         <div className={styles.inline}>
                             <h3 className="title">General settings</h3>
-                            <span className={styles.status}>
+                            <div className={styles.status}>
                                 {renaming ? (
                                     <div className="spinner">
                                         <FaSpinner />
                                     </div>
                                 ) : props.isTitleValidCallback(props.title) ? (
-                                    <FaRegSmileBeam className={styles.check} />
+                                    <>
+                                        <span>Changes were saved</span>
+                                        <FaRegSmileBeam className={styles.check} />
+                                    </>
                                 ) : (
                                     <>
-                                        Title is invalid
+                                        <span>Title is invalid</span>
                                         <FaRegFrown className={styles.times} />
                                     </>
                                 )}
-                            </span>
+                            </div>
                         </div>
                         <div className={styles.inputfields}>
                             <div className={styles.inputSetting}>
@@ -67,7 +70,7 @@ function UploadOverview(props: {
                                     }}
                                     disabled={props.locked}
                                     type="text"
-                                    placeholder="Meeting at 29. March"
+                                    placeholder="Files for tomorrow's meeting"
                                 />
                             </div>
                             <div className={styles.inputSetting}>
@@ -75,9 +78,9 @@ function UploadOverview(props: {
                                     <label>Protect your files with encryption</label>
                                 </div>
                                 <input
-                                    disabled={props.locked}
+                                    disabled={true || props.locked}
                                     type="password"
-                                    placeholder="my-awesome-password"
+                                    placeholder="Feature is currently being developed."
                                 />
                             </div>
                         </div>

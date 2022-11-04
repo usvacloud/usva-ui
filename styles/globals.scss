@@ -5,7 +5,7 @@
     --transition: 100ms cubic-bezier(0.25, 0.5, 0.25, 1);
     --font: 'Mukta', Cantarell, 'Open Sans', sans-serif;
     --font-titles: var(--font);
-    --maximum-content-width: 1000px;
+    --maximum-content-width: 1150px;
     --global-border-radius: 10px;
     --default-bg-blur: 30px;
     --basewidth: 90%;
@@ -13,13 +13,22 @@
     --section-horizontal-padding: 20px;
 
     // Colors
-    --critical: rgb(155, 79, 79);
-    --critical-hover: rgb(116, 62, 62);
-    --critical-fg: rgb(242, 242, 242);
-    --accent-color: rgb(109, 49, 49);
+    --accent-color: hsl(0, 38%, 31%);
 
-    --landing-bg: linear-gradient(0deg, hsl(45, 21%, 69%), hsl(56, 34%, 75%));
-    --primary-bg: hsl(0, 0%, 95%);
+    --tint: 223;
+    --critical: hsl(var(--tint), 23%, 25%);
+    --critical-hover: hsl(var(--tint), 23%, 15%);
+    --critical-fg: hsl(var(--tint), 23%, 80%);
+    --critical-icon: hsl(var(--tint), 23%, 35%);
+
+    --gradient-start: hsl(227, 43%, 83%);
+    --gradient-stop: hsl(257, 33%, 83%);
+
+    --landing-bg: hsl(223, 40%, 77%);
+    --landing-bg-alt: hsl(172, 30%, 69%);
+    --landing-title: hsl(213, 33%, 15%);
+    --landing-fg: hsl(213, 35%, 29%);
+    --primary-bg: hsl(0, 0%, 93%);
     --primary-fg: hsl(0, 0%, 7%);
     --secondary-bg: hsl(0, 0%, 84%);
     --secondary-fg: hsl(0, 0%, 21%);
@@ -34,21 +43,21 @@
     --neutral-icon: var(--widget-secondary-bg);
 
     --form-bg: hsl(0, 0%, 90%);
+    --form-fg-alt: hsl(0, 0%, 45%);
     --form-disabled-bg: hsl(0, 0%, 80%);
     --form-disabled-fg: hsl(0, 0%, 72%);
     --form-disabled-img: hsl(0, 0%, 67%);
     --form-bg-hover: hsl(0, 0%, 85%);
     --form-icon: hsl(0, 0%, 72%);
-    --form-border: hsla(0, 0%, 78%, 0.65);
 
     --form-primary: hsl(245, 59%, 56%);
     --form-primary-fg: hsl(0, 0%, 88%);
     --form-primary-hover: hsl(245, 48%, 46%);
     --form-primary-disabled: hsl(243, 36%, 46%);
     
-    --footer-bg: hsl(0, 0%, 82%);
-    --footer-fg: hsl(0, 0%, 18%);
-    --footer-link-mail: hsl(189, 47%, 32%);
+    --footer-bg: var(--secondary-bg);
+    --footer-fg: hsl(0, 0%, 10%);
+    --footer-link-mail: hsl(219, 47%, 32%);
 
     --link-fg: hsl(231, 37%, 26%);
 
@@ -79,7 +88,7 @@ body {
     font-family: var(--font);
     background-color: var(--primary-bg);
 
-    animation: 1s ease fadein;
+    animation: 200ms ease fadein;
 }
 
 a {
@@ -99,21 +108,21 @@ a.animated {
         transition: var(--transition);
         position: absolute;
         z-index: -1 !important;
-        border-radius: var(--global-border-radius);
+        border-radius: 4px;
         $height: 30px;
         bottom: 0;
-        left: 50%;
-        transform: translate(-50%);
         max-height: $height;
-        height: 100%;
-        width: 0%;
+        transform: translate(-5px);
+        height: 0%;
+        width: 100%;
         overflow: hidden;
+        padding: 0 5px;
     
-        background-color: rgba(0, 0, 0, 0.091);
+        background-color: rgba(0, 0, 0, 0.09);
     }
     &:hover::before {
-        width: 100%;
-        padding: 0 5px;
+
+        height: 100%;
     }
 }
 
@@ -149,13 +158,11 @@ input {
 @keyframes fadein {
     0% {
         opacity: 0;
-        background: var(--inverted-bg) !important;
     }
     50% {
-        background: var(--inverted-bg) !important;
     }
     100% {
         opacity: 1;
-        background: var(--primary-bg) !important;
     }
 }
+

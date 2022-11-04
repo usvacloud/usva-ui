@@ -1,10 +1,10 @@
 .bar {
     position: fixed;
     z-index: 10;
-    background-color: rgba(214, 214, 214, 0);
-    backdrop-filter: blur(3px);
+    backdrop-filter: blur(6px);
+    top: 0;
     width: 100%;
-    padding: 10px 20px;
+    padding: 12px 20px;
     display: flex;
     font-size: 1.1em;
 
@@ -19,8 +19,10 @@
             margin: 0 10px 0 auto;
             gap: 30px;
             display: flex;
+            & a {
+                color: hsl(194, 22%, 31%);
+            }
         }
-
         & .top {
             display: flex;
             justify-content: space-between;
@@ -34,6 +36,7 @@
                 top: 50%;
                 right: 0px;
                 transform: translateY(-50%);
+                color: white;
             }
             display: none;
         }

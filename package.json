@@ -9,13 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/tar-stream": "^2.2.2",
     "framer-motion": "^7.5.3",
     "next": "12.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.4.0",
     "sass": "^1.55.0",
-    "tar": "^6.1.11"
+    "tar-stream": "^2.2.0"
   },
   "devDependencies": {
     "@types/node": "18.8.0",

@@ -1,65 +1,63 @@
-import styles from "@/styles/Home.module.scss"
-import { useEffect, useRef, useState } from "react"
+import styles from "@/styles/Home/Home.module.scss"
+import { useEffect, useMemo, useRef, useState } from "react"
 import {
     FaArrowUp,
-    FaClipboard,
     FaEllipsisH,
     FaExclamationCircle,
     FaFileArchive,
     FaPlusCircle,
+    FaRedoAlt,
     FaTimes,
 } from "react-icons/fa"
 import UploadOverview from "./UploadOverview"
 import IconByExtension from "./IconByExtension"
 import { motion } from "framer-motion"
+import config from "../../config"
+import { ApiWrapper, Errors } from "apiwrapper/main"
+import { Archiver } from "utils/archiver"
+import { HumanReadableSize } from "utils/units"
 
+//TODO: get rid of the damn useState-hell
 export default function FileUpload() {
     let fileInputRef = useRef<HTMLInputElement>(null)
     let buttonRef = useRef<HTMLSpanElement>(null)
 
-    const [fileUploadState, setFileUploadState] = useState<{
-        processing: boolean
-        uploading: boolean
-        uploaded: boolean
-        failed: boolean
-        encryptionProps: {
-            password: string | undefined
-        }
-    }>({
+    const [fileProcesses, setFileUploadState] = useState({
         processing: false,
         uploading: false,
         uploaded: false,
-        failed: false,
-        encryptionProps: {
-            password: undefined,
-        },
     })
 
-    const [uploadProcessing, setUploadProcessing] = useState<{
+    const [uploadedFileState, setUploadedFileState] = useState({
+        filename: "",
+    })
+
+    const [errorState, setErrorState] = useState<{
         warning: string | undefined
         error: string | undefined
     }>({
         warning: undefined,
         error: undefined,
     })
-    useEffect(() => {
-        if (!window.crypto.subtle)
-            setUploadProcessing((prev) => ({ ...prev, warning: "Your browser doesn't support encryption." }))
-    }, [])
 
     const [isLocked, setIsLocked] = useState<boolean>(false)
-    useEffect(
-        () =>
-            setIsLocked(fileUploadState.uploaded || fileUploadState.uploading || fileUploadState.processing),
-        [fileUploadState.uploaded, fileUploadState.uploading, fileUploadState.processing]
+    useMemo(
+        () => setIsLocked(fileProcesses.uploaded || fileProcesses.uploading || fileProcesses.processing),
+        [fileProcesses.uploaded, fileProcesses.uploading, fileProcesses.processing]
     )
 
+    // Initialize overview and files states
+    //  Automatically close overview when all files are removed
     const [overviewShown, setOverviewShown] = useState<boolean>(false)
     const [files, setFiles] = useState<File[]>([])
     useEffect(() => {
         if (files.length < 1) setOverviewShown(false)
     }, [files])
 
+    // Initialize syncNeeded state
+    //  Handle everything related to file manipulation.
+    //  Implements custom way for manipulating files afterwards with
+    //  files still containing their metadata
     const [syncNeeded, setSyncNeeded] = useState(false)
     useEffect(() => {
         if (!fileInputRef.current || !syncNeeded) return
@@ -70,7 +68,7 @@ export default function FileUpload() {
         let tmpFiles: File[] = []
         for (let i = 0; i < htmlFiles.length; i++) {
             const file = htmlFiles.item(i)
-            if (file?.type && files.filter((f) => f.lastModified === file.lastModified).length === 0)
+            if (file && files.filter((f) => f.lastModified === file.lastModified).length === 0)
                 tmpFiles.push(file)
         }
 
@@ -78,12 +76,15 @@ export default function FileUpload() {
         setSyncNeeded(false)
     }, [files, syncNeeded])
 
+    // Function which opens the file upload prompt
     const addFile = () => {
         if (!fileInputRef.current || isLocked) return
         if (!fileInputRef.current.onchange) fileInputRef.current.onchange = () => setSyncNeeded(true)
         fileInputRef.current.click() // open the actual file input
     }
 
+    // Remove a file by id
+    // Perhaps only used in the file icons
     const removeFile = (i: number) => {
         setFileUploadState((prev) => ({ ...prev, processing: true }))
 
@@ -94,14 +95,26 @@ export default function FileUpload() {
         setFileUploadState((prev) => ({ ...prev, processing: false }))
     }
 
-    // Processing the files
-    const handleUpload = () => {
-        if (isLocked) return
-
+    // Handle the upload process
+    // Creates a tarball, writes it to a new File instance
+    // and uploads it to server.
+    // TODO: Add encryption
+    // TODO: Add compression
+    const handleUpload = async () => {
+        if (files.length == 0 || isLocked) return
         setFileUploadState((prev) => ({ ...prev, uploading: true }))
-        setTimeout(() => {
+
+        const archive = await new Archiver().archive(files)
+        const req = await new ApiWrapper(config.api_base).newFile(archive)
+
+        if (typeof req !== "string") {
             setFileUploadState((prev) => ({ ...prev, uploading: false, uploaded: true }))
-        }, 2000)
+            setErrorState((prev) => ({ ...prev, error: req.message }))
+            return
+        }
+
+        setUploadedFileState({ filename: req })
+        setFileUploadState((prev) => ({ ...prev, uploading: false, uploaded: true }))
     }
 
     const [uploadName, setUploadName] = useState<string>()
@@ -117,13 +130,26 @@ export default function FileUpload() {
         if (!uploadName) return
 
         if (!isTitleValidCallback(uploadName))
-            return setUploadProcessing((prev) => ({
+            return setErrorState((prev) => ({
                 ...prev,
                 warning: "Upload's name is invalid and wasn't saved.",
             }))
 
-        setUploadProcessing((prev) => ({ ...prev, warning: undefined }))
+        setErrorState((prev) => ({ ...prev, warning: undefined }))
     }, [uploadName])
+
+    useEffect(() => {
+        ;(async () => {
+            try {
+                await fetch(config.api_base)
+            } catch (e) {
+                setErrorState((prev) => ({
+                    ...prev,
+                    error: "We are having issues in reaching our servers. Please try again later.",
+                }))
+            }
+        })()
+    }, [])
 
     return (
         <>
@@ -139,11 +165,11 @@ export default function FileUpload() {
             />
             <div className={styles.uploadContainer}>
                 <div
-                    onClick={(!files || files?.length === 0) && !uploadProcessing.error ? addFile : () => {}}
+                    onClick={(!files || files?.length === 0) && !errorState.error ? addFile : () => {}}
                     className={[
                         styles.fileUpload,
                         !files || files?.length === 0 ? styles.waiting : "",
-                        uploadProcessing.error ? styles.critical : "",
+                        errorState.error ? styles.critical : "",
                     ].join(" ")}
                 >
                     {files && files?.length > 0 ? (
@@ -151,48 +177,92 @@ export default function FileUpload() {
                             {/* Uploaded screen */}
                             <motion.div
                                 animate={{
-                                    transform: fileUploadState.uploaded ? "scaleY(1)" : "scaleY(0.5)",
-                                    opacity: fileUploadState.uploaded ? 1 : 0,
-                                    display: fileUploadState.uploaded ? "block" : "none",
+                                    transform: fileProcesses.uploaded ? "scaleY(1)" : "scaleY(0.5)",
+                                    opacity: fileProcesses.uploaded ? 1 : 0,
+                                    display: fileProcesses.uploaded ? "block" : "none",
                                 }}
                                 transition={{ duration: 0.3 }}
                                 className={styles.uploadinfo}
                             >
-                                <h3 className="title">Congratulations, your upload was processed!</h3>
-                                <p>
-                                    Thank you! The files you uploaded have now been processed and uploaded
-                                    successfully. This means that you can now send your files forward. Copy
-                                    either the link from button below or below:
-                                </p>
-                                <a className={styles.manualcopylink}>
-                                    /file/5930b0ba-2e21-446a-9ecc-8531afa30c6a
-                                </a>
+                                {!errorState.error ? (
+                                    <>
+                                        <h3 className="title">Congratulations, your upload was processed!</h3>
+                                        <p>
+                                            Thank you! The files you uploaded have now been uploaded
+                                            successfully. This means that you can now send your files forward.
+                                            Just copy the link to your files below!
+                                        </p>
+                                        <input
+                                            spellCheck={false}
+                                            type="text"
+                                            onSelect={(e) => e.currentTarget.select()}
+                                            className={styles.manualcopylink}
+                                            value={uploadedFileState.filename}
+                                            onChange={() => {}}
+                                        />
 
-                                <div className={styles.buttons}>
-                                    <div className={styles.icons}>
-                                        <button
-                                            onClick={() => setOverviewShown(true)}
-                                            className={styles.icon}
-                                        >
-                                            <FaEllipsisH />
-                                        </button>
-                                    </div>
-                                    <button className={styles.button}>
-                                        Copy share link <FaClipboard />
-                                    </button>
-                                </div>
+                                        <div className={styles.buttons}>
+                                            <div className={styles.icons}>
+                                                <button
+                                                    onClick={() => setOverviewShown(true)}
+                                                    className={styles.icon}
+                                                >
+                                                    <FaEllipsisH />
+                                                </button>
+                                            </div>
+                                            <button
+                                                onClick={() => {
+                                                    setFileUploadState({
+                                                        processing: false,
+                                                        uploaded: false,
+                                                        uploading: false,
+                                                    })
+                                                    setFiles([])
+                                                }}
+                                                className={styles.button}
+                                            >
+                                                Upload a new file <FaRedoAlt />
+                                            </button>
+                                        </div>
+                                    </>
+                                ) : (
+                                    <>
+                                        <h3 className="title">{errorState.error}</h3>
+                                        <p>
+                                            Unfortunately we had some issues while preparing your upload for
+                                            further processing. If this problem persists, please (please!)
+                                            contact the developer for assistance.
+                                        </p>
+                                        <div className={styles.buttons}>
+                                            <button
+                                                className={[styles.button, styles.critical].join(" ")}
+                                                onClick={() => {
+                                                    setFileUploadState({
+                                                        processing: false,
+                                                        uploaded: false,
+                                                        uploading: false,
+                                                    })
+                                                    setFiles([])
+                                                    setErrorState({ warning: undefined, error: undefined })
+                                                }}
+                                            >
+                                                Start over
+                                            </button>
+                                        </div>
+                                    </>
+                                )}
                             </motion.div>
 
                             {/* Files shown */}
                             <motion.div
                                 animate={{
-                                    height: !fileUploadState.uploaded ? "initial" : "none",
-                                    display: !fileUploadState.uploaded ? "flex" : "none",
+                                    height: !fileProcesses.uploaded ? "initial" : "none",
+                                    display: !fileProcesses.uploaded ? "flex" : "none",
                                 }}
                                 className={styles.fileContainer}
                             >
                                 <p className="title">
-                                    You {fileUploadState.uploaded ? "uploaded" : "have added"} {files.length}{" "}
+                                    You {fileProcesses.uploaded ? "uploaded" : "have added"} {files.length}{" "}
                                     file{files.length > 1 && "s"}, which{" "}
                                     {files.length > 1
                                         ? `${files.length <= 3 ? "are all" : `of 3 are`}`
@@ -200,21 +270,19 @@ export default function FileUpload() {
                                     shown below.
                                     <a
                                         onClick={() => {
-                                            if (fileUploadState.uploading) return
+                                            if (fileProcesses.uploading) return
                                             setFiles([])
                                             setFileUploadState({
-                                                failed: false,
                                                 uploaded: false,
                                                 uploading: false,
                                                 processing: false,
-                                                encryptionProps: { password: undefined },
                                             })
                                             setUploadName(undefined)
                                         }}
                                         href="#"
                                         className="animated"
                                     >
-                                        {fileUploadState.uploaded ? "Upload another" : "Reset"}
+                                        {fileProcesses.uploaded ? "Upload another" : "Reset"}
                                     </a>
                                 </p>
 
@@ -233,7 +301,10 @@ export default function FileUpload() {
                                         >
                                             <IconByExtension type={f.type} />
                                             <span className={styles.filename}>
-                                                {f.name ? f.name : "Anonymous file"}
+                                                {f.name ?? "Anonymous file"}
+                                            </span>
+                                            <span className={styles.size}>
+                                                {HumanReadableSize(f.size) || "Unknown size"}
                                             </span>
                                             <FaTimes
                                                 onClick={(e) => {
@@ -269,7 +340,7 @@ export default function FileUpload() {
                                             isLocked ? styles.disabled : "",
                                         ].join(" ")}
                                     >
-                                        {fileUploadState.uploading ? (
+                                        {fileProcesses.uploading ? (
                                             <div className={styles.buttonProcessing}>
                                                 <span ref={buttonRef} className={styles.uploading}>
                                                     Your files are now uploading.
@@ -278,17 +349,19 @@ export default function FileUpload() {
                                                     <FaArrowUp />
                                                 </div>
                                             </div>
-                                        ) : fileUploadState.uploaded ? (
+                                        ) : fileProcesses.uploaded ? (
                                             <span ref={buttonRef}>Upload done.</span>
                                         ) : (
-                                            <span ref={buttonRef}>Proceed to upload</span>
+                                            <span ref={buttonRef}>
+                                                Upload file{files.length > 1 ? "s" : ""}
+                                            </span>
                                         )}
                                     </button>
                                 </div>
                             </motion.div>
 
-                            {uploadProcessing.warning ? (
-                                <p className={styles.warning}>{uploadProcessing.warning}</p>
+                            {errorState.warning ? (
+                                <p className={styles.warning}>{errorState.warning}</p>
                             ) : (
                                 <></>
                             )}
@@ -296,12 +369,10 @@ export default function FileUpload() {
                     ) : (
                         <>
                             <div className={styles.loadicon}>
-                                {uploadProcessing.error ? <FaExclamationCircle /> : <FaFileArchive />}
+                                {errorState.error ? <FaExclamationCircle /> : <FaFileArchive />}
                             </div>
                             <p className={styles.uploadDescription}>
-                                {uploadProcessing.error
-                                    ? uploadProcessing.error
-                                    : "Select or drop files here"}
+                                {errorState.error ? errorState.error : "Select or drop files here"}
                             </p>
                         </>
                     )}
