@@ -1,7 +1,8 @@
 import { motion } from "framer-motion"
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { FaRegFrown, FaRegSmileBeam, FaSpinner, FaTimes } from "react-icons/fa"
 import styles from "@/styles/Home/Home.module.scss"
+import overlays from "@/styles/shared/Overlays.module.scss"
 import IconByExtension from "./IconByExtension"
 
 function UploadOverview(props: {
@@ -28,10 +29,13 @@ function UploadOverview(props: {
                     transform: props.shown ? "scaleY(1)" : "scaleY(0)",
                     opacity: props.shown ? 1 : 0,
                 }}
-                className={styles.fullscreenOverview}
+                className={[styles.overview, overlays.overview].join(" ")}
             >
-                <div className={styles.contentbox}>
-                    <div className={styles.close} onClick={() => props.setShown(false)}>
+                <div className={[styles.contentbox, overlays.contentbox].join(" ")}>
+                    <div
+                        className={[styles.close, overlays.close].join(" ")}
+                        onClick={() => props.setShown(false)}
+                    >
                         <FaTimes />
                     </div>
                     <h1 className="title primary">Overview</h1>

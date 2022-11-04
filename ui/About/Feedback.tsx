@@ -1,5 +1,6 @@
 import feedbackstyles from "@/styles/About/Feedback.module.scss"
 import styles from "@/styles/About/About.module.scss"
+import overlays from "@/styles/shared/Overlays.module.scss"
 import { useState } from "react"
 import Header from "ui/shared/Header"
 import { motion } from "framer-motion"
@@ -49,11 +50,14 @@ export default function Feedback() {
                     transform: quickFeedback ? "scaleY(1)" : "scaleY(0)",
                     opacity: quickFeedback ? 1 : 0,
                 }}
-                className={styles.fullscreenform}
+                className={[styles.fullscreenform, overlays.fullscreenform].join(" ")}
             >
-                <div className={styles.contentbox}>
+                <div className={[styles.contentbox, overlays.contentbox].join(" ")}>
                     <div className={feedbackstyles.content}>
-                        <FaTimes className={styles.close} onClick={() => setQuickFeedback(false)} />
+                        <FaTimes
+                            className={[styles.close, overlays.close].join(" ")}
+                            onClick={() => setQuickFeedback(false)}
+                        />
 
                         <h2 className="title">Feedback form</h2>
                         <div className={feedbackstyles.form}>
