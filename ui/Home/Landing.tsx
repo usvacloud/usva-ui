@@ -9,8 +9,8 @@ export default function Landing() {
                     <div className={styles.header}>
                         <h2 className="title small">Welcome to Usva, also mildly known as</h2>
                         <h1 className="title big">
-                            The <span className={styles.special}>friendliest temporary</span> file cloud to
-                            exist.
+                            The <span className={styles.special}>friendliest</span> temporary{" "}
+                            <span className={styles.special}>file cloud</span> to exist.
                         </h1>
                     </div>
                     <FileUpload />

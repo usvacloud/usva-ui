@@ -38,11 +38,12 @@
                 animation: 400ms var(--transition) popup;
                 color: var(--landing-title);
                 font-family: var(--font-title);
+                font-size: 2.5rem;
             }
 
             & h3 {
                 margin-top: 30px;
-                font-weight: 400;
+                font-weight: 500;
                 animation: 350ms var(--transition) popup;
                 color: var(--landing-fg);
             }
