@@ -401,7 +401,7 @@ export default function FileUpload() {
                             <p className={styles.uploadDescription}>
                                 {errorState.error
                                     ? errorState.error
-                                    : "Your all-new file upload experience is started here"}
+                                    : "Your modern file upload experience starts here"}
                             </p>
                         </>
                     )}
