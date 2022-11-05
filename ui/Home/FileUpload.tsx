@@ -45,8 +45,14 @@ export default function FileUpload() {
 
     const [isLocked, setIsLocked] = useState<boolean>(false)
     useMemo(
-        () => setIsLocked(fileProcesses.uploaded || fileProcesses.uploading || fileProcesses.processing),
-        [fileProcesses.uploaded, fileProcesses.uploading, fileProcesses.processing]
+        () =>
+            setIsLocked(
+                fileProcesses.uploaded ||
+                    fileProcesses.uploading ||
+                    fileProcesses.processing ||
+                    errorState.error != ""
+            ),
+        [fileProcesses.uploaded, fileProcesses.uploading, fileProcesses.processing, errorState.error]
     )
 
     // Initialize overview and files states
@@ -131,14 +137,14 @@ export default function FileUpload() {
 
     useEffect(() => {
         async function fetchData() {
-            await fetch(config.api_base)
+            try {
+                await fetch(config.api_base)
+            } catch (_) {
+                setErrorState((prev) => ({ ...prev, error: apiNotAvailable }))
+            }
         }
 
-        try {
-            fetchData()
-        } catch (_) {
-            setErrorState((prev) => ({ ...prev, error: apiNotAvailable }))
-        }
+        fetchData()
     }, [])
 
     return (
@@ -159,7 +165,7 @@ export default function FileUpload() {
                     e.currentTarget.style.transform = "none"
 
                     const appendFileToList = (file: File | null) => {
-                        if (!file) return
+                        if (!file || isLocked) return
 
                         if (file && files.filter((f) => f.lastModified === file.lastModified).length === 0)
                             setFiles((prev) => prev.concat(file))
