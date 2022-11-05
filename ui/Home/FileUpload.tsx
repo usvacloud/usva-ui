@@ -50,7 +50,7 @@ export default function FileUpload() {
                 fileProcesses.uploaded ||
                     fileProcesses.uploading ||
                     fileProcesses.processing ||
-                    errorState.error != ""
+                    errorState.error !== undefined
             ),
         [fileProcesses.uploaded, fileProcesses.uploading, fileProcesses.processing, errorState.error]
     )
