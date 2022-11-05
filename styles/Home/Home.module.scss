@@ -38,7 +38,7 @@
             gap: 40px;
         }
         & .header {
-            width: 80%;
+            width: 100%;
             color: var(--landing-fg);
             & h1 {
                 font-weight: 900;
@@ -50,8 +50,8 @@
                 & span.special {
                     color: var(--landing-title-special);
                 }
-                @media screen and (min-width: 1300px) {
-                    font-size: 5rem;
+                @media screen and (min-width: 1400px) {
+                    font-size: 4.7rem;
                 }
                 @media screen and (max-width: 800px) {
                     font-size: 3rem;
@@ -65,6 +65,9 @@
                 @media screen and (max-width: 1300px) {
                     font-size: 1.3rem;
                 }
+            }
+            @media screen and (min-width: 900px) {
+                width: 60%;
             }
         }
 

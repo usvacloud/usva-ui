@@ -14,9 +14,11 @@ import UploadOverview from "./UploadOverview"
 import IconByExtension from "./IconByExtension"
 import { motion } from "framer-motion"
 import config from "../../config"
-import { ApiWrapper, Errors } from "apiwrapper/main"
+import { ApiWrapper } from "apiwrapper/main"
 import { HumanReadableSize } from "utils/units"
 import { archive } from "utils/archiver"
+
+const apiNotAvailable = "We are currently having issues in reaching our servers. Please try again later."
 
 //TODO: get rid of the damn useState-hell
 export default function FileUpload() {
@@ -128,32 +130,19 @@ export default function FileUpload() {
     }
 
     useEffect(() => {
-        if (!uploadName) return
+        async function fetchData() {
+            await fetch(config.api_base)
+        }
 
-        if (!isTitleValidCallback(uploadName))
-            return setErrorState((prev) => ({
-                ...prev,
-                warning: "Upload's name is invalid and wasn't saved.",
-            }))
-
-        setErrorState((prev) => ({ ...prev, warning: undefined }))
-    }, [uploadName])
-
-    useEffect(() => {
-        ;(async () => {
-            try {
-                await fetch(config.api_base)
-            } catch (e) {
-                setErrorState((prev) => ({
-                    ...prev,
-                    error: "We are currently having issues in reaching our servers. Don't worry; it most definitely won't last long.",
-                }))
-            }
-        })()
+        try {
+            fetchData()
+        } catch (_) {
+            setErrorState((prev) => ({ ...prev, error: apiNotAvailable }))
+        }
     }, [])
 
     return (
-        <>
+        <div>
             <UploadOverview
                 removeFile={removeFile}
                 files={files}
@@ -164,7 +153,38 @@ export default function FileUpload() {
                 setTitle={setUploadName}
                 isTitleValidCallback={isTitleValidCallback}
             />
-            <div className={styles.uploadContainer}>
+            <div
+                onDrop={(e) => {
+                    e.preventDefault()
+                    e.currentTarget.style.transform = "none"
+
+                    const appendFileToList = (file: File | null) => {
+                        if (!file) return
+
+                        if (file && files.filter((f) => f.lastModified === file.lastModified).length === 0)
+                            setFiles((prev) => prev.concat(file))
+                    }
+
+                    if (e.dataTransfer.items) {
+                        Array.from(e.dataTransfer.items).map((item) => {
+                            if (item.kind !== "file") return
+                            appendFileToList(item.getAsFile())
+                        })
+                        return
+                    }
+
+                    Array.from(e.dataTransfer.files).map((file) => appendFileToList(file))
+                }}
+                onDragOver={(e) => {
+                    e.preventDefault()
+                    e.currentTarget.style.transform = "translateY(10px)"
+                }}
+                onDragLeave={(e) => {
+                    e.preventDefault()
+                    e.currentTarget.style.transform = "none"
+                }}
+                className={styles.uploadContainer}
+            >
                 <div
                     onClick={(!files || files?.length === 0) && !errorState.error ? addFile : () => {}}
                     className={[
@@ -383,6 +403,6 @@ export default function FileUpload() {
                     <input type="file" multiple={true} ref={fileInputRef} />
                 </div>
             </div>
-        </>
+        </div>
     )
 }
