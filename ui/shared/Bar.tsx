@@ -10,12 +10,12 @@ function Links() {
                 <a href="https://github.com/romeq/usva" className="animated">
                     For developers
                 </a>
-                <a href="/about" className="animated">
-                    About
-                </a>
-                <a href="/download-file" className="animated">
-                    Download a file
-                </a>
+                <Link href="/about" className="animated">
+                    <a className="animated">About Usva</a>
+                </Link>
+                <Link href="/file">
+                    <a className="animated">Download a file</a>
+                </Link>
             </div>
         </>
     )

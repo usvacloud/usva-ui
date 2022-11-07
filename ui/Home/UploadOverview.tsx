@@ -4,12 +4,13 @@ import { FaRegFrown, FaRegSmileBeam, FaSpinner, FaTimes } from "react-icons/fa"
 import styles from "@/styles/Home/Home.module.scss"
 import overlays from "@/styles/shared/Overlays.module.scss"
 import IconByExtension from "./IconByExtension"
+import { FileInitMetas } from "filehandler/upload"
 
 function UploadOverview(props: {
     shown: boolean
     setShown: (x: boolean) => void
     locked: boolean
-    files: File[]
+    files: FileInitMetas
     removeFile: (i: number) => void
     title: string
     setTitle: (x: string) => void
@@ -106,7 +107,8 @@ function UploadOverview(props: {
                                             <IconByExtension type={file.type} />
                                         </div>
                                         <span className={styles.filename}>
-                                            {file.name.slice(0, 20) + (file.name.length > 20 ? "..." : "")}
+                                            {file.filename.slice(0, 20) +
+                                                (file.filename.length > 20 ? "..." : "")}
                                         </span>
                                         <FaTimes className={styles.close} onClick={() => removeFile(index)} />
                                     </div>

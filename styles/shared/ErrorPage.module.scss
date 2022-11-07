@@ -1,0 +1,47 @@
+.errormain {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    background: var(--landing-bg-alt);
+
+    & .middle {
+        max-width: var(--maximum-content-width);
+        width: var(--basewidth);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: var(--landing-fg);
+        & h1 {
+            color: var(--landing-title);
+            font-size: 3rem;
+            font-family: var(--font-title);
+            margin: 0px 0 20px;
+            & svg {
+                transform: translate(5px, 7px);
+                color: var(--landing-form-icon);
+            }
+        }
+        & h2 {
+            font-weight: 400;
+            margin: 0;
+            width: 80%;
+            margin-bottom: 50px;
+        }
+
+        & .button {
+            transition: var(--transition);
+            font-size: 1rem;
+            padding: 5px 20px;
+            color: var(--landing-form-fg);
+            cursor: pointer;
+            border: 0;
+            border-radius: var(--global-border-radius);
+
+            background: var(--landing-form-bg);
+            &:hover {
+                background: var(--landing-form-bg-hover);
+            }
+        }
+    }
+}

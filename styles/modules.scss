@@ -2,7 +2,7 @@
     position: fixed;
     z-index: 10;
     backdrop-filter: blur(2px);
-    background: hsla(0, 0%, 100%, 0.917);
+    background: hsla(0, 0%, 95%, 0.917);
     top: 0;
     width: 100%;
     padding: 15px 20px;
@@ -27,6 +27,7 @@
         }
 
         & .logo {
+            cursor: pointer;
             display: flex;
             flex-direction: column;
             gap: 3px;

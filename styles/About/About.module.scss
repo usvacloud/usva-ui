@@ -1,6 +1,7 @@
 .landing {
-    height: 80vh;
+    height: 100vh;
     min-height: 400px;
+    max-height: 1200px;
     background: var(--landing-bg-alt);
     background-size: cover;
     background-position: center;
@@ -31,24 +32,28 @@
         align-items: center;
 
         & .header {
-            text-align: center;
+            display: flex;
+            gap: 90px;
+            align-items: baseline;
             color: var(--landing-fg);
             & h1 {
                 font-weight: 800;
                 animation: 400ms var(--transition) popup;
                 color: var(--landing-title);
                 font-family: var(--font-title);
-                font-size: 2.5rem;
+                font-size: 2rem;
             }
 
             & h3 {
-                margin-top: 30px;
+                margin: 0;
                 font-weight: 500;
                 animation: 350ms var(--transition) popup;
                 color: var(--landing-fg);
             }
             @media screen and (max-width: 900px) {
                 text-align: left;
+                flex-direction: column;
+                gap: 30px;
             }
         }
     }
@@ -149,7 +154,7 @@
         max-width: calc(var(--maximum-content-width) + $additionalWidth);
         border-radius: var(--global-border-radius);
         margin: auto;
-        background: rgb(242, 144, 144)
+        background: hsl(126, 52%, 84%)
             linear-gradient(190deg, var(--gradient-start) 0%, var(--gradient-stop) 100%);
 
         @media screen and (max-width: 700px) {
@@ -267,13 +272,13 @@
 }
 @keyframes popup {
     0% {
-        transform: translateY(10px) scale(0.9);
+        transform: translateY(20px);
         overflow: hidden;
         opacity: 0;
     }
 
     100% {
-        transform: translateY(0px) scale(1);
+        transform: translateY(0px);
         overflow: initial;
         opacity: 1;
     }

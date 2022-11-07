@@ -7,10 +7,12 @@ export default function Landing() {
             <div className={styles.landing}>
                 <div className={styles.centerContainer}>
                     <div className={styles.header}>
-                        <h2 className="title small">Welcome to Usva, also mildly known as</h2>
+                        <h2 className="title small">This website got a flex:</h2>
                         <h1 className="title big">
-                            The <span className={styles.special}>friendliest</span> temporary{" "}
-                            <span className={styles.special}>file cloud</span> to exist.
+                            Usva is built from ground-up with sacred{" "}
+                            <span className={styles.special}>interest</span> and singular{" "}
+                            <span className={styles.special}>love</span> to all users. Therefore, it&apos;s
+                            user friendly and has all the features you need.
                         </h1>
                     </div>
                     <FileUpload />

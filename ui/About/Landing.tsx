@@ -6,13 +6,12 @@ export default function Landing() {
             <div className={styles.centerContainer}>
                 <div className={styles.header}>
                     <h1 className="title big">
-                        You get Usva as a completely free service, we get a loyal user.
+                        You get Usva as a completely free service, we have you as a loyal user.
                     </h1>
                     <h3 className="description">
                         Usva is built from ground-up to provide the best user experience and reliability for
-                        sharing any sort of files. Because privacy is extremely important consept nowadays,
-                        Usva takes it seriously (more precisely Usva encrypts your files with modern
-                        algorithms to prevent thefts).
+                        all users and files. Because privacy is extremely important consept nowadays, we apply
+                        a lot of modern practices in our services to secure the identity of our users.
                     </h3>
                 </div>
             </div>
