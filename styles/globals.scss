@@ -44,6 +44,7 @@
     --secondary-fg: hsl(0, 0%, 21%);
     --bar-bg: hsla(0, 0%, 100%, 0.8);
     --bar-fg: hsl(0, 0%, 0%);
+    --bar-icon: var(--bar-fg);
     --list-identifier: hsl(0, 0%, 44%);
 
     --inverted-bg: hsl(0, 0%, 8%);
@@ -129,6 +130,7 @@
         --secondary-fg: hsl(0, 0%, 55%);
         --bar-bg: hsla(0, 0%, 5%, 0.8);
         --bar-fg: hsl(0, 0%, 75%);
+        --bar-icon: var(--bar-fg);
         --list-identifier: hsl(0, 0%, 44%);
 
         --inverted-bg: hsl(0, 0%, 100%);

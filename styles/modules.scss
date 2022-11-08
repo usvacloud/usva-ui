@@ -54,6 +54,7 @@
             position: relative;
             cursor: pointer;
             & svg {
+                color: var(--bar-icon);
                 position: absolute;
                 top: 50%;
                 right: 0px;
