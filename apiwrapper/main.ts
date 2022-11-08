@@ -17,10 +17,10 @@ export type FileInformation = {
 }
 
 export const Errors = {
-    FileNotCreated: new Error("File was not uploaded"),
-    FileNotFound: new Error("File was not found"),
-    PermissionDenied: new Error("Permission was denied"),
-    RequestFailed: new Error("Request failed"),
+    FileNotCreated: Error("File was not uploaded"),
+    FileNotFound: Error("File was not found"),
+    PermissionDenied: Error("Permission was denied"),
+    RequestFailed: Error("Request failed"),
 }
 
 export class ApiWrapper {

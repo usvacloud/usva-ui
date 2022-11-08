@@ -24,7 +24,7 @@ type FileUploadState = {
     processing: boolean
     uploading: boolean
     uploaded: boolean
-    error?: Error
+    error: Error | undefined
 }
 
 function UploadFinished(props: {
@@ -73,6 +73,7 @@ export default function FileUpload() {
         processing: false,
         uploading: false,
         uploaded: false,
+        error: undefined,
     })
 
     // class instances and ref objects
@@ -103,7 +104,7 @@ export default function FileUpload() {
         if (req instanceof Error)
             setFileUploadState((prev) => ({
                 ...prev,
-                error: new Error(req.name),
+                error: req,
             }))
         else setUploadedUUID(req)
 
@@ -190,15 +191,7 @@ export default function FileUpload() {
                                         resetForm={resetForm}
                                     />
                                 ) : (
-                                    <ErrorScreen
-                                        error={
-                                            fileUploadState.error ||
-                                            new Error(
-                                                "We are terribly sorry, your upload failed for unknown reason"
-                                            )
-                                        }
-                                        resetUpload={resetForm}
-                                    />
+                                    <ErrorScreen error={fileUploadState.error} resetUpload={resetForm} />
                                 )}
                             </motion.div>
 

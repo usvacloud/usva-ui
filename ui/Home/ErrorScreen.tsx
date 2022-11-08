@@ -1,9 +1,12 @@
 import styles from "@/styles/Home/Home.module.scss"
 
-export default function ErrorScreen(props: { error: Error; resetUpload: () => void }) {
+export default function ErrorScreen(props: { error: Error | undefined; resetUpload: () => void }) {
+    let err = props.error
+    if (!err) err = Error("We are terribly sorry. Your upload failed for an unkonown reason.")
+    console.log(err)
     return (
         <>
-            <h3 className="title">{props.error.name}</h3>
+            <h2 className="title">{err.message}</h2>
             <p>
                 Unfortunately we had some issues while preparing your upload for further processing. If this
                 problem persists, please (please!) contact the developer for assistance.
