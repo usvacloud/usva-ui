@@ -94,11 +94,11 @@
         --critical-button: hsl(var(--tint), 23%, 23%);
         --critical-button-hover: hsl(var(--tint), 23%, 35%);
 
-        --gradient-start: hsl(calc(var(--tint) + 60), 53%, 67%);
-        --gradient-stop: hsl(var(--tint), 53%, 67%);
-        --box-fg: hsl(0, 0%, 0%);
+        --gradient-start: hsl(calc(var(--tint) + 60), 13%, 27%);
+        --gradient-stop: hsl(var(--tint), 13%, 27%);
+        --box-fg: hsl(0, 0%, 70%);
 
-        --landing-bg: hsl(var(--tint), 0%, 3%);
+        --landing-bg: hsl(var(--tint), 0%, 4%);
         --landing-bg-alt: hsl(var(--tint), 10%, 10%);
 
         --landing-title-special: hsl(var(--tint), 33%, 60%);
@@ -117,11 +117,11 @@
         --bar-bg: hsla(0, 0%, 0%, 0);
         --bar-fg: hsl(0, 0%, 75%);
         --bar-icon: var(--bar-fg);
-        --list-identifier: hsla(0, 0%, 0%, 0.8);
+        --list-identifier: hsla(var(--tint), 10%, 40%, 0.8);
 
-        --inverted-bg: hsl(0, 0%, 9%);
-        --inverted-fg: hsl(0, 0%, 90%);
-        --inverted-bg-hover: hsl(0, 0%, 29%);
+        --inverted-bg: hsl(0, 0%, 0%);
+        --inverted-fg: hsl(0, 0%, 60%);
+        --inverted-bg-hover: hsl(0, 0%, 15%);
 
         --positive-icon: hsl(120, 33%, 45%);
         --negative-icon: hsl(0, 58%, 58%);
@@ -142,16 +142,16 @@
         --form-primary-hover: hsl(var(--tint), 29%, 26%);
         --form-primary-disabled: hsl(var(--tint), 29%, 26%);
 
-        --footer-bg: hsl(0, 0%, 3%);
+        --footer-bg: hsl(var(--tint), 0%, 4%);
         --footer-fg: hsl(0, 0%, 34%);
         --footer-fg-titles: hsl(0, 0%, 54%);
         --footer-link-mail: hsl(158, 21%, 45%);
 
         --link-fg: hsl(231, 37%, 26%);
 
-        --widget-primary-bg: hsl(190, 20%, 71%);
+        --widget-primary-bg: hsl(var(--tint), 5%, 20%);
         --widget-primary-bg-hover: hsl(0, 0%, 15%);
-        --widget-primary-fg: hsl(0, 0%, 5%);
+        --widget-primary-fg: hsl(0, 0%, 77%);
         --widget-secondary-bg: hsl(0, 0%, 10%);
     }
     @media screen and (max-width: 700px) {

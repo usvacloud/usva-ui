@@ -235,7 +235,7 @@
             & p.desc,
             ul {
                 color: var(--widget-primary-fg);
-                background-color: hsl(var(--tint), 25%, 75%);
+                background-color: var(--widget-primary-bg);
                 border-radius: var(--global-border-radius);
                 padding: $padding;
                 font-size: 1rem;

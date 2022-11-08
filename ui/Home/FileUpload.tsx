@@ -19,6 +19,7 @@ import ErrorScreen from "./ErrorScreen"
 import { isTitleValidCallback } from "utils/other"
 import { FileHandler, FileInitMeta } from "filehandler/upload"
 import { UploadFinished, UploadPreview } from "./FileUpload/components"
+import Notice from "../shared/Notice"
 
 export type FileUploadState = {
     processing: boolean
@@ -106,6 +107,7 @@ export default function FileUpload() {
 
     return (
         <div>
+            <Notice />
             <UploadOverview
                 removeFile={removeFile}
                 files={fileMetas}

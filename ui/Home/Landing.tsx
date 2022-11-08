@@ -1,5 +1,6 @@
 import styles from "@/styles/Home/Home.module.scss"
 import FileUpload from "./FileUpload"
+import Notice from "@/components/shared/Notice"
 
 export default function Landing() {
     return (
