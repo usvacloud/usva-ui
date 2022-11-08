@@ -40,12 +40,13 @@ export class FileHandler {
 
     sync(ref: RefObject<HTMLInputElement>): FileInitMeta[] | undefined {
         let fm: FileInitMeta[] = []
+
         const htmlFiles = ref.current?.files
         if (!htmlFiles) return fm
 
         for (let i = 0; i < htmlFiles.length; i++) {
             const file = this.add(htmlFiles.item(i))
-            if (file !== undefined) fm.push(file)
+            if (file) fm.push(file)
         }
 
         return fm

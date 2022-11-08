@@ -44,8 +44,8 @@ export default function FileUpload() {
 
     // class instances and ref objects
     const fileInputRef = useRef<HTMLInputElement>(null)
-    const fileHandler = new FileHandler()
-    const api = new ApiWrapper(config.api_base)
+    const fileHandler = useMemo(() => new FileHandler(), [])
+    const api = useMemo(() => new ApiWrapper(config.api_base), [])
 
     useMemo(() => {
         const stmt =
@@ -59,6 +59,7 @@ export default function FileUpload() {
     async function uploadFiles() {
         if (fileMetas.length == 0 || isLocked) return
         setFileUploadState((prev) => ({ ...prev, uploading: true, processing: true }))
+        console.log(fileHandler.files)
 
         const r = await archive(fileHandler.files)
         setFileUploadState((prev) => ({ ...prev, processing: false }))
