@@ -79,10 +79,6 @@
     --widget-secondary-bg: hsl(0, 0%, 73%);
     --widget-primary-fg: hsl(0, 0%, 13%);
 
-    @media screen and (max-width: 700px) {
-        --basewidth: 100%;
-    }
-
     // Switch colors from light when user prefers dark color scheme
     @media (prefers-color-scheme: dark) {
         // General
@@ -124,7 +120,7 @@
         --landing-form-icon: hsl(129, 10%, 45%);
         --landing-form-fg: hsl(0, 0%, 87%);
 
-        --primary-bg: hsl(240, 9%, 10%);
+        --primary-bg: hsl(240, 0%, 10%);
         --primary-fg: hsl(0, 0%, 84%);
         --secondary-bg: hsl(0, 0%, 9%);
         --secondary-fg: hsl(0, 0%, 55%);
@@ -133,8 +129,8 @@
         --bar-icon: var(--bar-fg);
         --list-identifier: hsl(0, 0%, 44%);
 
-        --inverted-bg: hsl(0, 0%, 100%);
-        --inverted-fg: hsl(0, 0%, 4%);
+        --inverted-bg: hsl(0, 0%, 9%);
+        --inverted-fg: hsl(0, 0%, 90%);
         --inverted-bg-hover: hsl(0, 0%, 87%);
 
         --positive-icon: hsl(120, 33%, 45%);
@@ -165,6 +161,9 @@
         --widget-primary-bg-hover: hsl(0, 0%, 15%);
         --widget-secondary-bg: hsl(0, 0%, 24%);
         --widget-primary-fg: hsl(0, 0%, 85%);
+    }
+    @media screen and (max-width: 700px) {
+        --basewidth: 100%;
     }
 }
 
@@ -235,6 +234,6 @@ input {
 
 ::selection,
 ::-moz-selection {
-    color: var(--inverted-fg);
-    background-color: var(--accent-color);
+    color: var(--accent-light);
+    background-color: hsla(var(--tint), 10%, 58%, 0.253);
 }

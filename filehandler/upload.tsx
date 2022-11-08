@@ -18,14 +18,19 @@ export class FileHandler {
     constructor(metas: [FileInitMetas, Dispatch<SetStateAction<FileInitMetas>>]) {
         this.metas = metas
         this.files = []
+
+        this.add = this.add.bind(this)
+        this.sync = this.sync.bind(this)
+        this.removeFile = this.removeFile.bind(this)
+        this.reset = this.reset.bind(this)
     }
 
     // Function which opens the file upload prompt
     add(file: File | null | undefined) {
         if (!file) return
 
-        const st = this.files.filter((f) => f.lastModified === file.lastModified).length === 0
-        if (!st) return
+        const st = this.files.filter((f) => f.lastModified === file.lastModified).length > 0
+        if (st) return
 
         this.metas[1]((previous) => [
             ...previous,

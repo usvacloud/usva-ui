@@ -42,7 +42,6 @@
             width: 50%;
             color: var(--landing-fg);
             & h1 {
-                font-weight: 900;
                 animation: 350ms var(--transition) popup;
                 color: var(--landing-title);
                 font-family: var(--font-title);
@@ -57,6 +56,9 @@
                 @media screen and (max-width: 900px) {
                     font-size: 2.2rem;
                 }
+                @media screen and (max-width: 600px) {
+                    font-size: 1.25rem;
+                }
             }
 
             & h2 {
@@ -64,7 +66,7 @@
                 font-size: 2rem;
                 animation: 400ms var(--transition) popup;
                 @media screen and (max-width: 1400px) {
-                    font-size: 1.3rem;
+                    font-size: 1.1rem;
                 }
             }
             @media screen and (min-width: 1400px) {
@@ -202,6 +204,14 @@
                 gap: 5px;
                 width: auto;
 
+                & .tosnt {
+                    margin: 20px 0 0;
+                    font-size: 0.9rem;
+                    color: var(--secondary-fg);
+                    & a {
+                        margin: 0;
+                    }
+                }
                 & .fileInfo {
                     background: var(--form-bg);
                     color: var(--form-fg);
@@ -234,6 +244,10 @@
                     & .close {
                         cursor: pointer;
                     }
+                }
+
+                & .buttons {
+                    margin-top: 0;
                 }
             }
 
@@ -310,7 +324,7 @@
                     background: var(--critical);
                     color: var(--critical-fg);
 
-                    & h2 {
+                    & h3 {
                         color: var(--critical-fg);
                     }
                     &:hover {

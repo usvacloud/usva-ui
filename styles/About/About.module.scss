@@ -37,7 +37,6 @@
             align-items: baseline;
             color: var(--landing-fg);
             & h1 {
-                font-weight: 800;
                 animation: 400ms var(--transition) popup;
                 color: var(--landing-title);
                 font-family: var(--font-title);

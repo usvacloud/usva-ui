@@ -18,13 +18,110 @@ import { archive } from "utils/archiver"
 import ErrorScreen from "./ErrorScreen"
 import { isTitleValidCallback } from "utils/other"
 import { FileHandler, FileInitMetas } from "filehandler/upload"
-import { humanReadableSize } from "utils/units"
+import Link from "next/link"
 
 type FileUploadState = {
     processing: boolean
     uploading: boolean
     uploaded: boolean
     error: Error | undefined
+}
+
+type UploadPreviewProps = {
+    fileUploadState: FileUploadState
+    fileMetas: FileInitMetas
+    fileHandler: FileHandler
+    isLocked: boolean
+    setOverviewShown: Dispatch<SetStateAction<boolean>>
+    addFile: () => void
+    uploadFiles: () => void
+    resetForm: () => void
+}
+
+function UploadPreview({
+    fileUploadState,
+    fileMetas,
+    fileHandler,
+    isLocked,
+    setOverviewShown,
+    addFile,
+    uploadFiles,
+    resetForm,
+}: UploadPreviewProps) {
+    return (
+        <>
+            <p className="title">
+                You {fileUploadState.uploaded ? "uploaded" : "have added"} {fileMetas.length} file
+                {fileMetas.length > 1 && "s"}, which{" "}
+                {fileMetas.length > 1 ? `${fileHandler.files.length <= 3 ? "are all" : `of 3 are`}` : `is`}{" "}
+                shown below.
+                <a onClick={resetForm} href="#" className="animated">
+                    Reset
+                </a>
+            </p>
+
+            {fileMetas.map((f, i) => {
+                if (i >= 3 || !f) return
+                return (
+                    <motion.div
+                        animate={{
+                            transform: fileHandler.files ? "scaleY(1)" : "scaleY(0)",
+                        }}
+                        key={i}
+                        className={[styles.fileInfo, isLocked ? styles.disabled : ""].join(" ")}
+                    >
+                        <IconByExtension type={f.type} />
+                        <span className={styles.filename}>
+                            {f.filename.slice(0, 30) + (f.filename.length > 30 ? "..." : "")}
+                        </span>
+                        <span className={styles.size}>{f.size}</span>
+                        <FaTimes
+                            onClick={(e) => {
+                                if (e.currentTarget.parentElement)
+                                    e.currentTarget.parentElement.style.transform = "scaleY(0)"
+                                setTimeout(() => fileHandler.removeFile(i), 150)
+                            }}
+                            className={styles.close}
+                        />
+                    </motion.div>
+                )
+            })}
+
+            <p className={styles.tosnt}>
+                As you proceed you accept our <Link href="/terms-of-service">Terms</Link> and{" "}
+                <Link href="/privacy-policy">Privacy Policy</Link>
+            </p>
+            <div className={styles.buttons}>
+                <div className={styles.icons}>
+                    <button className={styles.icon} onClick={() => setOverviewShown(true)}>
+                        <FaEllipsisH />
+                    </button>
+
+                    <button className={styles.icon} onClick={addFile}>
+                        <FaPlusCircle />
+                    </button>
+                </div>
+
+                <button
+                    onClick={uploadFiles}
+                    className={[styles.button, styles.primary, isLocked ? styles.disabled : ""].join(" ")}
+                >
+                    {fileUploadState.uploading ? (
+                        <div className={styles.buttonProcessing}>
+                            <span className={styles.uploading}>Your files are now uploading.</span>
+                            <div className={styles.updown}>
+                                <FaArrowUp />
+                            </div>
+                        </div>
+                    ) : fileUploadState.uploaded ? (
+                        <span>Upload done.</span>
+                    ) : (
+                        <span>Upload file{fileHandler.files.length > 1 ? "s" : ""}</span>
+                    )}
+                </button>
+            </div>
+        </>
+    )
 }
 
 function UploadFinished(props: {
@@ -177,7 +274,7 @@ export default function FileUpload() {
                             {/* Uploaded screen */}
                             <motion.div
                                 animate={{
-                                    transform: fileUploadState.uploaded ? "scaleY(1)" : "scaleY(0.5)",
+                                    transform: fileUploadState.uploaded ? "scaleY(1)" : "scaleY(0.8)",
                                     opacity: fileUploadState.uploaded ? 1 : 0,
                                     display: fileUploadState.uploaded ? "block" : "none",
                                 }}
@@ -203,87 +300,16 @@ export default function FileUpload() {
                                 }}
                                 className={styles.fileContainer}
                             >
-                                <p className="title">
-                                    You {fileUploadState.uploaded ? "uploaded" : "have added"}{" "}
-                                    {fileMetas.length} file{fileMetas.length > 1 && "s"}, which{" "}
-                                    {fileMetas.length > 1
-                                        ? `${fileHandler.files.length <= 3 ? "are all" : `of 3 are`}`
-                                        : `is`}{" "}
-                                    shown below.
-                                    <a onClick={resetForm} href="#" className="animated">
-                                        Reset
-                                    </a>
-                                </p>
-
-                                {fileMetas.map((f, i) => {
-                                    if (i >= 3 || !f) return
-                                    return (
-                                        <motion.div
-                                            animate={{
-                                                transform: fileHandler.files ? "scaleY(1)" : "scaleY(0)",
-                                            }}
-                                            key={i}
-                                            className={[
-                                                styles.fileInfo,
-                                                isLocked ? styles.disabled : "",
-                                            ].join(" ")}
-                                        >
-                                            <IconByExtension type={f.type} />
-                                            <span className={styles.filename}>
-                                                {f.filename.slice(0, 30) +
-                                                    (f.filename.length > 30 ? "..." : "")}
-                                            </span>
-                                            <span className={styles.size}>{f.size}</span>
-                                            <FaTimes
-                                                onClick={(e) => {
-                                                    if (e.currentTarget.parentElement)
-                                                        e.currentTarget.parentElement.style.transform =
-                                                            "scaleY(0)"
-                                                    setTimeout(() => fileHandler.removeFile(i), 150)
-                                                }}
-                                                className={styles.close}
-                                            />
-                                        </motion.div>
-                                    )
-                                })}
-                                <div className={styles.buttons}>
-                                    <div className={styles.icons}>
-                                        <button
-                                            className={styles.icon}
-                                            onClick={() => setOverviewShown(true)}
-                                        >
-                                            <FaEllipsisH />
-                                        </button>
-
-                                        <button className={styles.icon} onClick={addFile}>
-                                            <FaPlusCircle />
-                                        </button>
-                                    </div>
-
-                                    <button
-                                        onClick={uploadFiles}
-                                        className={[
-                                            styles.button,
-                                            styles.primary,
-                                            isLocked ? styles.disabled : "",
-                                        ].join(" ")}
-                                    >
-                                        {fileUploadState.uploading ? (
-                                            <div className={styles.buttonProcessing}>
-                                                <span className={styles.uploading}>
-                                                    Your files are now uploading.
-                                                </span>
-                                                <div className={styles.updown}>
-                                                    <FaArrowUp />
-                                                </div>
-                                            </div>
-                                        ) : fileUploadState.uploaded ? (
-                                            <span>Upload done.</span>
-                                        ) : (
-                                            <span>Upload file{fileHandler.files.length > 1 ? "s" : ""}</span>
-                                        )}
-                                    </button>
-                                </div>
+                                <UploadPreview
+                                    addFile={addFile}
+                                    fileHandler={fileHandler}
+                                    fileMetas={fileMetas}
+                                    fileUploadState={fileUploadState}
+                                    isLocked={isLocked}
+                                    resetForm={resetForm}
+                                    setOverviewShown={setOverviewShown}
+                                    uploadFiles={uploadFiles}
+                                />
                             </motion.div>
                         </>
                     ) : (

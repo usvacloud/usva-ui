@@ -7,13 +7,14 @@ export function humanReadableSize(bytes: number): string {
     }
 
     let added = false
-    const str = Object.entries(sizes).map((val) => {
+    let sz = "Unknown size"
+    Object.entries(sizes).map((val) => {
         if (added) return
         if (bytes / val[1] >= 1) {
             added = true
-            return `${Math.floor(bytes / val[1])} ${val[0]} `
+            sz = `${Math.floor(bytes / val[1])} ${val[0]} `
         }
     })
 
-    return str[0] || "0 Bytes"
+    return sz
 }
