@@ -120,15 +120,19 @@
     width: 100%;
     padding: 60px var(--section-horizontal-padding);
     margin: 0 auto;
-    color: var(--footer-fg);
 
     & .content {
+        color: var(--footer-fg);
         width: 100%;
         max-width: var(--maximum-content-width);
         margin: auto;
     }
     & .header {
         margin-bottom: 30px;
+    }
+    & h1,
+    h2 {
+        color: var(--footer-fg-titles);
     }
     & .links {
         display: grid;
@@ -173,8 +177,8 @@
             grid-template-columns: auto;
             gap: 30px;
 
-            & .linksContainer .linkwithlabel span {
-                font-size: 1.2rem;
+            & .linksContainer {
+                font-size: 0.9rem;
             }
 
             & .legal {

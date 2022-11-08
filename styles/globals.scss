@@ -98,21 +98,21 @@
         --gradient-stop: hsl(var(--tint), 53%, 67%);
         --box-fg: hsl(0, 0%, 0%);
 
-        --landing-bg: hsl(var(--tint), 0%, 7%);
-        --landing-bg-alt: hsl(var(--tint), 30%, 20%);
+        --landing-bg: hsl(var(--tint), 0%, 3%);
+        --landing-bg-alt: hsl(var(--tint), 10%, 10%);
 
         --landing-title-special: hsl(var(--tint), 33%, 60%);
         --landing-title-withspecial: hsl(var(--tint), 23%, 30%);
         --landing-title: hsl(var(--tint), 33%, 60%);
-        --landing-fg: hsl(0, 0%, 85%);
-        --landing-form-bg: hsl(0, 0%, 13%);
-        --landing-form-bg-hover: hsl(0, 0%, 15%);
+        --landing-fg: hsl(var(--tint), 10%, 55%);
+        --landing-form-bg: hsl(0, 0%, 7%);
+        --landing-form-bg-hover: hsl(0, 0%, 9%);
         --landing-form-icon: hsl(var(--tint), 20%, 45%);
-        --landing-form-fg: hsl(0, 0%, 87%);
+        --landing-form-fg: hsl(0, 0%, 47%);
 
         --primary-bg: hsl(0, 0%, 5%);
         --primary-fg: hsl(0, 0%, 84%);
-        --secondary-bg: hsl(0, 0%, 12%);
+        --secondary-bg: hsl(0, 0%, 7%);
         --secondary-fg: hsl(0, 0%, 55%);
         --bar-bg: hsla(0, 0%, 0%, 0);
         --bar-fg: hsl(0, 0%, 75%);
@@ -127,7 +127,7 @@
         --negative-icon: hsl(0, 58%, 58%);
         --neutral-icon: var(--widget-secondary-bg);
 
-        --form-bg: hsl(0, 0%, 18%);
+        --form-bg: hsl(0, 0%, 12%);
         --form-fg: hsl(0, 0%, 76%);
         --form-fg-alt: hsl(148, 0%, 36%);
         --form-disabled-bg: hsl(0, 0%, 16%);
@@ -143,7 +143,8 @@
         --form-primary-disabled: hsl(var(--tint), 29%, 26%);
 
         --footer-bg: hsl(0, 0%, 3%);
-        --footer-fg: hsl(0, 0%, 84%);
+        --footer-fg: hsl(0, 0%, 34%);
+        --footer-fg-titles: hsl(0, 0%, 54%);
         --footer-link-mail: hsl(158, 21%, 45%);
 
         --link-fg: hsl(231, 37%, 26%);
