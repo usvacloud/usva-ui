@@ -5,6 +5,7 @@
     background: var(--landing-bg-alt);
 
     & .middle {
+        padding: 0 var(--section-horizontal-padding);
         max-width: var(--maximum-content-width);
         width: var(--basewidth);
         position: absolute;
