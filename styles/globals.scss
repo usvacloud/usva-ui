@@ -1,7 +1,7 @@
 // Set variables
 :root {
     // General
-    --transition: 100ms cubic-bezier(0.25, 0.5, 0.25, 1);
+    --transition: 150ms cubic-bezier(0.25, 0.5, 0.25, 1);
     --font: "Mukta", Cantarell, "Open Sans", sans-serif;
     --font-title: "Sen", var(--font);
     --font-titles: var(--font);
@@ -65,6 +65,7 @@
 
     --form-primary: hsl(150, 29%, 36%);
     --form-primary-fg: hsl(0, 0%, 88%);
+    --form-primary-icon: hsl(0, 0%, 58%);
     --form-primary-hover: hsl(150, 29%, 46%);
     --form-primary-disabled: hsl(150, 29%, 26%);
 
@@ -81,18 +82,6 @@
 
     // Switch colors from light when user prefers dark color scheme
     @media (prefers-color-scheme: dark) {
-        // General
-        --transition: 100ms cubic-bezier(0.25, 0.5, 0.25, 1);
-        --font: "Mukta", Cantarell, "Open Sans", sans-serif;
-        --font-title: "Sen", var(--font);
-        --font-titles: var(--font);
-        --maximum-content-width: 1150px;
-        --global-border-radius: 10px;
-        --default-bg-blur: 30px;
-        --basewidth: 90%;
-
-        --section-horizontal-padding: 20px;
-
         // Colors
         --tint: 160;
         --accent-color: hsl((--tint), 52%, 17%);
@@ -112,39 +101,41 @@
         --landing-bg: hsl(0, 0%, 0%);
         --landing-bg-alt: hsl(139, 4%, 0%);
 
-        --landing-title: hsl(138, 13%, 45%);
-        --landing-title-special: hsl(139, 19%, 67%);
+        --landing-title-special: hsl(var(--tint), 33%, 60%);
+        --landing-title-withspecial: hsl(var(--tint), 23%, 25%);
+        --landing-title: hsl(var(--tint), 33%, 60%);
         --landing-fg: hsla(0, 0%, 95%, 0.656);
         --landing-form-bg: hsl(0, 0%, 10%);
         --landing-form-bg-hover: hsl(0, 0%, 15%);
-        --landing-form-icon: hsl(129, 10%, 45%);
+        --landing-form-icon: hsl(var(--tint), 10%, 45%);
         --landing-form-fg: hsl(0, 0%, 87%);
 
-        --primary-bg: hsl(240, 0%, 10%);
+        --primary-bg: hsl(0, 0%, 0%);
         --primary-fg: hsl(0, 0%, 84%);
         --secondary-bg: hsl(0, 0%, 9%);
         --secondary-fg: hsl(0, 0%, 55%);
-        --bar-bg: hsla(0, 0%, 5%, 0.8);
+        --bar-bg: hsla(0, 0%, 0%, 0.9);
         --bar-fg: hsl(0, 0%, 75%);
         --bar-icon: var(--bar-fg);
         --list-identifier: hsl(0, 0%, 44%);
 
         --inverted-bg: hsl(0, 0%, 9%);
         --inverted-fg: hsl(0, 0%, 90%);
-        --inverted-bg-hover: hsl(0, 0%, 87%);
+        --inverted-bg-hover: hsl(0, 0%, 29%);
 
         --positive-icon: hsl(120, 33%, 45%);
         --negative-icon: hsl(0, 58%, 58%);
         --neutral-icon: var(--widget-secondary-bg);
 
-        --form-bg: hsl(0, 0%, 15%);
+        --form-bg: hsl(0, 0%, 7%);
         --form-fg: hsl(0, 0%, 76%);
         --form-fg-alt: hsl(148, 0%, 36%);
         --form-disabled-bg: hsl(0, 0%, 16%);
         --form-disabled-fg: hsl(0, 0%, 72%);
         --form-disabled-img: hsl(0, 0%, 67%);
         --form-bg-hover: hsl(0, 0%, 12%);
-        --form-icon: hsl(0, 0%, 34%);
+        --form-icon: hsl(0, 0%, 26%);
+        --form-icon-hover: hsl(0, 0%, 46%);
 
         --form-primary: hsl(152, 29%, 20%);
         --form-primary-fg: hsl(0, 0%, 88%);
@@ -157,10 +148,10 @@
 
         --link-fg: hsl(231, 37%, 26%);
 
-        --widget-primary-bg: hsl(230, 10%, 11%);
+        --widget-primary-bg: hsl(190, 20%, 71%);
         --widget-primary-bg-hover: hsl(0, 0%, 15%);
-        --widget-secondary-bg: hsl(0, 0%, 24%);
-        --widget-primary-fg: hsl(0, 0%, 85%);
+        --widget-primary-fg: hsl(0, 0%, 5%);
+        --widget-secondary-bg: hsl(0, 0%, 10%);
     }
     @media screen and (max-width: 700px) {
         --basewidth: 100%;
@@ -170,7 +161,6 @@
 * {
     box-sizing: border-box;
     color: var(--primaryfg);
-    transition: 50ms ease;
 }
 
 html,

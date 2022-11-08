@@ -17,151 +17,20 @@ import { ApiWrapper } from "apiwrapper/main"
 import { archive } from "utils/archiver"
 import ErrorScreen from "./ErrorScreen"
 import { isTitleValidCallback } from "utils/other"
-import { FileHandler, FileInitMetas } from "filehandler/upload"
-import Link from "next/link"
+import { FileHandler, FileInitMeta } from "filehandler/upload"
+import { UploadFinished, UploadPreview } from "./FileUpload/components"
 
-type FileUploadState = {
+export type FileUploadState = {
     processing: boolean
     uploading: boolean
     uploaded: boolean
     error: Error | undefined
 }
 
-type UploadPreviewProps = {
-    fileUploadState: FileUploadState
-    fileMetas: FileInitMetas
-    fileHandler: FileHandler
-    isLocked: boolean
-    setOverviewShown: Dispatch<SetStateAction<boolean>>
-    addFile: () => void
-    uploadFiles: () => void
-    resetForm: () => void
-}
-
-function UploadPreview({
-    fileUploadState,
-    fileMetas,
-    fileHandler,
-    isLocked,
-    setOverviewShown,
-    addFile,
-    uploadFiles,
-    resetForm,
-}: UploadPreviewProps) {
-    return (
-        <>
-            <p className="title">
-                You {fileUploadState.uploaded ? "uploaded" : "have added"} {fileMetas.length} file
-                {fileMetas.length > 1 && "s"}, which{" "}
-                {fileMetas.length > 1 ? `${fileHandler.files.length <= 3 ? "are all" : `of 3 are`}` : `is`}{" "}
-                shown below.
-                <a onClick={resetForm} href="#" className="animated">
-                    Reset
-                </a>
-            </p>
-
-            {fileMetas.map((f, i) => {
-                if (i >= 3 || !f) return
-                return (
-                    <motion.div
-                        animate={{
-                            transform: fileHandler.files ? "scaleY(1)" : "scaleY(0)",
-                        }}
-                        key={i}
-                        className={[styles.fileInfo, isLocked ? styles.disabled : ""].join(" ")}
-                    >
-                        <IconByExtension type={f.type} />
-                        <span className={styles.filename}>
-                            {f.filename.slice(0, 30) + (f.filename.length > 30 ? "..." : "")}
-                        </span>
-                        <span className={styles.size}>{f.size}</span>
-                        <FaTimes
-                            onClick={(e) => {
-                                if (e.currentTarget.parentElement)
-                                    e.currentTarget.parentElement.style.transform = "scaleY(0)"
-                                setTimeout(() => fileHandler.removeFile(i), 150)
-                            }}
-                            className={styles.close}
-                        />
-                    </motion.div>
-                )
-            })}
-
-            <p className={styles.tosnt}>
-                As you proceed you accept our <Link href="/terms-of-service">Terms</Link> and{" "}
-                <Link href="/privacy-policy">Privacy Policy</Link>
-            </p>
-            <div className={styles.buttons}>
-                <div className={styles.icons}>
-                    <button className={styles.icon} onClick={() => setOverviewShown(true)}>
-                        <FaEllipsisH />
-                    </button>
-
-                    <button className={styles.icon} onClick={addFile}>
-                        <FaPlusCircle />
-                    </button>
-                </div>
-
-                <button
-                    onClick={uploadFiles}
-                    className={[styles.button, styles.primary, isLocked ? styles.disabled : ""].join(" ")}
-                >
-                    {fileUploadState.uploading ? (
-                        <div className={styles.buttonProcessing}>
-                            <span className={styles.uploading}>Your files are now uploading.</span>
-                            <div className={styles.updown}>
-                                <FaArrowUp />
-                            </div>
-                        </div>
-                    ) : fileUploadState.uploaded ? (
-                        <span>Upload done.</span>
-                    ) : (
-                        <span>Upload file{fileHandler.files.length > 1 ? "s" : ""}</span>
-                    )}
-                </button>
-            </div>
-        </>
-    )
-}
-
-function UploadFinished(props: {
-    filename: string
-    switchOverlay: (x: boolean) => void
-    resetForm: () => void
-}) {
-    return (
-        <>
-            <h3 className="title">Congratulations, your upload was processed!</h3>
-            <p>
-                Thank you! Your files have now been processed and uploaded successfully. This means that you
-                can now send your files forward. Just copy the link to your files below!
-            </p>
-            <input
-                spellCheck={false}
-                type="text"
-                onSelect={(e) => e.currentTarget.select()}
-                className={styles.manualcopylink}
-                value={props.filename}
-                onChange={() => {}}
-            />
-
-            <div className={styles.buttons}>
-                <div className={styles.icons}>
-                    <button onClick={() => props.switchOverlay(true)} className={styles.icon}>
-                        <FaEllipsisH />
-                    </button>
-                </div>
-                <button onClick={props.resetForm} className={styles.button}>
-                    Upload a new file <FaRedoAlt />
-                </button>
-            </div>
-        </>
-    )
-}
 //TODO: get rid of the damn useState-hell
 export default function FileUpload() {
     // Initialize overview and files states
-    const [fileMetas, setFileMetas] = useState<FileInitMetas>([])
+    const [fileMetas, setFileMetas] = useState<FileInitMeta[]>([])
     const [uploadedUUID, setUploadedUUID] = useState<string>()
     const [overviewShown, setOverviewShown] = useState<boolean>(false)
     const [uploadTitle, setUploadTitle] = useState<string>()
@@ -174,27 +43,27 @@ export default function FileUpload() {
     })
 
     // class instances and ref objects
-    let fileInputRef = useRef<HTMLInputElement>(null)
-
-    const fileHandler = new FileHandler([fileMetas, setFileMetas])
+    const fileInputRef = useRef<HTMLInputElement>(null)
+    const fileHandler = new FileHandler()
     const api = new ApiWrapper(config.api_base)
 
-    useMemo(
-        () =>
-            setIsLocked(
-                fileUploadState.uploaded ||
-                    fileUploadState.uploading ||
-                    fileUploadState.processing ||
-                    fileUploadState?.error !== undefined
-            ),
-        [fileUploadState]
-    )
+    useMemo(() => {
+        const stmt =
+            fileUploadState.uploaded ||
+            fileUploadState.uploading ||
+            fileUploadState.processing ||
+            fileUploadState?.error !== undefined
+        setIsLocked(stmt)
+    }, [fileUploadState])
 
     async function uploadFiles() {
         if (fileMetas.length == 0 || isLocked) return
-        setFileUploadState((prev) => ({ ...prev, uploading: true }))
+        setFileUploadState((prev) => ({ ...prev, uploading: true, processing: true }))
 
-        const req = await api.newFile(await archive(fileHandler.files), {
+        const r = await archive(fileHandler.files)
+        setFileUploadState((prev) => ({ ...prev, processing: false }))
+
+        const req = await api.newFile(r, {
             title: uploadTitle,
         })
 
@@ -208,26 +77,36 @@ export default function FileUpload() {
         setFileUploadState((prev) => ({ ...prev, uploading: false, uploaded: true }))
     }
 
+    function removeFile(nth: number) {
+        setFileMetas((prev) => prev.filter((_, i) => nth !== i))
+        fileHandler.removeFile(nth)
+    }
+
     function resetForm() {
+        if (fileUploadState.processing || fileUploadState.uploading) return
         setFileUploadState({
             processing: false,
             uploaded: false,
             uploading: false,
             error: undefined,
         })
+        setFileMetas([])
         fileHandler.reset()
     }
 
     function addFile() {
         if (isLocked || !fileInputRef.current) return
-        fileInputRef.current.onchange = () => fileHandler.sync(fileInputRef)
+        fileInputRef.current.onchange = () => {
+            const metas = fileHandler.sync(fileInputRef)
+            if (metas) setFileMetas((prev) => prev.concat(metas))
+        }
         fileInputRef.current.click()
     }
 
     return (
         <div>
             <UploadOverview
-                removeFile={fileHandler.removeFile}
+                removeFile={removeFile}
                 files={fileMetas}
                 locked={isLocked}
                 shown={overviewShown}
@@ -236,6 +115,8 @@ export default function FileUpload() {
                 setTitle={setUploadTitle}
                 isTitleValidCallback={isTitleValidCallback}
             />
+
+            {/* The box itself */}
             <div
                 onDrop={(e) => {
                     e.preventDefault()
@@ -269,7 +150,7 @@ export default function FileUpload() {
                         fileUploadState.error ? styles.critical : "",
                     ].join(" ")}
                 >
-                    {fileMetas.length > 0 ? (
+                    {fileMetas.length >= 1 ? (
                         <>
                             {/* Uploaded screen */}
                             <motion.div
@@ -302,7 +183,7 @@ export default function FileUpload() {
                             >
                                 <UploadPreview
                                     addFile={addFile}
-                                    fileHandler={fileHandler}
+                                    removeFile={removeFile}
                                     fileMetas={fileMetas}
                                     fileUploadState={fileUploadState}
                                     isLocked={isLocked}

@@ -1,22 +1,20 @@
-import { Dispatch, RefObject, SetStateAction } from "react"
+import { RefObject } from "react"
 import { humanReadableSize } from "utils/units"
 
-export type FileInitMetas = {
+export type FileInitMeta = {
     filename: string
     size: string
     id: number
     type: string
-}[]
+}
 
 // Handle everything related to file manipulation.
 // Implements custom way for manipulating files afterwards with
 // files still containing their metadata
 export class FileHandler {
     files: File[]
-    metas: [FileInitMetas, Dispatch<SetStateAction<FileInitMetas>>]
 
-    constructor(metas: [FileInitMetas, Dispatch<SetStateAction<FileInitMetas>>]) {
-        this.metas = metas
+    constructor() {
         this.files = []
 
         this.add = this.add.bind(this)
@@ -26,39 +24,40 @@ export class FileHandler {
     }
 
     // Function which opens the file upload prompt
-    add(file: File | null | undefined) {
+    add(file: File | null | undefined): FileInitMeta | undefined {
         if (!file) return
 
         const st = this.files.filter((f) => f.lastModified === file.lastModified).length > 0
-        if (st) return
+        if (!st) this.files = this.files.concat(file)
 
-        this.metas[1]((previous) => [
-            ...previous,
-            {
-                filename: file.name,
-                size: humanReadableSize(file.size),
-                id: this.files.length + 1,
-                type: file.type,
-            },
-        ])
-        this.files = this.files.concat(file)
+        return {
+            filename: file.name,
+            id: this.files.length - 1,
+            size: humanReadableSize(file.size),
+            type: file.type,
+        }
     }
 
-    sync(ref: RefObject<HTMLInputElement>) {
+    sync(ref: RefObject<HTMLInputElement>): FileInitMeta[] | undefined {
+        let fm: FileInitMeta[] = []
         const htmlFiles = ref.current?.files
-        if (!htmlFiles) return
+        if (!htmlFiles) return fm
 
-        for (let i = 0; i < htmlFiles.length; i++) this.add(htmlFiles.item(i))
+        for (let i = 0; i < htmlFiles.length; i++) {
+            const file = this.add(htmlFiles.item(i))
+            if (file !== undefined) fm.push(file)
+        }
+
+        return fm
     }
 
     removeFile(i: number) {
-        let f = this.files
-        f.splice(i, 1)
-        this.files = f
+        let tmpfiles = this.files
+        tmpfiles.splice(i, 1)
+        this.files = tmpfiles
     }
 
     reset() {
-        this.metas[1]([])
         this.files = []
     }
 }

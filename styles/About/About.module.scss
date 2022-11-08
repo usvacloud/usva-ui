@@ -85,7 +85,7 @@
                 border-radius: var(--global-border-radius);
                 padding: 40px;
                 overflow: hidden;
-                background-color: var(--widget-primary-bg);
+                background-color: var(--widget-secondary-bg);
                 z-index: 1 !important;
                 transform: translate(-50%, -50%);
 
@@ -234,7 +234,7 @@
 
             & p.desc,
             ul {
-                color: var(--secondary-fg);
+                color: var(--widget-primary-fg);
                 background-color: var(--widget-primary-bg);
                 border-radius: var(--global-border-radius);
                 padding: $padding;
