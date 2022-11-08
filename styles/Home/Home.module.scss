@@ -424,6 +424,13 @@
                 & .status {
                     position: relative;
 
+                    & span {
+                        margin-right: 10px;
+                    }
+
+                    & svg {
+                        transform: translateY(2px);
+                    }
                     & .neutral {
                         color: var(--neutral-icon);
                     }
@@ -434,9 +441,6 @@
 
                     & .times {
                         color: var(--negative-icon);
-                    }
-                    & span {
-                        transform: translateY(-5px);
                     }
                 }
             }

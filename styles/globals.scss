@@ -45,7 +45,7 @@
     --bar-bg: hsla(0, 0%, 100%, 0.8);
     --bar-fg: hsl(0, 0%, 0%);
     --bar-icon: var(--bar-fg);
-    --list-identifier: hsl(0, 0%, 44%);
+    --list-identifier: hsla(0, 0%, 0%, 0.3);
 
     --inverted-bg: hsl(0, 0%, 8%);
     --inverted-fg: hsl(0, 0%, 93%);
@@ -77,7 +77,7 @@
 
     --widget-primary-bg: hsl(0, 0%, 91%);
     --widget-primary-bg-hover: hsl(0, 0%, 71%);
-    --widget-secondary-bg: hsl(0, 0%, 73%);
+    --widget-secondary-bg: hsl(0, 0%, 83%);
     --widget-primary-fg: hsl(0, 0%, 13%);
 
     // Switch colors from light when user prefers dark color scheme
@@ -117,7 +117,7 @@
         --bar-bg: hsla(0, 0%, 0%, 0);
         --bar-fg: hsl(0, 0%, 75%);
         --bar-icon: var(--bar-fg);
-        --list-identifier: hsl(var(--tint), 50%, 64%);
+        --list-identifier: hsla(0, 0%, 0%, 0.8);
 
         --inverted-bg: hsl(0, 0%, 9%);
         --inverted-fg: hsl(0, 0%, 90%);

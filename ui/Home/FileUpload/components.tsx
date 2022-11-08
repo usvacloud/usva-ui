@@ -52,7 +52,7 @@ export function UploadPreview({
                     >
                         <IconByExtension type={f.type} />
                         <span className={styles.filename}>
-                            {f.filename.slice(0, 30) + (f.filename.length > 30 ? "..." : "")}
+                            {f.filename.slice(0, 25) + (f.filename.length > 25 ? "..." : "")}
                         </span>
                         <span className={styles.size}>{f.size}</span>
                         <FaTimes
