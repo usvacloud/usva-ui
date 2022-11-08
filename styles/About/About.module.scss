@@ -161,8 +161,9 @@
             padding: 25px var(--section-horizontal-padding);
         }
 
-        & p {
-            color: var(--primary-fg);
+        & h1,
+        p {
+            color: var(--box-fg);
         }
 
         & .links {
@@ -210,6 +211,7 @@
     padding: var(--section-horizontal-padding);
     max-width: var(--maximum-content-width);
     margin: 70px auto 120px;
+    color: var(--primary-fg);
 
     & .content {
         margin-top: 70px;
@@ -264,7 +266,7 @@
             }
 
             & .tosnotice {
-                color: var(--accent-color);
+                color: var(--secondary-fg);
                 padding: 0 10px;
             }
         }

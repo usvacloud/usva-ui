@@ -2,7 +2,7 @@
     position: fixed;
     z-index: 10;
     backdrop-filter: blur(2px);
-    background: hsla(0, 0%, 95%, 0.917);
+    background: var(--bar-bg);
     top: 0;
     width: 100%;
     padding: 15px 20px;
@@ -20,6 +20,9 @@
             margin: 0 10px 0 auto;
             gap: 30px;
             display: flex;
+            & a {
+                color: var(--bar-fg);
+            }
         }
         & .top {
             display: flex;
@@ -39,7 +42,7 @@
                 width: 20px;
                 border-radius: 99px;
                 height: 4px;
-                background-color: black;
+                background-color: var(--bar-fg);
             }
             & .second {
                 transform: translateX(-5px);
@@ -115,6 +118,7 @@
     width: 100%;
     padding: 60px var(--section-horizontal-padding);
     margin: 0 auto;
+    color: var(--footer-fg);
 
     & .content {
         width: 100%;

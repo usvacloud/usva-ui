@@ -87,8 +87,8 @@
             transition: var(--transition);
 
             & a {
-                color: var(--accent-color);
                 margin: 0 10px;
+                color: var(--accent-light) !important;
             }
 
             & .warning {
@@ -126,7 +126,7 @@
 
                 & .button {
                     padding: 3px 12px;
-                    background-color: var(--primary-bg);
+                    background-color: var(--form-bg);
 
                     &:hover {
                         background: var(--form-bg-hover);
@@ -204,6 +204,7 @@
 
                 & .fileInfo {
                     background: var(--form-bg);
+                    color: var(--form-fg);
                     padding: 5px 10px;
                     transition: var(--transition);
                     border-radius: var(--global-border-radius);
@@ -226,7 +227,7 @@
                     }
 
                     & svg {
-                        color: var(--widget-secondary-bg);
+                        color: var(--form-icon);
                         font-size: 0.9rem;
                     }
 
@@ -237,7 +238,7 @@
             }
 
             & .fileUpload {
-                background-color: var(--primary-bg);
+                background-color: var(--landing-form-bg);
                 transition: var(--transition);
 
                 border-radius: var(--global-border-radius);
@@ -251,7 +252,7 @@
                     }
 
                     &:hover {
-                        background-color: var(--form-bg-hover);
+                        background-color: var(--landing-form-bg-hover);
                     }
 
                     & .uploadDescription {
@@ -259,8 +260,7 @@
                         text-align: center;
                         margin: 0;
                         font-size: 1.2em;
-                        font-family: var(--font-title);
-                        font-weight: 600;
+                        font-weight: 400;
                         color: var(--landing-form-fg);
                     }
 
@@ -310,6 +310,9 @@
                     background: var(--critical);
                     color: var(--critical-fg);
 
+                    & h2 {
+                        color: var(--critical-fg);
+                    }
                     &:hover {
                         background: var(--critical);
                     }
@@ -393,6 +396,7 @@
 }
 
 .overview {
+    color: var(--form-fg);
     & .contentbox {
         & .settings {
             margin: 30px 0;
@@ -471,6 +475,7 @@
                 align-items: center;
                 border-radius: var(--global-border-radius);
                 background: var(--form-bg);
+                color: var(--form-fg);
                 padding: 10px 10px;
 
                 & .filename {
