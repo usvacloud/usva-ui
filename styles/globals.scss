@@ -188,6 +188,9 @@ a {
     transition: var(--transition);
     color: inherit;
     text-decoration: none;
+    &:hover {
+        text-decoration: dashed;
+    }
 }
 
 input {

@@ -12,13 +12,14 @@
     & .content {
         transition: var(--transition);
         display: flex;
+        justify-content: space-between;
         width: var(--basewidth);
         max-width: calc(var(--maximum-content-width) + 100px);
         margin: auto;
 
         & .links {
             margin: 0 10px 0 auto;
-            gap: 30px;
+            gap: 40px;
             display: flex;
             & a {
                 color: var(--bar-fg);
