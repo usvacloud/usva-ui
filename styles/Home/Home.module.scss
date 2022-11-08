@@ -129,7 +129,7 @@
 
                 & .button {
                     padding: 3px 12px;
-                    background-color: var(--form-bg);
+                    background-color: transparent;
 
                     &:hover {
                         background: var(--form-bg-hover);
@@ -162,16 +162,8 @@
 
             & .uploadinfo {
                 padding: 5px;
+                color: var(--form-fg-alt);
 
-                & .manualcopylink::before {
-                    content: "Upload link";
-                    background: var(--inverted-bg);
-                    color: var(--inverted-fg);
-                    border-radius: var(--global-border-radius);
-                    padding: 0 5px;
-                    font-size: 0.9rem;
-                    margin-right: 10px;
-                }
                 & .manualcopylink {
                     width: auto;
                     transition: var(--transition);

@@ -1,4 +1,5 @@
 import { Pack, pack } from "tar-stream"
+import { gzipSync } from "react-zlib-js"
 
 async function addFile(file: File, tarStream: Pack): Promise<void> {
     return new Promise(async (resolve, _) => {
@@ -18,5 +19,7 @@ export async function archive(files: File[]): Promise<File> {
     await Promise.all(files.map(async (file) => addFile(file, tarStream)))
     tarStream.finalize()
 
-    return new File([await tarStream.read()], "tarfolder.tar")
+    const bfr = await gzipSync(Buffer.from(await tarStream.read()))
+
+    return new File([bfr], "tarfolder.tar")
 }
