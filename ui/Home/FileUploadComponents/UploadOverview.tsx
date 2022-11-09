@@ -3,10 +3,10 @@ import React, { useState } from "react"
 import { FaRegFrown, FaRegSmileBeam, FaSpinner, FaTimes } from "react-icons/fa"
 import styles from "@/styles/Home/Home.module.scss"
 import overlays from "@/styles/shared/Overlays.module.scss"
-import IconByExtension from "./IconByExtension"
+import IconByExtension from "@/components/Home/FileUploadComponents/IconByExtension"
 import { FileInitMeta } from "filehandler/upload"
 
-function UploadOverview(props: {
+export default function UploadOverview(props: {
     shown: boolean
     setShown: (x: boolean) => void
     locked: boolean
@@ -121,5 +121,3 @@ function UploadOverview(props: {
         </>
     )
 }
-
-export default UploadOverview

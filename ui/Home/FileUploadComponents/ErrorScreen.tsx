@@ -11,7 +11,7 @@ export default function ErrorScreen(props: { error: Error | undefined; resetUplo
                 problem persists, please contact the developer for assistance.
             </p>
             <div className={styles.buttons}>
-                <button className={[styles.button, styles.critical].join(" ")} onClick={props.resetUpload}>
+                <button className={styles.button} onClick={props.resetUpload}>
                     Start over
                 </button>
             </div>

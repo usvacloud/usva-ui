@@ -182,12 +182,18 @@
                     margin-top: 40px;
                 }
 
-                & .button.critical {
-                    transition: var(--transition);
-                    background-color: var(--critical-button);
+                &.critical {
                     color: var(--critical-fg);
-                    &:hover {
-                        background-color: var(--critical-button-hover);
+                    & p {
+                        color: var(--critical-fg-alt);
+                    }
+                    & .button {
+                        transition: var(--transition);
+                        background-color: var(--critical-button);
+                        color: var(--critical-fg);
+                        &:hover {
+                            background-color: var(--critical-button-hover);
+                        }
                     }
                 }
             }

@@ -9,16 +9,15 @@ import {
     FaRedoAlt,
     FaTimes,
 } from "react-icons/fa"
-import UploadOverview from "./UploadOverview"
-import IconByExtension from "./IconByExtension"
+import UploadOverview from "./FileUploadComponents/UploadOverview"
 import { motion } from "framer-motion"
 import config from "../../config"
 import { ApiWrapper } from "apiwrapper/main"
 import { archive } from "utils/archiver"
-import ErrorScreen from "./ErrorScreen"
+import ErrorScreen from "./FileUploadComponents/ErrorScreen"
 import { isTitleValidCallback } from "utils/other"
 import { FileHandler, FileInitMeta } from "filehandler/upload"
-import { UploadFinished, UploadPreview } from "./FileUpload/components"
+import { UploadFinished, UploadPreview } from "./FileUploadComponents/components"
 import Notice from "../shared/Notice"
 
 export type FileUploadState = {
@@ -163,7 +162,10 @@ export default function FileUpload() {
                                     display: fileUploadState.uploaded ? "block" : "none",
                                 }}
                                 transition={{ duration: 0.3 }}
-                                className={styles.uploadinfo}
+                                className={[
+                                    styles.uploadinfo,
+                                    fileUploadState.error ? styles.critical : "",
+                                ].join(" ")}
                             >
                                 {!fileUploadState.error && uploadedUUID ? (
                                     <UploadFinished

@@ -4,7 +4,7 @@ import Link from "next/link"
 import { Dispatch, SetStateAction } from "react"
 import { FaTimes, FaEllipsisH, FaPlusCircle, FaArrowUp, FaRedoAlt } from "react-icons/fa"
 import { FileUploadState } from "../FileUpload"
-import IconByExtension from "../IconByExtension"
+import IconByExtension from "./IconByExtension"
 import styles from "@/styles/Home/Home.module.scss"
 
 type UploadPreviewProps = {

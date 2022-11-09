@@ -5,12 +5,15 @@
     --font: "Mukta", Cantarell, "Open Sans", sans-serif;
     --font-title: "Sen", var(--font);
     --font-titles: var(--font);
-    --maximum-content-width: 1150px;
+    --maximum-content-width: 850px;
     --global-border-radius: 10px;
     --default-bg-blur: 30px;
     --basewidth: 90%;
-
     --section-horizontal-padding: 20px;
+
+    @media screen and (min-width: 1200px) {
+        --maximum-content-width: 1000px;
+    }
 
     // Colors
     --tint: 160;
@@ -81,30 +84,31 @@
     --widget-primary-fg: hsl(0, 0%, 13%);
 
     // Switch colors from light when user prefers dark color scheme
-    @media (prefers-color-scheme: dark) {
+    @media (prefers-color-scheme: "") {
         // Colors
-        --tint: 140;
+        --tint: 160;
         --accent-color: hsl((--tint), 52%, 17%);
         --accent-light: hsl(var(--tint), 52%, 50%);
 
         --critical: hsl(var(--tint), 23%, 15%);
         --critical-hover: hsl(var(--tint), 23%, 18%);
         --critical-fg: hsl(var(--tint), 13%, 70%);
+        --critical-fg-alt: hsl(var(--tint), 13%, 50%);
         --critical-icon: hsl(var(--tint), 23%, 35%);
         --critical-button: hsl(var(--tint), 23%, 23%);
         --critical-button-hover: hsl(var(--tint), 23%, 35%);
 
-        --gradient-start: hsl(calc(var(--tint) + 60), 13%, 27%);
-        --gradient-stop: hsl(var(--tint), 13%, 27%);
+        --gradient-start: hsl(calc(var(--tint) + 60), 33%, 27%);
+        --gradient-stop: hsl(var(--tint), 23%, 27%);
         --box-fg: hsl(0, 0%, 70%);
 
         --landing-bg: hsl(var(--tint), 0%, 4%);
-        --landing-bg-alt: hsl(var(--tint), 10%, 10%);
+        --landing-bg-alt: hsl(var(--tint), 35%, 20%);
 
         --landing-title-special: hsl(var(--tint), 33%, 60%);
         --landing-title-withspecial: hsl(var(--tint), 23%, 30%);
         --landing-title: hsl(var(--tint), 33%, 60%);
-        --landing-fg: hsl(var(--tint), 10%, 55%);
+        --landing-fg: hsl(var(--tint), 10%, 75%);
         --landing-form-bg: hsl(0, 0%, 7%);
         --landing-form-bg-hover: hsl(0, 0%, 9%);
         --landing-form-icon: hsl(var(--tint), 20%, 45%);
@@ -149,7 +153,7 @@
 
         --link-fg: hsl(231, 37%, 26%);
 
-        --widget-primary-bg: hsl(var(--tint), 5%, 20%);
+        --widget-primary-bg: hsl(var(--tint), 20%, 20%);
         --widget-primary-bg-hover: hsl(0, 0%, 15%);
         --widget-primary-fg: hsl(0, 0%, 77%);
         --widget-secondary-bg: hsl(0, 0%, 10%);

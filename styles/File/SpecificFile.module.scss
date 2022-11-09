@@ -1,0 +1,10 @@
+.main {
+    height: 100vh;
+    background-color: var(--primary-bg);
+    color: var(--primary-fg);
+
+    h1 {
+        position: absolute;
+        top: 50%;
+    }
+}
