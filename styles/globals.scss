@@ -84,7 +84,7 @@
     --widget-primary-fg: hsl(0, 0%, 13%);
 
     // Switch colors from light when user prefers dark color scheme
-    @media (prefers-color-scheme: "") {
+    @media (prefers-color-scheme: dark) {
         // Colors
         --tint: 160;
         --accent-color: hsl((--tint), 52%, 17%);
