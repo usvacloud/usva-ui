@@ -16,7 +16,7 @@
     }
 
     // Colors
-    --tint: 160;
+    --tint: 130;
     --accent-color: hsl(var(--tint), 52%, 17%);
     --accent-light: hsl(var(--tint), 52%, 20%);
 
@@ -30,10 +30,11 @@
     --gradient-start: hsl(130, 43%, 83%);
     --gradient-stop: hsl(170, 33%, 83%);
 
-    --landing-bg: hsl(158, 28%, 60%);
-    --landing-bg-alt: hsl(179, 25%, 62%);
+    --landing-bg: hsl(var(--tint), 28%, 90%);
+    --landing-bg-alt: hsl(var(--tint), 35%, 62%);
 
     --landing-title: hsl(162, 33%, 15%);
+    --landing-title-withspecial: var(--landing-title);
     --landing-title-special: hsl(162, 51%, 27%);
     --landing-fg: hsla(0, 0%, 0%, 0.656);
     --landing-form-bg: hsl(0, 0%, 97%);
@@ -43,7 +44,7 @@
 
     --primary-bg: hsl(0, 0%, 95%);
     --primary-fg: hsl(0, 0%, 7%);
-    --secondary-bg: hsl(0, 0%, 84%);
+    --secondary-bg: hsl(0, 0%, 93%);
     --secondary-fg: hsl(0, 0%, 21%);
     --bar-bg: hsla(0, 0%, 100%, 0.8);
     --bar-fg: hsl(0, 0%, 0%);
@@ -58,13 +59,14 @@
     --negative-icon: hsl(0, 58%, 58%);
     --neutral-icon: var(--widget-secondary-bg);
 
-    --form-bg: hsl(0, 0%, 90%);
+    --form-bg: hsl(0, 0%, 85%);
+    --form-fg: hsl(0, 0%, 0%);
     --form-fg-alt: hsl(0, 0%, 54%);
     --form-disabled-bg: hsl(0, 0%, 80%);
     --form-disabled-fg: hsl(0, 0%, 72%);
     --form-disabled-img: hsl(0, 0%, 67%);
-    --form-bg-hover: hsl(0, 0%, 85%);
-    --form-icon: hsl(0, 0%, 72%);
+    --form-bg-hover: hsl(0, 0%, 80%);
+    --form-icon: hsl(0, 0%, 62%);
 
     --form-primary: hsl(150, 29%, 36%);
     --form-primary-fg: hsl(0, 0%, 88%);
@@ -137,7 +139,7 @@
         --form-disabled-bg: hsl(0, 0%, 16%);
         --form-disabled-fg: hsl(0, 0%, 72%);
         --form-disabled-img: hsl(0, 0%, 67%);
-        --form-bg-hover: hsl(0, 0%, 12%);
+        --form-bg-hover: hsl(0, 0%, 15%);
         --form-icon: hsl(0, 0%, 26%);
         --form-icon-hover: hsl(0, 0%, 46%);
 
