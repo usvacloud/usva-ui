@@ -2,10 +2,11 @@
     height: 100vh;
     max-height: 1300px;
     min-height: 700px;
-    background: var(--landing-bg);
-    color: var(--landing-fg);
+    background: var(--landing-bg) url("/wallpaper.jpg");
     background-size: cover;
     background-position: center;
+    background-blend-mode: overlay;
+    color: var(--landing-fg);
     position: relative;
 
     @media screen and (max-width: 700px) {
@@ -166,7 +167,7 @@
                 color: var(--form-fg-alt);
 
                 & .manualcopylink {
-                    width: auto;
+                    width: 100%;
                     transition: var(--transition);
                     margin: 0;
                     padding: 5px 10px;
