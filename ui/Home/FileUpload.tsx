@@ -1,24 +1,16 @@
 import styles from "@/styles/Home/Home.module.scss"
-import { Dispatch, RefObject, SetStateAction, useEffect, useMemo, useRef, useState } from "react"
-import {
-    FaArrowUp,
-    FaCloud,
-    FaEllipsisH,
-    FaExclamationCircle,
-    FaPlusCircle,
-    FaRedoAlt,
-    FaTimes,
-} from "react-icons/fa"
+import { useMemo, useRef, useState } from "react"
+import { FaCloud, FaExclamationCircle } from "react-icons/fa"
 import UploadOverview from "./FileUploadComponents/UploadOverview"
 import { motion } from "framer-motion"
-import config from "../../config"
-import { ApiWrapper } from "apiwrapper/main"
 import { archive } from "utils/archiver"
 import ErrorScreen from "./FileUploadComponents/ErrorScreen"
 import { isTitleValidCallback } from "utils/other"
 import { FileHandler, FileInitMeta } from "filehandler/upload"
-import { UploadFinished, UploadPreview } from "./FileUploadComponents/components"
+import { UploadPreview } from "./FileUploadComponents/UploadPreview"
+import { UploadFinished } from "./FileUploadComponents/UploadFinished"
 import Notice from "../shared/Notice"
+import { defaultWrapper as api } from "apiwrapper/main"
 
 export type FileUploadState = {
     processing: boolean
@@ -45,7 +37,6 @@ export default function FileUpload() {
     // class instances and ref objects
     const fileInputRef = useRef<HTMLInputElement>(null)
     const fileHandler = useMemo(() => new FileHandler(), [])
-    const api = useMemo(() => new ApiWrapper(config.api_base), [])
 
     useMemo(() => {
         const stmt =
@@ -59,12 +50,11 @@ export default function FileUpload() {
     async function uploadFiles() {
         if (fileMetas.length == 0 || isLocked) return
         setFileUploadState((prev) => ({ ...prev, uploading: true, processing: true }))
-        console.log(fileHandler.files)
 
         const r = await archive(fileHandler.files)
         setFileUploadState((prev) => ({ ...prev, processing: false }))
 
-        const req = await api.newFile(r, {
+        const req = await api.newFile(new File([r], "upload.zip"), {
             title: uploadTitle,
         })
 
