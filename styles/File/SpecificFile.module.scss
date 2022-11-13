@@ -1,10 +1,76 @@
 .main {
     height: 100vh;
-    background-color: var(--primary-bg);
+    padding: 0 var(--section-horizontal-padding);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: var(--primary-bg) url("/wallpaper.jpg");
+    background-size: cover;
+    background-position: center;
+    background-blend-mode: overlay;
     color: var(--primary-fg);
 
-    h1 {
-        position: absolute;
-        top: 50%;
+    .content {
+        width: var(--basewidth);
+        max-width: var(--maximum-content-width);
+        margin: 0 auto;
+        color: var(--landing-fg);
+
+        & h1 {
+            font-family: var(--font-title);
+            color: var(--landing-title);
+            &.withname {
+                color: var(--landing-title-withspecial);
+                & span {
+                    color: var(--landing-title-special);
+                }
+            }
+        }
+
+        & p,
+        ul {
+            list-style-type: upper-roman;
+        }
+
+        & .button {
+            margin-top: 40px;
+            margin-right: 10px;
+            cursor: pointer;
+            font-family: var(--font);
+            font-size: 1rem;
+            border: 0;
+            transition: var(--transition);
+            text-align: center;
+            width: fit-content;
+            padding: 3px 20px;
+            border-radius: var(--global-border-radius);
+
+            background-color: transparent;
+            color: var(--form-fg);
+            background-color: var(--form-bg);
+            & svg {
+                margin-left: 5px;
+                color: var(--form-icon);
+                font-size: 0.7rem;
+            }
+            &:hover {
+                background: var(--form-bg-hover);
+            }
+            &.primary {
+                background-color: var(--form-primary);
+                color: var(--form-primary-fg);
+                & svg {
+                    color: var(--form-primary-icon);
+                }
+                &:hover {
+                    background-color: var(--form-primary-hover);
+                }
+                &.critical {
+                    cursor: default;
+                    background-color: var(--form-bg);
+                    color: var(--form-fg);
+                }
+            }
+        }
     }
 }
