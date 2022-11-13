@@ -1,4 +1,5 @@
-// eslint-disable-next-line import/no-anonymous-default-export
-export default {
+const config = {
     api_base: "http://localhost:8080",
 }
+
+export default config
