@@ -18,3 +18,7 @@ export function humanReadableSize(bytes: number): string {
 
     return sz
 }
+
+export function humanReadableDate(date: Date): string {
+    return date.toLocaleString()
+}
