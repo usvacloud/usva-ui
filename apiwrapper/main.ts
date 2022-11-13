@@ -1,5 +1,4 @@
-import { NextFetchEvent } from "next/server"
-import config from "../config"
+import appconfig from "../config"
 
 export type FileUploadOptions = {
     encrypted?: boolean
@@ -24,14 +23,12 @@ export const Errors = {
 }
 
 export class ApiWrapper {
-    baseUrl: string
+    constructor() {}
 
-    constructor(baseUrl: string) {
-        this.baseUrl = baseUrl ?? config.api_base
-    }
+    async getFileInformation(uuid: string): Promise<FileInformation | Error> {
+        const req = await this.makeRequest(`${appconfig.api_base}/file/info?filename=${uuid}`)
+        if (req instanceof Error) return req
 
-    async getFile(uuid: string): Promise<FileInformation | Error> {
-        const req = await fetch(`${this.baseUrl}/file/info?filename=${uuid}`)
         switch (req.status) {
             case 200:
                 break
@@ -56,31 +53,47 @@ export class ApiWrapper {
         }
     }
 
+    async downloadFile(uuid: string): Promise<Response | Error> {
+        const req = await this.makeRequest(`${appconfig.api_base}/file/?filename=${uuid}`)
+        if (!(req instanceof Error) && !req.body) return Error("File could not be downloaded")
+        return req
+    }
+
     async newFile(file: File, options?: FileUploadOptions): Promise<string | Error> {
         const fd = new FormData()
         fd.append("file", file)
         if (options?.title) fd.append("title", options.title)
+        const requestinit = {
+            method: "POST",
+            body: fd,
+        }
 
-        let request: {
-            req?: Response
-            body?: any
-        } = {}
+        const req = await this.makeRequest(`${appconfig.api_base}/file/upload`, requestinit)
+        if (req instanceof Error) return req
+        const rbd = await req.json()
 
+        if (!req?.ok || !Object.keys(rbd).includes("filename")) return Errors.FileNotCreated
+        return rbd["filename"]
+    }
+
+    private async makeRequest(input: RequestInfo, init?: RequestInit | undefined): Promise<Response | Error> {
         try {
-            const req = await fetch(`${this.baseUrl}/file/upload`, {
-                method: "POST",
-                body: fd,
-            })
-            request.req = req
-            request.body = await req.json()
-        } catch (_) {
-            return Errors.FileNotCreated
-        }
+            const req = await fetch(input, init)
+            if (req.ok) return req
 
-        if (!request?.req?.ok ?? !request?.body?.filename) {
-            return Errors.FileNotCreated
+            switch (req.status) {
+                case 401:
+                case 403:
+                    return Errors.PermissionDenied
+                case 404:
+                    return Errors.FileNotFound
+                default:
+                    return Errors.RequestFailed
+            }
+        } catch (e) {
+            return Error("Request returned an exception")
         }
-
-        return request.body["filename"]
     }
 }
+
+export const defaultWrapper = new ApiWrapper()
