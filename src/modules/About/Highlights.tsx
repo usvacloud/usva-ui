@@ -1,6 +1,6 @@
 import Header from "../shared/Header"
 import styles from "@/styles/About/About.module.scss"
-import { FaAccessibleIcon, FaClock, FaLeaf, FaShoePrints, FaUniversalAccess } from "react-icons/fa"
+import { FaAccessibleIcon, FaClock, FaLeaf, FaShoePrints } from "react-icons/fa"
 
 function Feature(props: { title: string; description: string; icon: JSX.Element }) {
     return (

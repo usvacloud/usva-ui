@@ -59,7 +59,7 @@
 
 .highlights {
     width: var(--basewidth);
-    padding: 150px var(--section-horizontal-padding) 30px;
+    padding: 190px var(--section-horizontal-padding) 80px;
     max-width: var(--maximum-content-width);
     margin: auto;
 
@@ -98,7 +98,7 @@
 
 .faq {
     width: var(--basewidth);
-    padding: 50px var(--section-horizontal-padding) 80px;
+    padding: 150px var(--section-horizontal-padding) 150px;
     max-width: var(--maximum-content-width);
     margin: auto;
 
@@ -193,7 +193,7 @@
     width: var(--basewidth);
     padding: var(--section-horizontal-padding);
     max-width: var(--maximum-content-width);
-    margin: 70px auto 120px;
+    margin: 150px auto 120px;
     color: var(--primary-fg);
 
     & .content {
