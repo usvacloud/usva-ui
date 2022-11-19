@@ -20,6 +20,13 @@ export const Errors = {
     FileNotFound: Error("File was not found"),
     PermissionDenied: Error("Permission was denied"),
     RequestFailed: Error("Request failed"),
+    TooBigFile: Error("Your file is too big!", {
+        cause: "Awh! The server said that your file is too big and rejected your request.",
+    }),
+    TooMuchTraffic: Error("Too much traffic!", {
+        cause: `Server's antidefense rejected your request because there was too many expensive requests from your identifier.  
+        Please try again soon, this usually doesn't last long.`,
+    }),
 }
 
 export class ApiWrapper {
@@ -77,7 +84,7 @@ export class ApiWrapper {
     }
 
     async sendFeedback(body: {}): Promise<void | Error> {
-        const req = await this.makeRequest(`${appconfig.api_base}/feedback`, {
+        const req = await this.makeRequest(`${appconfig.api_base}/feedback/`, {
             method: "POST",
             body: JSON.stringify(body),
         })
@@ -97,11 +104,15 @@ export class ApiWrapper {
                     return Errors.PermissionDenied
                 case 404:
                     return Errors.FileNotFound
+                case 413:
+                    return Errors.TooBigFile
+                case 429:
+                    return Errors.TooMuchTraffic
                 default:
                     return Errors.RequestFailed
             }
         } catch (e) {
-            return Error("Request returned an exception")
+            return Error("API is not available")
         }
     }
 }

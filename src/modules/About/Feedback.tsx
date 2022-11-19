@@ -3,7 +3,7 @@ import styles from "@/styles/About/About.module.scss"
 import overlays from "@/styles/shared/Overlays.module.scss"
 import { FormEvent, useState } from "react"
 import Header from "../shared/Header"
-import { motion } from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
 import {
     FaBug,
     FaCommentDots,
@@ -14,35 +14,68 @@ import {
     FaSpinner,
     FaTimes,
 } from "react-icons/fa"
-import { defaultWrapper } from "src/common/apiwrapper/main"
+import { defaultWrapper, Errors } from "src/common/apiwrapper/main"
+import { useEffect } from "react"
+
+const choices = [
+    {
+        icon: <FaProjectDiagram />,
+        text: "Quite a few features",
+    },
+    {
+        icon: <FaSmileBeam />,
+        text: "Positive",
+    },
+    {
+        icon: <FaFrown />,
+        text: "Overall negative",
+    },
+    {
+        icon: <FaBug />,
+        text: "Lots of bugs",
+    },
+    {
+        icon: <FaFileUpload />,
+        text: "Too hard to use",
+    },
+    {
+        icon: <FaCommentDots />,
+        text: "Something else",
+    },
+]
 
 export default function Feedback() {
     const [showForm, setShowForm] = useState(false)
     const [showThankYou, setShowThankYou] = useState(false)
     const [processing, setProcessing] = useState(false)
+    const [checks, setChecks] = useState<number[]>(new Array(choices.length))
+    const [error, setError] = useState<Error | null>()
+    const [textbox, setTextbox] = useState<string>()
 
     async function processUpload(event: FormEvent) {
         event.preventDefault()
         setProcessing(true)
-        await defaultWrapper.sendFeedback({
-            comment: "Hello there. Your website is amazing. Great job.",
-            boxes: "1,2,3,4,5,6",
-        })
 
-        setTimeout(() => {
-            setProcessing(false)
-            setShowForm(false)
-            setShowThankYou(true)
-            setTimeout(() => {
-                setShowThankYou(false)
-            }, 5000)
-        }, 500)
+        const req = await defaultWrapper.sendFeedback({
+            comment: textbox,
+            boxes: checks,
+        })
+        if (req instanceof Error) {
+            setError(req)
+        }
+
+        setProcessing(false)
+        setShowThankYou(true)
     }
+
+    useEffect(() => {
+        if (showThankYou) setTimeout(() => setShowForm(false), 5000)
+    }, [showThankYou])
 
     return (
         <div className={styles.box}>
             <div className={[styles.boxcontent, styles.blue].join(" ")}>
-                <Header title="Tell us what you think" />
+                <Header bigHeader={true} title="Tell us what you think" />
                 <p className="description small">
                     Don&apos;t worry! We made it easy for you. It takes less than 10 seconds to give feedback,
                     and we&apos;d love to hear your opinion to improve our service.
@@ -65,98 +98,88 @@ export default function Feedback() {
                 className={[styles.fullscreenform, overlays.fullscreenform].join(" ")}
             >
                 <div className={[styles.contentbox, overlays.contentbox].join(" ")}>
-                    <div className={feedbackstyles.content}>
+                    {!showThankYou && (
+                        <div className={feedbackstyles.content}>
+                            <FaTimes
+                                className={[styles.close, overlays.close].join(" ")}
+                                onClick={() => setShowForm(false)}
+                            />
+                            <h2 className="title">Give feedback!</h2>
+                            <div className={feedbackstyles.form}>
+                                <form onSubmit={processUpload}>
+                                    <div className={feedbackstyles.container}>
+                                        <textarea
+                                            onChange={(e) => setTextbox(e.target.value)}
+                                            spellCheck={false}
+                                            placeholder="My lovely description. This field is optional."
+                                        />
+                                    </div>
+
+                                    <div className={feedbackstyles.checkboxes}>
+                                        {choices.map((el, index) => {
+                                            return (
+                                                <div className={feedbackstyles.checkbox} key={index}>
+                                                    <input
+                                                        type="checkbox"
+                                                        id={index.toString()}
+                                                        name={index.toString()}
+                                                        onChange={(e) => {
+                                                            setChecks((prev) => {
+                                                                if (e.target.checked) prev.push(index)
+                                                                else prev.splice(prev.indexOf(index), 1)
+                                                                return prev
+                                                            })
+                                                        }}
+                                                    />
+                                                    <label htmlFor={index.toString()}>
+                                                        {el.icon} {el.text}
+                                                    </label>
+                                                </div>
+                                            )
+                                        })}
+                                    </div>
+                                    <button type="submit" className={feedbackstyles.button}>
+                                        {processing ? (
+                                            <div className="spinner light">
+                                                <FaSpinner />
+                                            </div>
+                                        ) : (
+                                            "Send my feedback"
+                                        )}
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    )}
+                    <motion.div
+                        animate={{
+                            transform: showThankYou ? "translateY(0px)" : "translateY(20px)",
+                            opacity: showThankYou ? 1 : 0,
+                            display: showThankYou ? "block" : "none",
+                        }}
+                    >
                         <FaTimes
                             className={[styles.close, overlays.close].join(" ")}
                             onClick={() => setShowForm(false)}
                         />
-
-                        <h2 className="title">Give feedback!</h2>
-                        <div className={feedbackstyles.form}>
-                            <form onSubmit={processUpload}>
-                                <div className={feedbackstyles.container}>
-                                    <textarea
-                                        spellCheck={false}
-                                        placeholder="My lovely description. This field is optional."
-                                    />
-                                </div>
-
-                                <div className={feedbackstyles.checkboxes}>
-                                    <div className={feedbackstyles.checkbox}>
-                                        <input type="checkbox" id="1" name="fav_language" value="HTML" />
-                                        <label htmlFor="1">
-                                            {" "}
-                                            <FaProjectDiagram /> Quite a few features
-                                        </label>
-                                    </div>
-                                    <div className={feedbackstyles.checkbox}>
-                                        <input type="checkbox" id="4" name="fav_language" value="HTML" />
-                                        <label htmlFor="4">
-                                            <FaSmileBeam /> Positive!
-                                        </label>
-                                    </div>
-                                    <div className={feedbackstyles.checkbox}>
-                                        <input type="checkbox" id="5" name="fav_language" value="HTML" />
-                                        <label htmlFor="5">
-                                            <FaBug />
-                                            Lots of bugs
-                                        </label>
-                                    </div>
-                                    <div className={feedbackstyles.checkbox}>
-                                        <input type="checkbox" id="3" name="fav_language" value="HTML" />
-                                        <label htmlFor="3">
-                                            <FaFileUpload />
-                                            Too hard to use
-                                        </label>
-                                    </div>
-                                    <div className={feedbackstyles.checkbox}>
-                                        <input type="checkbox" id="2" name="fav_language" value="HTML" />
-                                        <label htmlFor="2">
-                                            <FaFrown />
-                                            Overall negative
-                                        </label>
-                                    </div>
-                                    <div className={feedbackstyles.checkbox}>
-                                        <input type="checkbox" id="6" name="fav_language" value="HTML" />
-                                        <label htmlFor="6">
-                                            <FaCommentDots /> Something else..
-                                        </label>
-                                    </div>
-                                </div>
-
-                                <button type="submit" className={feedbackstyles.button}>
-                                    {processing ? (
-                                        <div className="spinner light">
-                                            <FaSpinner />
-                                        </div>
-                                    ) : (
-                                        "Send my feedback"
-                                    )}
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </motion.div>
-            <motion.div
-                animate={{
-                    transform: showThankYou ? "scaleY(1)" : "scaleY(0)",
-                    opacity: showThankYou ? 1 : 0,
-                }}
-                className={[styles.fullscreenform, overlays.fullscreenform].join(" ")}
-            >
-                <div className={[styles.contentbox, overlays.contentbox].join(" ")}>
-                    <FaTimes
-                        className={[styles.close, overlays.close].join(" ")}
-                        onClick={() => setShowThankYou(false)}
-                    />
-                    <Header
-                        title="Thank you"
-                        endChar="!"
-                        description={
-                            "Thank you for giving feedback! We read our feedbacks once per day. This window closes automatically in a few seconds."
-                        }
-                    />
+                        {error ? (
+                            <Header
+                                title="Failed to send feedback"
+                                endChar="!"
+                                description={
+                                    "We are very sorry, but we weren't able to complete your request. Please try again later."
+                                }
+                            />
+                        ) : (
+                            <Header
+                                title="Thank you"
+                                endChar="!"
+                                description={
+                                    "Thank you for giving feedback! We read your feedback as soon as possible. This window closes automatically in a few seconds."
+                                }
+                            />
+                        )}
+                    </motion.div>
                 </div>
             </motion.div>
         </div>

@@ -12,7 +12,7 @@ export function humanReadableSize(bytes: number): string {
         if (added) return
         if (bytes / val[1] >= 1) {
             added = true
-            sz = `${Math.floor(bytes / val[1])} ${val[0]} `
+            sz = `${Math.floor(bytes / val[1])} ${val[0]}`
         }
     })
 

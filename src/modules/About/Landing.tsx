@@ -6,13 +6,14 @@ export default function Landing() {
             <div className={styles.centerContainer}>
                 <div className={styles.header}>
                     <h1 className="title big">
-                        You get Usva as a completely free service, we have you as a loyal user.
+                        Usva is an open-source temporary file cloud with multiple features.
                     </h1>
-                    <h3 className="description">
-                        Usva is built from ground-up to provide the best user experience and reliability for
-                        all users and files. Because privacy is extremely important consept nowadays, we apply
-                        a lot of modern practices in our services to secure the identity of our users.
-                    </h3>
+                    <p className="description">
+                        Usva&apos;s primary destination is to provide everyone a trustworthy and anonymous
+                        file sharing service with built-in security controls for every user. Usva isn&apos;t
+                        tracking you down or showing you annoying ads which means that Usva is hosted with
+                        basically no profit.
+                    </p>
                 </div>
             </div>
         </div>

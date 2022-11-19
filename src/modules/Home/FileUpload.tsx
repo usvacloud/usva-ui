@@ -2,7 +2,7 @@ import styles from "@/styles/Home/Home.module.scss"
 import { useMemo, useRef, useState } from "react"
 import { FaCloud, FaExclamationCircle } from "react-icons/fa"
 import UploadOverlay from "./FileUploadComponents/Overlay"
-import { motion } from "framer-motion"
+import { AnimatePresence, AnimationControls, motion, TargetAndTransition, VariantLabels } from "framer-motion"
 import { archive } from "@/common/utils/archiver"
 import { ErrorScreen } from "./FileUploadComponents/ErrorScreen"
 import { isTitleValidCallback } from "@/common/utils/other"
@@ -18,6 +18,10 @@ export type FileUploadState = {
     processing: boolean
     uploading: boolean
     uploaded: boolean
+    status: {
+        total: number
+        current: number
+    }
     error: Error | undefined
 }
 
@@ -34,6 +38,10 @@ export default function FileUpload() {
         uploading: false,
         uploaded: false,
         error: undefined,
+        status: {
+            current: 0,
+            total: 0,
+        },
     })
 
     // class instances and ref objects
@@ -82,6 +90,10 @@ export default function FileUpload() {
             uploaded: false,
             uploading: false,
             error: undefined,
+            status: {
+                current: 0,
+                total: 0,
+            },
         })
         setFileMetas([])
         fileHandler.reset()
@@ -96,34 +108,16 @@ export default function FileUpload() {
         fileInputRef.current.click()
     }
 
-    // Components
-    function UploadedScreen() {
-        return (
-            <motion.div
-                animate={{
-                    transform: fileUploadState.uploaded ? "scale(1)" : "scale(1)",
-                    opacity: fileUploadState.uploaded ? 1 : 0,
-                    display: fileUploadState.uploaded ? "block" : "none",
-                }}
-                transition={{ duration: 0.3 }}
-                className={[styles.uploadinfo, fileUploadState.error ? styles.critical : ""].join(" ")}
-            >
-                {!fileUploadState.error && uploadedUUID ? (
-                    <FinishedScreen
-                        filename={uploadedUUID}
-                        switchOverlay={setOverviewShown}
-                        resetForm={resetForm}
-                    />
-                ) : (
-                    <ErrorScreen error={fileUploadState.error} resetUpload={resetForm} />
-                )}
-            </motion.div>
-        )
+    const animation = (x: any): TargetAndTransition => {
+        return {
+            transform: x ? "translateY(0px)" : "translateY(20px)",
+            display: x ? "block" : "none",
+            opacity: x ? 1 : 0,
+        }
     }
 
     return (
         <div>
-            <Notice />
             <UploadOverlay
                 removeFile={removeFile}
                 files={fileMetas}
@@ -142,29 +136,38 @@ export default function FileUpload() {
                 fileMetas={fileMetas}
                 fileUploadState={fileUploadState}
             >
-                {fileMetas.length >= 1 ? (
-                    <>
-                        {/* Uploaded screen */}
-                        <Review
-                            addFile={addFile}
-                            removeFile={removeFile}
-                            fileMetas={fileMetas}
-                            fileUploadState={fileUploadState}
-                            isLocked={isLocked}
-                            resetForm={resetForm}
-                            setOverviewShown={setOverviewShown}
-                            uploadFiles={uploadFiles}
-                        />
+                <motion.div animate={animation(fileMetas.length >= 1)}>
+                    <Review
+                        addFile={addFile}
+                        removeFile={removeFile}
+                        fileMetas={fileMetas}
+                        fileUploadState={fileUploadState}
+                        isLocked={isLocked}
+                        resetForm={resetForm}
+                        setOverviewShown={setOverviewShown}
+                        uploadFiles={uploadFiles}
+                    />
+                </motion.div>
 
-                        {/* Files shown */}
-                        <UploadedScreen />
-                    </>
-                ) : (
+                <motion.div animate={animation(fileMetas.length < 1)}>
                     <UploadWaiting fileUploadState={fileUploadState} />
-                )}
+                </motion.div>
+
+                <motion.div animate={animation(!fileUploadState.error && fileUploadState.uploaded)}>
+                    <FinishedScreen
+                        filename={uploadedUUID || ""}
+                        switchOverlay={setOverviewShown}
+                        resetForm={resetForm}
+                    />
+                </motion.div>
+
+                <motion.div animate={animation(fileUploadState.error)}>
+                    <ErrorScreen error={fileUploadState.error} resetUpload={resetForm} />
+                </motion.div>
 
                 <input type="file" multiple={true} ref={fileInputRef} />
             </Container>
+            <Notice />
         </div>
     )
 }

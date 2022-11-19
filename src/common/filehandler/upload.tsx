@@ -6,6 +6,7 @@ export type FileInitMeta = {
     size: string
     id: number
     type: string
+    rawsize: number
 }
 
 // Handle everything related to file manipulation.
@@ -35,6 +36,7 @@ export class FileHandler {
             id: this.files.length - 1,
             size: humanReadableSize(file.size),
             type: file.type,
+            rawsize: file.size,
         }
     }
 

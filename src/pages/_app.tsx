@@ -4,13 +4,16 @@ import "@/styles/modules.scss"
 import "@/styles/globals.scss"
 import "@/styles/textstyles.scss"
 import type { AppProps } from "next/app"
+import { MotionConfig } from "framer-motion"
 
 function MyApp({ Component, pageProps }: AppProps) {
     return (
         <>
-            <Bar />
-            <Component {...pageProps} />
-            <Footer />
+            <MotionConfig transition={{ duration: 0.6, bounce: 0.35, type: "spring" }}>
+                <Bar />
+                <Component {...pageProps} />
+                <Footer />
+            </MotionConfig>
         </>
     )
 }

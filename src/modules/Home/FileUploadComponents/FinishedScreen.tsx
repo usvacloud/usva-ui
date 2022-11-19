@@ -7,7 +7,7 @@ export function FinishedScreen(props: {
     resetForm: () => void
 }) {
     return (
-        <>
+        <div className={styles.finished}>
             <h3 className="title">Congratulations, your upload was processed!</h3>
             <p>
                 Thank you! Your files have now been processed and uploaded successfully. This means that you
@@ -18,7 +18,7 @@ export function FinishedScreen(props: {
                 type="text"
                 onSelect={(e) => e.currentTarget.select()}
                 className={styles.manualcopylink}
-                value={`${window.location.host}/file/${props.filename}`}
+                value={`${typeof window !== "undefined" ? window.location.host : ""}/file/${props.filename}`}
                 onChange={() => {}}
             />
 
@@ -32,6 +32,6 @@ export function FinishedScreen(props: {
                     Upload a new file <FaRedoAlt />
                 </button>
             </div>
-        </>
+        </div>
     )
 }

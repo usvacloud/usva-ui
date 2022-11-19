@@ -14,6 +14,7 @@ export default function FAQ() {
     return (
         <div className={styles.faq}>
             <Header
+                bigHeader={true}
                 title="Frequently Asked Questions"
                 description={`We know. We haven't answered all the questions yet.`}
             />
@@ -22,7 +23,7 @@ export default function FAQ() {
                 <Question
                     question="How do I upload my file or files?"
                     answer={`
-                    To upload a file, drop the file to the white box on top of this page.
+                    To upload a file, navigate to the website landing page and .
                     We are constantly improving our service to make uploads easier and faster.
                 `}
                 />

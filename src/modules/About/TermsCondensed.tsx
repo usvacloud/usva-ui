@@ -5,6 +5,7 @@ export default function TermsCondensed() {
     return (
         <div className={styles.termscondensed}>
             <Header
+                bigHeader={true}
                 title="Summary of Usva's terms and policies"
                 description={`
                 A quick overview of your privacy and rights with Usva. 

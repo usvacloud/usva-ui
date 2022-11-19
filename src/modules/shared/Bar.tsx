@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { FaBars, FaTimes } from "react-icons/fa"
-import { motion } from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
 import Link from "next/link"
 
 function Links() {
@@ -58,20 +58,22 @@ export default function Bar() {
                         {barVisible ? <FaTimes /> : <FaBars />}
                     </div>
                 </div>
-                {(windowWidth || 0) < 650 ? (
-                    <motion.div
-                        animate={{
-                            height: barVisible ? "inherit" : 0,
-                            display: barVisible ? "block" : "none",
-                            opacity: barVisible ? 1 : 0,
-                        }}
-                        transition={{ ease: "easeInOut", duration: 0.1 }}
-                    >
+                <AnimatePresence>
+                    {(windowWidth || 0) < 650 ? (
+                        <motion.div
+                            animate={{
+                                height: barVisible ? "inherit" : 0,
+                                display: barVisible ? "block" : "none",
+                                opacity: barVisible ? 1 : 0,
+                            }}
+                            transition={{ ease: "easeInOut", duration: 0.1 }}
+                        >
+                            <Links />
+                        </motion.div>
+                    ) : (
                         <Links />
-                    </motion.div>
-                ) : (
-                    <Links />
-                )}
+                    )}
+                </AnimatePresence>
             </div>
         </div>
     )

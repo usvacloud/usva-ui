@@ -4,7 +4,7 @@ export default function Notice() {
     return (
         <>
             <p className={styles.notice}>
-                By the way, this is a beta version of Usva and therefore all features are not implemented yet.
+                This is a beta version of Usva. All features are probably not implemented yet.
             </p>
         </>
     )

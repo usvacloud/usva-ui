@@ -32,9 +32,9 @@
         align-items: center;
 
         & .header {
+            gap: 20px;
             display: flex;
-            gap: 90px;
-            align-items: baseline;
+            flex-direction: column;
             color: var(--landing-fg);
             & h1 {
                 animation: 400ms var(--transition) popup;
@@ -43,11 +43,10 @@
                 font-size: 2rem;
             }
 
-            & h3 {
-                margin: 0;
+            & p {
                 font-weight: 500;
                 animation: 350ms var(--transition) popup;
-                color: var(--landing-fg);
+                color: var(--landing-title);
             }
             @media screen and (max-width: 900px) {
                 text-align: left;
@@ -67,7 +66,7 @@
     & .list {
         position: relative;
         display: grid;
-        grid-template-columns: auto auto auto;
+        grid-template-columns: 33% 34% 33%;
         margin: 70px 0 40px;
         gap: 40px;
 
@@ -80,29 +79,10 @@
                 z-index: 2;
             }
 
-            & .bgbox {
-                position: absolute;
-                border-radius: var(--global-border-radius);
-                padding: 40px;
-                overflow: hidden;
-                background-color: var(--widget-secondary-bg);
-                z-index: 1 !important;
-                transform: translate(-50%, -50%);
-
-                &.i1 {
-                    top: 50%;
-                    left: 50%;
-                }
-
-                &.i2 {
-                    top: 25%;
-                    left: 10%;
-                }
-
-                &.i3 {
-                    right: 50%;
-                    top: 50%;
-                }
+            & svg {
+                font-size: 2rem;
+                margin-bottom: 30px;
+                color: var(--accent-color);
             }
         }
 
@@ -163,6 +143,10 @@
         & h1,
         p {
             color: var(--box-fg);
+        }
+
+        & .headertitle {
+            font-size: 1.7rem;
         }
 
         & .links {

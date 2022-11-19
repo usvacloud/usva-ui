@@ -5,6 +5,7 @@ import styles from "@/styles/Home/Home.module.scss"
 import overlays from "@/styles/shared/Overlays.module.scss"
 import IconByExtension from "@/components/Home/FileUploadComponents/IconByExtension"
 import { FileInitMeta } from "@/common/filehandler/upload"
+import { humanReadableSize } from "@/common/utils/units"
 
 export default function UploadOverview(props: {
     shown: boolean
@@ -93,6 +94,12 @@ export default function UploadOverview(props: {
 
                     <div className={styles.s}>
                         <h3 className="title">Files</h3>
+                        <p>
+                            Final size of your upload is about{" "}
+                            {humanReadableSize(
+                                props.files.reduce((prev, current) => prev + current.rawsize, 0)
+                            ) + "."}
+                        </p>
                         <div className={styles.filesAdvanced}>
                             {props.files?.map((file: FileInitMeta, index: number) => {
                                 if (!file) return
@@ -107,9 +114,11 @@ export default function UploadOverview(props: {
                                             <IconByExtension type={file.type} />
                                         </div>
                                         <span className={styles.filename}>
-                                            {file.filename.slice(0, 20) +
-                                                (file.filename.length > 20 ? "..." : "")}
+                                            {file.filename.slice(0, 15) +
+                                                (file.filename.length > 15 ? "..." : "")}
                                         </span>
+
+                                        <span className={styles.size}>{file.size}</span>
                                         <FaTimes className={styles.close} onClick={() => removeFile(index)} />
                                     </div>
                                 )
