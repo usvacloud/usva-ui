@@ -9,7 +9,7 @@ import { MotionConfig } from "framer-motion"
 function MyApp({ Component, pageProps }: AppProps) {
     return (
         <>
-            <MotionConfig transition={{ duration: 0.6, bounce: 0.35, type: "spring" }}>
+            <MotionConfig transition={{ duration: 0.6, bounce: 0, type: "spring" }}>
                 <Bar />
                 <Component {...pageProps} />
                 <Footer />

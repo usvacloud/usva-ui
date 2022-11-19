@@ -1,3 +1,5 @@
+import { Stream } from "stream"
+import axios, { AxiosResponse, AxiosRequestConfig } from "axios"
 import appconfig from "../../../config"
 
 export type FileUploadOptions = {
@@ -48,55 +50,63 @@ export class ApiWrapper {
                 return Errors.RequestFailed
         }
 
-        const reqjson = await req.json()
         return {
-            encrypted: reqjson["encrypted"],
-            filename: reqjson["filename"],
-            locked: reqjson["locked"],
-            size: reqjson["size"],
-            title: reqjson["title"],
-            uploadDate: new Date(reqjson["uploadDate"]),
-            viewCount: reqjson["viewCount"],
+            encrypted: req.data["encrypted"],
+            filename: req.data["filename"],
+            locked: req.data["locked"],
+            size: req.data["size"],
+            title: req.data["title"],
+            uploadDate: new Date(req.data["uploadDate"]),
+            viewCount: req.data["viewCount"],
         }
     }
 
-    async downloadFile(uuid: string): Promise<Response | Error> {
-        const req = await this.makeRequest(`${appconfig.api_base}/file/?filename=${uuid}`)
-        if (!(req instanceof Error) && !req.body) return Error("File could not be downloaded")
+    async downloadFile(uuid: string): Promise<AxiosResponse | Error> {
+        const req = await this.makeRequest(`${appconfig.api_base}/file/?filename=${uuid}`, {
+            responseType: "blob",
+        })
+        if (req instanceof Error) return Error("File could not be downloaded")
         return req
     }
 
-    async newFile(file: File, options?: FileUploadOptions): Promise<string | Error> {
+    async newFile(file: File, options?: FileUploadOptions, reqStream?: Stream): Promise<string | Error> {
         const fd = new FormData()
         fd.append("file", file)
+
         if (options?.title) fd.append("title", options.title)
-        const requestinit = {
+        const req = await this.makeRequest(`${appconfig.api_base}/file/upload`, {
             method: "POST",
-            body: fd,
-        }
-
-        const req = await this.makeRequest(`${appconfig.api_base}/file/upload`, requestinit)
+            data: fd,
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+            onUploadProgress: (progressEvent) => {
+                reqStream?.emit("progress", progressEvent)
+            },
+        })
         if (req instanceof Error) return req
-        const rbd = await req.json()
 
-        if (!req?.ok || !Object.keys(rbd).includes("filename")) return Errors.FileNotCreated
-        return rbd["filename"]
+        if (!Object.keys(req.data).includes("filename")) return Errors.FileNotCreated
+        return req.data["filename"]
     }
 
-    async sendFeedback(body: {}): Promise<void | Error> {
+    async sendFeedback(body: { comment: string | null; boxes: number[] }): Promise<void | Error> {
         const req = await this.makeRequest(`${appconfig.api_base}/feedback/`, {
             method: "POST",
-            body: JSON.stringify(body),
+            data: JSON.stringify(body),
         })
 
         if (req instanceof Error) return req
         return
     }
 
-    private async makeRequest(input: RequestInfo, init?: RequestInit | undefined): Promise<Response | Error> {
+    private async makeRequest(
+        input: string,
+        init?: AxiosRequestConfig | undefined
+    ): Promise<AxiosResponse | Error> {
         try {
-            const req = await fetch(input, init)
-            if (req.ok) return req
+            const req = await axios(input, init)
+            if (req.status >= 200 && req.status < 300) return req
 
             switch (req.status) {
                 case 401:

@@ -16,6 +16,9 @@ import {
 } from "react-icons/fa"
 import { defaultWrapper, Errors } from "src/common/apiwrapper/main"
 import { useEffect } from "react"
+import { useRef } from "react"
+import { useMemo } from "react"
+import { useCallback } from "react"
 
 const choices = [
     {
@@ -48,16 +51,21 @@ export default function Feedback() {
     const [showForm, setShowForm] = useState(false)
     const [showThankYou, setShowThankYou] = useState(false)
     const [processing, setProcessing] = useState(false)
-    const [checks, setChecks] = useState<number[]>(new Array(choices.length))
+    const [checks, setChecks] = useState<number[]>([])
     const [error, setError] = useState<Error | null>()
-    const [textbox, setTextbox] = useState<string>()
+    const textarearef = useRef<HTMLTextAreaElement>(null)
 
-    async function processUpload(event: FormEvent) {
-        event.preventDefault()
+    async function processUpload(event?: FormEvent) {
+        if (event) event.preventDefault()
         setProcessing(true)
 
+        if (checks.length == 0) {
+            setProcessing(false)
+            return
+        }
+
         const req = await defaultWrapper.sendFeedback({
-            comment: textbox,
+            comment: textarearef?.current?.value || null,
             boxes: checks,
         })
         if (req instanceof Error) {
@@ -71,6 +79,16 @@ export default function Feedback() {
     useEffect(() => {
         if (showThankYou) setTimeout(() => setShowForm(false), 5000)
     }, [showThankYou])
+
+    useEffect(() => {
+        if (textarearef.current == document.activeElement) return
+        typeof window !== undefined &&
+            window.addEventListener("keydown", (evt) => {
+                if (evt.key == "Enter") {
+                    processUpload()
+                }
+            })
+    }, [])
 
     return (
         <div className={styles.box}>
@@ -105,11 +123,12 @@ export default function Feedback() {
                                 onClick={() => setShowForm(false)}
                             />
                             <h2 className="title">Give feedback!</h2>
+                            <p>Please select at least one checkbox.</p>
                             <div className={feedbackstyles.form}>
                                 <form onSubmit={processUpload}>
                                     <div className={feedbackstyles.container}>
                                         <textarea
-                                            onChange={(e) => setTextbox(e.target.value)}
+                                            ref={textarearef}
                                             spellCheck={false}
                                             placeholder="My lovely description. This field is optional."
                                         />
@@ -126,7 +145,7 @@ export default function Feedback() {
                                                         onChange={(e) => {
                                                             setChecks((prev) => {
                                                                 if (e.target.checked) prev.push(index)
-                                                                else prev.splice(prev.indexOf(index), 1)
+                                                                else prev.splice(index, 1)
                                                                 return prev
                                                             })
                                                         }}

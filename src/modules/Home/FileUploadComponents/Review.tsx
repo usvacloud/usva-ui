@@ -1,5 +1,6 @@
 import { FileInitMeta } from "src/common/filehandler/upload"
-import { motion } from "framer-motion"
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar"
+import { filterProps, motion } from "framer-motion"
 import Link from "next/link"
 import { Dispatch, SetStateAction } from "react"
 import { FaTimes, FaEllipsisH, FaPlusCircle, FaArrowUp, FaRedoAlt, FaSpinner } from "react-icons/fa"
@@ -16,6 +17,17 @@ type UploadPreviewProps = {
     addFile: () => void
     uploadFiles: () => void
     resetForm: () => void
+}
+
+function ProgressButton(props: { percent: number; children: JSX.Element | JSX.Element[] }) {
+    return (
+        <>
+            {props.children}
+            {props.percent > 0 && (
+                <CircularProgressbar className={styles.progress} value={props.percent} maxValue={100} />
+            )}
+        </>
+    )
 }
 
 export function Review({
@@ -98,17 +110,11 @@ export function Review({
                     onClick={uploadFiles}
                     className={[styles.button, styles.primary, isLocked ? styles.disabled : ""].join(" ")}
                 >
-                    {fileUploadState.uploading ? (
-                        <div className={styles.buttonProcessing}>
-                            <div className="spinner">
-                                <FaSpinner />
-                            </div>
-                        </div>
-                    ) : fileUploadState.uploaded ? (
-                        <span>Upload done.</span>
-                    ) : (
+                    <ProgressButton
+                        percent={(fileUploadState.status.current / fileUploadState.status.total) * 100}
+                    >
                         <span>Upload file{fileMetas.length > 1 ? "s" : ""}</span>
-                    )}
+                    </ProgressButton>
                 </button>
             </div>
         </motion.div>

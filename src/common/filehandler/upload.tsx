@@ -55,6 +55,11 @@ export class FileHandler {
         return fm
     }
 
+    getTotalSize() {
+        if (!this.files) return 0
+        return this.files.reduce((previousValue, currentValue) => currentValue.size + previousValue, 0)
+    }
+
     removeFile(i: number) {
         let tmpfiles = this.files
         tmpfiles.splice(i, 1)

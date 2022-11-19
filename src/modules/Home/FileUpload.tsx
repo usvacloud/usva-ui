@@ -1,8 +1,6 @@
-import styles from "@/styles/Home/Home.module.scss"
 import { useMemo, useRef, useState } from "react"
-import { FaCloud, FaExclamationCircle } from "react-icons/fa"
 import UploadOverlay from "./FileUploadComponents/Overlay"
-import { AnimatePresence, AnimationControls, motion, TargetAndTransition, VariantLabels } from "framer-motion"
+import { motion, TargetAndTransition } from "framer-motion"
 import { archive } from "@/common/utils/archiver"
 import { ErrorScreen } from "./FileUploadComponents/ErrorScreen"
 import { isTitleValidCallback } from "@/common/utils/other"
@@ -13,9 +11,11 @@ import Notice from "../shared/Notice"
 import { defaultWrapper as api } from "@/common/apiwrapper/main"
 import { UploadWaiting } from "./FileUploadComponents/EmptyUpload"
 import Container from "./FileUploadComponents/Container"
+import { useEffect } from "react"
+import { Stream } from "stream"
+import { AxiosProgressEvent } from "axios"
 
 export type FileUploadState = {
-    processing: boolean
     uploading: boolean
     uploaded: boolean
     status: {
@@ -34,7 +34,6 @@ export default function FileUpload() {
     const [uploadTitle, setUploadTitle] = useState<string>()
     const [isLocked, setIsLocked] = useState<boolean>(false)
     const [fileUploadState, setFileUploadState] = useState<FileUploadState>({
-        processing: false,
         uploading: false,
         uploaded: false,
         error: undefined,
@@ -48,35 +47,72 @@ export default function FileUpload() {
     const fileInputRef = useRef<HTMLInputElement>(null)
     const fileHandler = useMemo(() => new FileHandler(), [])
 
-    useMemo(() => {
+    useEffect(() => {
         const stmt =
-            fileUploadState.uploaded ||
-            fileUploadState.uploading ||
-            fileUploadState.processing ||
-            fileUploadState?.error !== undefined
+            fileUploadState.uploaded || fileUploadState.uploading || fileUploadState?.error !== undefined
         setIsLocked(stmt)
     }, [fileUploadState])
 
     async function uploadFiles() {
         if (fileMetas.length == 0 || isLocked) return
-        setFileUploadState((prev) => ({ ...prev, uploading: true, processing: true }))
+        setFileUploadState((p) => ({
+            ...p,
+            uploading: true,
+            status: {
+                total: fileHandler.getTotalSize(),
+                current: 0,
+            },
+        }))
 
-        const r = await archive(fileHandler.files)
-        setFileUploadState((prev) => ({ ...prev, processing: false }))
-
-        const req = await api.newFile(new File([r], "upload.zip"), {
-            title: uploadTitle,
-        })
-
-        if (req instanceof Error)
+        const stream = new Stream()
+        stream.on("add", (info: File) => {
             setFileUploadState((prev) => ({
                 ...prev,
+                status: { ...prev.status, current: prev.status.current + info.size / 2 },
+            }))
+        })
+        const r = await archive(fileHandler.files, stream)
+        setFileUploadState((prev) => ({ ...prev, status: { ...prev.status, total: r.size } }))
+
+        const reqstream = new Stream()
+        reqstream.on("progress", (info: AxiosProgressEvent) => {
+            setFileUploadState((prev) => ({
+                ...prev,
+                status: {
+                    ...prev.status,
+                    current: prev.status.current + info.bytes / 2,
+                },
+            }))
+        })
+        const req = await api.newFile(
+            new File([r], "upload.zip"),
+            {
+                title: uploadTitle,
+            },
+            reqstream
+        )
+
+        if (req instanceof Error)
+            return setFileUploadState((prev) => ({
+                ...prev,
+                uploaded: true,
+                uploading: false,
                 error: req,
             }))
         else setUploadedUUID(req)
 
-        setFileUploadState((prev) => ({ ...prev, uploading: false, uploaded: true }))
+        setFileUploadState((prev) => ({
+            ...prev,
+            uploading: false,
+            uploaded: true,
+            status: {
+                ...prev.status,
+                current: prev.status.total,
+            },
+        }))
     }
+
+    useEffect(() => window.addEventListener("keypress", (ev) => ev.key == "Enter" && uploadFiles()))
 
     function removeFile(nth: number) {
         setFileMetas((prev) => prev.filter((_, i) => nth !== i))
@@ -84,9 +120,8 @@ export default function FileUpload() {
     }
 
     function resetForm() {
-        if (fileUploadState.processing || fileUploadState.uploading) return
+        if (fileUploadState.uploading) return
         setFileUploadState({
-            processing: false,
             uploaded: false,
             uploading: false,
             error: undefined,
@@ -140,7 +175,7 @@ export default function FileUpload() {
                     <UploadWaiting fileUploadState={fileUploadState} />
                 </motion.div>
 
-                <motion.div animate={animation(fileMetas.length >= 1)}>
+                <motion.div animate={animation(fileMetas.length >= 1 && !fileUploadState.error)}>
                     <Review
                         addFile={addFile}
                         removeFile={removeFile}

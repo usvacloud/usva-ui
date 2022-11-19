@@ -1,13 +1,13 @@
 import JSZip from "jszip"
+import { Stream } from "stream"
 
-export async function archive(files: File[]): Promise<Blob> {
+export async function archive(files: File[], stream: Stream): Promise<Blob> {
     const jsStream = JSZip()
-    await Promise.all(
-        files.map(async (file) => {
-            console.log(file.name)
-            jsStream.file(file.name, await file.arrayBuffer())
-        })
-    )
+    const f = files.map(async (file) => {
+        jsStream.file(file.name, await file.arrayBuffer())
+        stream.emit("add", file)
+    })
+    await Promise.all(f)
 
     const conte = await jsStream.generateAsync({ type: "blob" })
     return conte
