@@ -22,7 +22,11 @@
             gap: 40px;
             display: flex;
             & a {
+                transition: var(--transition);
                 color: var(--bar-fg);
+                &:hover {
+                    color: var(--bar-fg-hover);
+                }
             }
         }
         & .top {

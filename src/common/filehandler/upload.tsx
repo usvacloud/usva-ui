@@ -29,8 +29,9 @@ export class FileHandler {
         if (!file) return
 
         const st = this.files.filter((f) => f.lastModified === file.lastModified).length > 0
-        if (!st) this.files = this.files.concat(file)
+        if (st) return
 
+        this.files = this.files.concat(file)
         return {
             filename: file.name,
             id: this.files.length - 1,

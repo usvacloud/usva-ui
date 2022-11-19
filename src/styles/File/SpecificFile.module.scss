@@ -4,7 +4,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background: var(--primary-bg) url("/wallpaper.jpg");
+    background: var(--landing-bg) url("/images/primary-wallpaper.jpg");
     background-size: cover;
     background-position: center;
     background-blend-mode: overlay;
@@ -18,7 +18,7 @@
 
         & h1 {
             font-family: var(--font-title);
-            color: var(--landing-title);
+            color: var(--landing-title-dark);
             &.withname {
                 color: var(--landing-title-withspecial);
                 & span {

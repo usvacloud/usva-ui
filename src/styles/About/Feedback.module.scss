@@ -62,6 +62,7 @@
                     border-radius: var(--global-border-radius);
                     padding: 2px 15px;
                     cursor: pointer;
+                    font-weight: 400;
 
                     & svg {
                         color: hsl(170, 20%, 33%);
@@ -92,6 +93,7 @@
 
         & .button {
             width: 100%;
+            font-weight: 400;
             cursor: pointer;
             transition: var(--transition);
             padding: 5px 2px;

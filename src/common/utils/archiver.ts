@@ -1,5 +1,4 @@
 import JSZip from "jszip"
-import { Readable } from "stream"
 
 export async function archive(files: File[]): Promise<Blob> {
     const jsStream = JSZip()

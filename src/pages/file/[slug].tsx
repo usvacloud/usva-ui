@@ -67,12 +67,7 @@ export default function FileDownload() {
                                     "Here's your upload."
                                 )}{" "}
                             </h1>
-                            <p>
-                                Before you proceed further, here is a quick review of your download.
-                                <br />
-                                (psst! when you download the file, you accept our{" "}
-                                <a href="/file-downloader-policy">File Downloader Policy</a>.)
-                            </p>
+                            <p>Before you proceed further, here is a quick review of your download.</p>
                             <ul>
                                 <li>Size: {humanReadableSize(file.size)}</li>
                                 <li>Uploaded: {humanReadableDate(file.uploadDate)}</li>

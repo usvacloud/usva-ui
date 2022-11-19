@@ -136,6 +136,10 @@ export default function FileUpload() {
                 fileMetas={fileMetas}
                 fileUploadState={fileUploadState}
             >
+                <motion.div animate={animation(fileMetas.length < 1)}>
+                    <UploadWaiting fileUploadState={fileUploadState} />
+                </motion.div>
+
                 <motion.div animate={animation(fileMetas.length >= 1)}>
                     <Review
                         addFile={addFile}
@@ -147,10 +151,6 @@ export default function FileUpload() {
                         setOverviewShown={setOverviewShown}
                         uploadFiles={uploadFiles}
                     />
-                </motion.div>
-
-                <motion.div animate={animation(fileMetas.length < 1)}>
-                    <UploadWaiting fileUploadState={fileUploadState} />
                 </motion.div>
 
                 <motion.div animate={animation(!fileUploadState.error && fileUploadState.uploaded)}>

@@ -2,7 +2,7 @@ import { FileInitMeta } from "src/common/filehandler/upload"
 import { motion } from "framer-motion"
 import Link from "next/link"
 import { Dispatch, SetStateAction } from "react"
-import { FaTimes, FaEllipsisH, FaPlusCircle, FaArrowUp, FaRedoAlt } from "react-icons/fa"
+import { FaTimes, FaEllipsisH, FaPlusCircle, FaArrowUp, FaRedoAlt, FaSpinner } from "react-icons/fa"
 import { FileUploadState } from "../FileUpload"
 import IconByExtension from "./IconByExtension"
 import styles from "@/styles/Home/Home.module.scss"
@@ -58,7 +58,7 @@ export function Review({
                     >
                         <IconByExtension type={f.type} />
                         <span className={styles.filename}>
-                            {f.filename.slice(0, 25) + (f.filename.length > 25 ? "..." : "")}
+                            {f.filename.slice(0, 20) + (f.filename.length > 20 ? "..." : "")}
                         </span>
                         <span className={styles.size}>{f.size}</span>
                         <FaTimes
@@ -100,9 +100,8 @@ export function Review({
                 >
                     {fileUploadState.uploading ? (
                         <div className={styles.buttonProcessing}>
-                            <span className={styles.uploading}>Your files are now uploading.</span>
-                            <div className={styles.updown}>
-                                <FaArrowUp />
+                            <div className="spinner">
+                                <FaSpinner />
                             </div>
                         </div>
                     ) : fileUploadState.uploaded ? (

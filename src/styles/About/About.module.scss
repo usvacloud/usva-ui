@@ -1,7 +1,5 @@
 .landing {
-    height: 100vh;
-    min-height: 400px;
-    max-height: 1200px;
+    height: 500px;
     background: var(--landing-bg-alt);
     background-size: cover;
     background-position: center;
@@ -9,11 +7,11 @@
 
     @media screen and (max-height: 700px) {
         height: auto;
-        padding: 150px 0 100px;
+        padding: 100px 0;
     }
     @media screen and (max-width: 700px) {
         height: auto;
-        padding: 150px 0 100px;
+        padding: 100px 0;
     }
 
     & .centerContainer {
@@ -35,10 +33,13 @@
             gap: 20px;
             display: flex;
             flex-direction: column;
-            color: var(--landing-fg);
+            & h1,
+            p {
+                color: var(--landing-title-dark);
+            }
+
             & h1 {
                 animation: 400ms var(--transition) popup;
-                color: var(--landing-title);
                 font-family: var(--font-title);
                 font-size: 2rem;
             }
@@ -46,7 +47,6 @@
             & p {
                 font-weight: 500;
                 animation: 350ms var(--transition) popup;
-                color: var(--landing-title);
             }
             @media screen and (max-width: 900px) {
                 text-align: left;
@@ -64,11 +64,12 @@
     margin: auto;
 
     & .list {
+        $gap: 40px;
         position: relative;
         display: grid;
-        grid-template-columns: 33% 34% 33%;
+        grid-template-columns: calc(100% / 3 - $gap) calc(100% / 3 - $gap) calc(100% / 3 - $gap);
         margin: 70px 0 40px;
-        gap: 40px;
+        gap: $gap;
 
         & .item {
             position: relative;
@@ -81,8 +82,8 @@
 
             & svg {
                 font-size: 2rem;
-                margin-bottom: 30px;
-                color: var(--accent-color);
+                margin-bottom: 10px;
+                color: var(--accent-light);
             }
         }
 
