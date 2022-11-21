@@ -1,13 +1,16 @@
 import { useRouter } from "next/router"
 import styles from "@/styles/File/SpecificFile.module.scss"
+import pbstyles from "@/styles/shared/CircularPB.module.scss"
 import { useEffect, useMemo, useState } from "react"
 import { defaultWrapper, FileInformation } from "@/common/apiwrapper/main"
 import { humanReadableDate, humanReadableSize } from "src/common/utils/units"
-import Head from "next/head"
+import { MotionConfig } from "framer-motion"
+import { CircularProgressbar } from "react-circular-progressbar"
 
 export default function FileDownload() {
     const { slug } = useRouter().query
     const [file, setFile] = useState<FileInformation>()
+    const [downloading, setDownloading] = useState<boolean>(true)
     const [downloaded, setDownloaded] = useState<boolean>(false)
     const [error, setError] = useState<Error>()
     const filename = useMemo(() => slug && (typeof slug === "string" ? slug : slug[0]), [slug])
@@ -28,7 +31,9 @@ export default function FileDownload() {
         const writeStream: WritableStream = require("streamsaver").createWriteStream(downloadFilename)
         window.onunload = writeStream.abort
 
-        await new Response(file.data).body?.pipeTo(writeStream)
+        const resp = new Response(file.data).body
+        let chunk = await resp?.getReader().read(150)
+
         setDownloaded(true)
     }
 
@@ -49,9 +54,6 @@ export default function FileDownload() {
 
     return (
         <>
-            <Head>
-                <title>Download {file?.title || file?.filename.slice(0, 8)}</title>
-            </Head>
             <div className={styles.main}>
                 <div className={styles.content}>
                     {file ? (
@@ -63,8 +65,8 @@ export default function FileDownload() {
                                             Download of <span className={styles.special}>{file.title}</span>
                                         </>
                                     ) : (
-                                        "Here's your upload."
-                                    )}{" "}
+                                        "Here's your download."
+                                    )}
                                 </h1>
                                 <p>Before you proceed further, here is a quick review of your download.</p>
                                 <ul>
@@ -86,7 +88,14 @@ export default function FileDownload() {
                                         error || downloaded ? styles.critical : "",
                                     ].join(" ")}
                                 >
-                                    Download
+                                    Download{" "}
+                                    {
+                                        <CircularProgressbar
+                                            className={pbstyles.progress}
+                                            value={123}
+                                            maxValue={100}
+                                        />
+                                    }
                                 </button>
                             </div>
                         </>

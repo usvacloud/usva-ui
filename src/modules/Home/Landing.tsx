@@ -7,10 +7,8 @@ export default function Landing() {
             <div className={styles.landing}>
                 <div className={styles.centerContainer}>
                     <div className={styles.header}>
-                        <h2 className="title small">Hi, my name is Usva.</h2>
                         <h1 className="title big">
-                            ...and I&apos;m here to help you share your files reliably in the{" "}
-                            <span className={styles.special}>jungle of the internet</span>.
+                            Hi, my name is Usva. I&apos;m here to help you save your files.
                         </h1>
                     </div>
                     <FileUpload />

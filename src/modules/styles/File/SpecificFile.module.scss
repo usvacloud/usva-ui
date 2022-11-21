@@ -17,10 +17,8 @@
         color: var(--landing-fg);
 
         & h1 {
-            font-family: var(--font-title);
-            color: var(--landing-title-dark);
+            animation: 250ms ease up;
             &.withname {
-                color: var(--landing-title-withspecial);
                 & span {
                     color: var(--landing-title-special);
                 }
@@ -29,10 +27,15 @@
 
         & p,
         ul {
+            animation: 350ms ease up;
             list-style-type: disc;
         }
 
         & .button {
+            display: flex;
+            gap: 8px;
+
+            animation: 450ms ease up;
             margin-top: 40px;
             margin-right: 10px;
             cursor: pointer;
@@ -40,19 +43,13 @@
             font-size: 1rem;
             border: 0;
             transition: var(--transition);
-            text-align: center;
-            width: fit-content;
-            padding: 3px 20px;
+            padding: 5px 20px;
             border-radius: var(--global-border-radius);
 
             background-color: transparent;
             color: var(--form-fg);
             background-color: var(--form-bg);
-            & svg {
-                margin-left: 5px;
-                color: var(--form-icon);
-                font-size: 0.7rem;
-            }
+
             &:hover {
                 background: var(--form-bg-hover);
             }
@@ -61,6 +58,7 @@
                 color: var(--form-primary-fg);
                 & svg {
                     color: var(--form-primary-icon);
+                    max-width: 15px;
                 }
                 &:hover {
                     background-color: var(--form-primary-hover);
@@ -72,5 +70,16 @@
                 }
             }
         }
+    }
+}
+
+@keyframes up {
+    0% {
+        transform: translateY(10px);
+        opacity: 0;
+    }
+    100% {
+        transform: none;
+        opacity: 1;
     }
 }

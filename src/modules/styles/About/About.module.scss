@@ -33,9 +33,10 @@
             gap: 20px;
             display: flex;
             flex-direction: column;
+
             & h1,
             p {
-                color: var(--landing-title-dark);
+                color: var(--landing-fg);
             }
 
             & h1 {

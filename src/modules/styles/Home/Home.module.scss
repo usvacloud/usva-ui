@@ -373,17 +373,6 @@
     }
 }
 
-.progress {
-    width: 100%;
-    max-width: 23px;
-    & path[class="CircularProgressbar-trail"] {
-        stroke: var(--accent-color);
-    }
-    & path[class="CircularProgressbar-path"] {
-        stroke: var(--accent-light);
-    }
-}
-
 .buttonProcessing {
     display: flex;
     align-items: center;

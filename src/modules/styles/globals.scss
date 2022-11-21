@@ -35,9 +35,7 @@
 
     --landing-title: hsl(var(--tint), 33%, 80%);
     --landing-title-dark: hsl(var(--tint), 33%, 10%);
-    --landing-title-withspecial: var(--landing-title-dark);
-    --landing-title-special: hsl(var(--tint), 51%, 27%);
-    --landing-fg: hsla(0, 0%, 0%, 0.656);
+    --landing-fg: hsla(0, 0%, 0%, 0.859);
     --landing-form-bg: hsl(var(--tint), 0%, 100%);
     --landing-form-bg-hover: hsl(var(--tint), 0%, 90%);
     --landing-form-icon: hsl(var(--tint), 47%, 10%);
@@ -88,84 +86,83 @@
     --widget-primary-fg: hsl(0, 0%, 13%);
 
     // Switch colors from light when user prefers dark color scheme
-    @media (prefers-color-scheme: dark) {
-        // Colors
-        --accent-color: hsl(var(--tint), 40%, 20%);
-        --accent-light: hsl(var(--tint), 22%, 50%);
-
-        --critical: hsl(var(--tint), 23%, 15%);
-        --critical-hover: hsl(var(--tint), 23%, 18%);
-        --critical-fg: hsl(var(--tint), 13%, 70%);
-        --critical-fg-alt: hsl(var(--tint), 13%, 50%);
-        --critical-icon: hsl(var(--tint), 23%, 35%);
-        --critical-button: hsl(var(--tint), 23%, 23%);
-        --critical-button-hover: hsl(var(--tint), 23%, 35%);
-
-        --gradient-start: hsl(calc(var(--tint) + 60), 33%, 57%);
-        --gradient-stop: hsl(var(--tint), 13%, 57%);
-        --box-fg: hsl(0, 0%, 0%);
-
-        --landing-bg: hsl(var(--tint), 0%, 5%);
-        --landing-bg-alt: linear-gradient(190deg, var(--gradient-start), var(--gradient-stop));
-
-        --landing-title-special: hsl(var(--tint), 33%, 60%);
-        --landing-title-withspecial: hsl(var(--tint), 23%, 30%);
-        --landing-title: hsl(var(--tint), 33%, 80%);
-        --landing-title-dark: hsl(var(--tint), 33%, 10%);
-        --landing-fg: hsl(var(--tint), 10%, 75%);
-        --landing-form-bg: hsl(0, 0%, 9%);
-        --landing-form-bg-hover: hsl(0, 0%, 9%);
-        --landing-form-icon: hsl(var(--tint), 20%, 45%);
-        --landing-form-fg: hsl(0, 0%, 47%);
-
-        --primary-bg: hsl(0, 0%, 5%);
-        --primary-fg: hsl(0, 0%, 84%);
-        --secondary-bg: hsl(0, 0%, 7%);
-        --secondary-fg: hsl(0, 0%, 55%);
-        --bar-bg: hsla(0, 0%, 5%, 0.9);
-        --bar-fg: hsl(0, 0%, 75%);
-        --bar-fg-hover: hsl(0, 0%, 45%);
-        --bar-icon: var(--bar-fg);
-        --list-identifier: hsla(var(--tint), 10%, 10%, 0.8);
-
-        --inverted-bg: hsl(0, 0%, 0%);
-        --inverted-fg: hsl(0, 0%, 60%);
-        --inverted-bg-hover: hsl(0, 0%, 15%);
-
-        --positive-icon: hsl(120, 33%, 45%);
-        --negative-icon: hsl(0, 58%, 58%);
-        --neutral-icon: var(--widget-secondary-bg);
-
-        --form-bg: hsl(0, 0%, 12%);
-        --form-fg: hsl(0, 0%, 76%);
-        --form-fg-alt: hsl(148, 0%, 36%);
-        --form-disabled-bg: hsl(0, 0%, 16%);
-        --form-disabled-fg: hsl(0, 0%, 72%);
-        --form-disabled-img: hsl(0, 0%, 67%);
-        --form-bg-hover: hsl(0, 0%, 15%);
-        --form-icon: hsl(0, 0%, 26%);
-        --form-icon-hover: hsl(0, 0%, 46%);
-
-        --form-primary: hsl(var(--tint), 29%, 20%);
-        --form-primary-fg: hsl(var(--tint), 29%, 78%);
-        --form-primary-hover: hsl(var(--tint), 29%, 26%);
-        --form-primary-disabled: hsl(var(--tint), 29%, 26%);
-
-        --footer-bg: hsl(var(--tint), 0%, 4%);
-        --footer-fg: hsl(0, 0%, 34%);
-        --footer-fg-titles: hsl(0, 0%, 54%);
-        --footer-link-mail: hsl(158, 21%, 45%);
-
-        --link-fg: hsl(231, 37%, 26%);
-
-        --widget-primary-bg: hsl(var(--tint), 20%, 50%);
-        --widget-primary-bg-hover: hsl(0, 0%, 15%);
-        --widget-primary-fg: hsl(0, 0%, 7%);
-        --widget-secondary-bg: hsl(0, 0%, 10%);
-    }
     @media screen and (max-width: 700px) {
         --basewidth: 95%;
     }
+}
+
+[data-theme="dark"] {
+    // Colors
+    --accent-color: hsl(var(--tint), 40%, 20%);
+    --accent-light: hsl(var(--tint), 22%, 50%);
+
+    --critical: hsl(var(--tint), 23%, 15%);
+    --critical-hover: hsl(var(--tint), 23%, 18%);
+    --critical-fg: hsl(var(--tint), 13%, 70%);
+    --critical-fg-alt: hsl(var(--tint), 13%, 50%);
+    --critical-icon: hsl(var(--tint), 23%, 35%);
+    --critical-button: hsl(var(--tint), 23%, 23%);
+    --critical-button-hover: hsl(var(--tint), 23%, 35%);
+
+    --gradient-start: hsl(calc(var(--tint) + 60), 33%, 57%);
+    --gradient-stop: hsl(var(--tint), 13%, 57%);
+    --box-fg: hsl(0, 0%, 0%);
+
+    --landing-bg: hsl(var(--tint), 0%, 5%);
+    --landing-bg-alt: linear-gradient(190deg, var(--gradient-start), var(--gradient-stop));
+
+    --landing-title: hsl(var(--tint), 33%, 80%);
+    --landing-title-dark: hsl(var(--tint), 33%, 10%);
+    --landing-fg: hsl(var(--tint), 10%, 75%);
+    --landing-form-bg: hsl(0, 0%, 9%);
+    --landing-form-bg-hover: hsl(0, 0%, 9%);
+    --landing-form-icon: hsl(var(--tint), 20%, 45%);
+    --landing-form-fg: hsl(0, 0%, 47%);
+
+    --primary-bg: hsl(0, 0%, 5%);
+    --primary-fg: hsl(0, 0%, 84%);
+    --secondary-bg: hsl(0, 0%, 7%);
+    --secondary-fg: hsl(0, 0%, 55%);
+    --bar-bg: hsla(0, 0%, 5%, 0.9);
+    --bar-fg: hsl(0, 0%, 75%);
+    --bar-fg-hover: hsl(0, 0%, 45%);
+    --bar-icon: var(--bar-fg);
+    --list-identifier: hsla(var(--tint), 10%, 10%, 0.8);
+
+    --inverted-bg: hsl(0, 0%, 0%);
+    --inverted-fg: hsl(0, 0%, 60%);
+    --inverted-bg-hover: hsl(0, 0%, 15%);
+
+    --positive-icon: hsl(120, 33%, 45%);
+    --negative-icon: hsl(0, 58%, 58%);
+    --neutral-icon: var(--widget-secondary-bg);
+
+    --form-bg: hsl(0, 0%, 12%);
+    --form-fg: hsl(0, 0%, 76%);
+    --form-fg-alt: hsl(148, 0%, 36%);
+    --form-disabled-bg: hsl(0, 0%, 16%);
+    --form-disabled-fg: hsl(0, 0%, 72%);
+    --form-disabled-img: hsl(0, 0%, 67%);
+    --form-bg-hover: hsl(0, 0%, 15%);
+    --form-icon: hsl(0, 0%, 26%);
+    --form-icon-hover: hsl(0, 0%, 46%);
+
+    --form-primary: hsl(var(--tint), 29%, 20%);
+    --form-primary-fg: hsl(var(--tint), 29%, 78%);
+    --form-primary-hover: hsl(var(--tint), 29%, 26%);
+    --form-primary-disabled: hsl(var(--tint), 29%, 26%);
+
+    --footer-bg: hsl(var(--tint), 0%, 4%);
+    --footer-fg: hsl(0, 0%, 34%);
+    --footer-fg-titles: hsl(0, 0%, 54%);
+    --footer-link-mail: hsl(158, 21%, 45%);
+
+    --link-fg: hsl(231, 37%, 26%);
+
+    --widget-primary-bg: hsl(var(--tint), 20%, 50%);
+    --widget-primary-bg-hover: hsl(0, 0%, 15%);
+    --widget-primary-fg: hsl(0, 0%, 7%);
+    --widget-secondary-bg: hsl(0, 0%, 10%);
 }
 
 * {

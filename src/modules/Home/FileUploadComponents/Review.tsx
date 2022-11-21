@@ -7,6 +7,7 @@ import { FaTimes, FaEllipsisH, FaPlusCircle, FaArrowUp, FaRedoAlt, FaSpinner } f
 import { FileUploadState } from "../FileUpload"
 import IconByExtension from "./IconByExtension"
 import styles from "@/styles/Home/Home.module.scss"
+import pgstyles from "@/styles/shared/CircularPB.module.scss"
 
 type UploadPreviewProps = {
     fileUploadState: FileUploadState
@@ -24,7 +25,7 @@ function ProgressButton(props: { percent: number; children: JSX.Element | JSX.El
         <>
             {props.children}
             {props.percent > 0 && (
-                <CircularProgressbar className={styles.progress} value={props.percent} maxValue={100} />
+                <CircularProgressbar className={pgstyles.progress} value={props.percent} maxValue={100} />
             )}
         </>
     )
