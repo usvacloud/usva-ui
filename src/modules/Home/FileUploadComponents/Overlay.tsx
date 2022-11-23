@@ -88,6 +88,12 @@ export default function UploadOverview(props: {
                                 </div>
                                 <input
                                     ref={props.passwordInputRef}
+                                    onChange={() => {
+                                        setRenaming(true)
+                                        setTimeout(() => {
+                                            setRenaming(false)
+                                        }, 100)
+                                    }}
                                     disabled={props.locked}
                                     type="password"
                                     placeholder="my-supersecret-passwordd"

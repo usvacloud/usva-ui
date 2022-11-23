@@ -2,8 +2,8 @@
 :root {
     // General
     --transition: 150ms cubic-bezier(0.25, 0.5, 0.25, 1);
-    --font: "Mukta", Cantarell, "Open Sans", sans-serif;
-    --font-title: "Sen", var(--font);
+    --font: Mukta, Cantarell, "Open Sans", sans-serif;
+    --font-title: Sen, var(--font);
     --font-titles: var(--font);
     --maximum-content-width: 950px;
     --global-border-radius: 10px;
@@ -110,7 +110,7 @@
     --landing-bg: hsl(var(--tint), 0%, 5%);
     --landing-bg-alt: linear-gradient(190deg, var(--gradient-start), var(--gradient-stop));
 
-    --landing-title: hsl(var(--tint), 23%, 60%);
+    --landing-title: hsl(var(--tint), 13%, 50%);
     --landing-title-dark: hsl(var(--tint), 33%, 10%);
     --landing-fg: hsl(var(--tint), 10%, 75%);
     --landing-form-bg: hsl(0, 0%, 9%);
@@ -232,4 +232,14 @@ input {
 ::-moz-selection {
     color: var(--accent-light);
     background-color: hsla(var(--tint), 10%, 58%, 0.253);
+}
+
+@font-face {
+    font-family: Mukta;
+    src: url(/assets/fonts/mukta/Mukta-Regular.ttf);
+}
+
+@font-face {
+    font-family: Sen;
+    src: url(/assets/fonts/sen/Sen-Regular.ttf);
 }

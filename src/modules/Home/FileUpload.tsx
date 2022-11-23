@@ -7,7 +7,6 @@ import { isTitleValidCallback } from "@/common/utils/other"
 import { FileHandler, FileInitMeta } from "@/common/filehandler/upload"
 import { Review } from "./FileUploadComponents/Review"
 import { FinishedScreen } from "./FileUploadComponents/FinishedScreen"
-import Notice from "../shared/Notice"
 import { defaultWrapper as api } from "@/common/apiwrapper/main"
 import { UploadWaiting } from "./FileUploadComponents/EmptyUpload"
 import Container from "./FileUploadComponents/Container"
@@ -155,18 +154,6 @@ export default function FileUpload() {
 
     return (
         <div>
-            <UploadOverlay
-                removeFile={removeFile}
-                files={fileMetas}
-                locked={isLocked}
-                shown={overviewShown}
-                passwordInputRef={passwordInputRef}
-                setShown={setOverviewShown}
-                title={uploadTitle || "Untitled upload"}
-                setTitle={setUploadTitle}
-                isTitleValidCallback={isTitleValidCallback}
-            />
-
             {/* The box itself */}
             <Container
                 addFile={addFile}
@@ -205,6 +192,18 @@ export default function FileUpload() {
 
                 <input type="file" multiple={true} ref={fileInputRef} />
             </Container>
+
+            <UploadOverlay
+                removeFile={removeFile}
+                files={fileMetas}
+                locked={isLocked}
+                shown={false || overviewShown}
+                passwordInputRef={passwordInputRef}
+                setShown={setOverviewShown}
+                title={uploadTitle || "Untitled upload"}
+                setTitle={setUploadTitle}
+                isTitleValidCallback={isTitleValidCallback}
+            />
         </div>
     )
 }

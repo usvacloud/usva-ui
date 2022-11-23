@@ -32,7 +32,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     }, [])
     return (
         <>
-            <MotionConfig transition={{ duration: 0.6, bounce: 0, type: "spring" }}>
+            <MotionConfig transition={{ duration: 0.2, ease: "easeInOut" }}>
                 <Bar />
                 <Component {...pageProps} />
                 <Footer />
