@@ -1,18 +1,24 @@
 import { useRouter } from "next/router"
 import styles from "@/styles/File/SpecificFile.module.scss"
+import ovstyles from "@/styles/shared/Overlays.module.scss"
 import pbstyles from "@/styles/shared/CircularPB.module.scss"
-import { useEffect, useMemo, useState } from "react"
-import { defaultWrapper, FileInformation } from "@/common/apiwrapper/main"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { defaultWrapper, Errors, FileInformation } from "@/common/apiwrapper/main"
 import { humanReadableDate, humanReadableSize } from "src/common/utils/units"
-import { MotionConfig } from "framer-motion"
 import { CircularProgressbar } from "react-circular-progressbar"
+import { Stream } from "stream"
+import { AxiosProgressEvent } from "axios"
+import { FaSpinner, FaTimes } from "react-icons/fa"
+import { motion } from "framer-motion"
 
 export default function FileDownload() {
     const { slug } = useRouter().query
     const [file, setFile] = useState<FileInformation>()
-    const [downloading, setDownloading] = useState<boolean>(true)
+    const [passwordRequired, setPasswordRequired] = useState<boolean>(false)
+    const [progress, setProgress] = useState<{ c: number; t: number }>({ c: 0, t: 0 })
     const [downloaded, setDownloaded] = useState<boolean>(false)
     const [error, setError] = useState<Error>()
+    const passwordRef = useRef<HTMLInputElement>(null)
     const filename = useMemo(() => slug && (typeof slug === "string" ? slug : slug[0]), [slug])
 
     useEffect(() => {
@@ -21,39 +27,81 @@ export default function FileDownload() {
     }, [downloaded])
 
     async function download() {
-        if (!filename || downloaded || error) return
+        if (!filename || downloaded || error || typeof window === "undefined") return
 
-        const file = await defaultWrapper.downloadFile(filename)
+        const fstream = new Stream()
+        fstream.on("progress", (event: AxiosProgressEvent) => {
+            setProgress({
+                t: event.total || 0,
+                c: event.loaded,
+            })
+        })
+
+        const file = await defaultWrapper.downloadFile(filename, passwordRef.current?.value, fstream)
         if (file instanceof Error) return setError(file)
         if (!file.data) return setError(Error("Failed to parse body"))
 
         const downloadFilename = filename.substring(0, 4).concat(".zip")
-        const writeStream: WritableStream = require("streamsaver").createWriteStream(downloadFilename)
+
+        const streamsaver = require("streamsaver")
+        const writeStream: WritableStream = streamsaver.createWriteStream(downloadFilename)
         window.onunload = writeStream.abort
 
-        const resp = new Response(file.data).body
-        let chunk = await resp?.getReader().read(150)
-
+        if (file.data) await new Response(file.data).body?.pipeTo(writeStream)
+        else writeStream.close()
         setDownloaded(true)
     }
 
-    useEffect(() => {
-        async function fetchData() {
-            if (!filename) return
+    const fetchData = useCallback(async () => {
+        if (!filename) return
 
-            const f = await defaultWrapper.getFileInformation(filename)
-            if (f instanceof Error) {
-                if (window) window.location.replace("/not-found")
-                return
-            }
-            setFile(f)
+        const f = await defaultWrapper.getFileInformation(filename, passwordRef.current?.value)
+        if (f instanceof Error) {
+            if (f === Errors.PermissionDenied) setPasswordRequired(true)
+            else if (window) window.location.replace("/not-found")
+
+            return
         }
-
-        fetchData()
+        setFile(f)
+        setPasswordRequired(false)
     }, [filename])
+
+    useEffect(() => {
+        fetchData()
+    }, [fetchData])
 
     return (
         <>
+            <motion.div
+                animate={{
+                    display: passwordRequired ? "flex" : "none",
+                }}
+                className={[styles.fullscreenform, ovstyles.fullscreenform].join(" ")}
+            >
+                <motion.div
+                    animate={{
+                        transform: passwordRequired ? "translateY(0px)" : "translateY(50%)",
+                        opacity: passwordRequired ? 1 : 0,
+                    }}
+                    className={ovstyles.contentbox}
+                >
+                    <div className={styles.overlayheader}>
+                        <h2>This upload has been protected.</h2>
+                        <p>Please authorize yourself before viewing this file!</p>
+                    </div>
+                    <div className={styles.form}>
+                        <input
+                            type="password"
+                            placeholder="File password"
+                            ref={passwordRef}
+                            className={styles.password}
+                        />
+                        <button onClick={fetchData} className={styles.button}>
+                            Open this file
+                        </button>
+                    </div>
+                </motion.div>
+            </motion.div>
             <div className={styles.main}>
                 <div className={styles.content}>
                     {file ? (
@@ -88,19 +136,22 @@ export default function FileDownload() {
                                         error || downloaded ? styles.critical : "",
                                     ].join(" ")}
                                 >
-                                    Download{" "}
-                                    {
+                                    {progress.c > 0 && progress.c < progress.t ? (
                                         <CircularProgressbar
                                             className={pbstyles.progress}
-                                            value={123}
-                                            maxValue={100}
+                                            value={progress.c}
+                                            maxValue={progress.t}
                                         />
-                                    }
+                                    ) : (
+                                        <>Download</>
+                                    )}
                                 </button>
                             </div>
                         </>
                     ) : (
-                        <></>
+                        <div className="spinner">
+                            <FaSpinner />
+                        </div>
                     )}
                 </div>
             </div>

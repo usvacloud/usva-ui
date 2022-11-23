@@ -35,24 +35,12 @@
         }
 
         & .logo {
+            transition: var(--transition);
+            color: var(--bar-fg);
+            &:hover {
+                color: var(--bar-fg-hover);
+            }
             cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            gap: 3px;
-            justify-content: center;
-            transform: rotate(45deg);
-            & .first,
-            .second,
-            .third {
-                width: 20px;
-                border-radius: 99px;
-                height: 4px;
-                background-color: var(--bar-fg);
-            }
-            & .second {
-                transform: translateX(-5px);
-                background-color: #347381;
-            }
         }
 
         & .menuicon {

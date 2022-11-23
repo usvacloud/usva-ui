@@ -36,11 +36,9 @@ export default function TermsCondensed() {
                 <div className={styles.terms}>
                     <h2 className={styles.title}>Privacy Policy</h2>
                     <p className={styles.desc}>
-                        Usva is not meant to be another service with distorted policies, nor it aims to be
-                        disrespectful for user&apos;s privacy. In nutshell, we save IP addresses of file
-                        uploaders as hashed strings to make temporary banning of guilty uploaders possible.
-                        All personal information is strictly processed either in the browser or at the latest
-                        in the server.
+                        In nutshell, we save IP addresses of file uploaders as SHA256 hashed strings to make
+                        temporary banning of guilty uploaders possible. All personal information is strictly
+                        processed either in the browser or at the latest in the server.
                     </p>
                 </div>
             </div>

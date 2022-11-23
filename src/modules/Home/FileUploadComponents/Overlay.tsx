@@ -1,11 +1,12 @@
 import { motion } from "framer-motion"
-import React, { useState } from "react"
+import React, { Ref, useState } from "react"
 import { FaRegFrown, FaRegSmileBeam, FaSpinner, FaTimes } from "react-icons/fa"
 import styles from "@/styles/Home/Home.module.scss"
 import overlays from "@/styles/shared/Overlays.module.scss"
 import IconByExtension from "@/components/Home/FileUploadComponents/IconByExtension"
 import { FileInitMeta } from "@/common/filehandler/upload"
 import { humanReadableSize } from "@/common/utils/units"
+import Notice from "@/components/shared/Notice"
 
 export default function UploadOverview(props: {
     shown: boolean
@@ -14,6 +15,7 @@ export default function UploadOverview(props: {
     files: FileInitMeta[]
     removeFile: (i: number) => void
     title: string
+    passwordInputRef: Ref<HTMLInputElement>
     setTitle: (x: string) => void
     isTitleValidCallback: (x: string) => boolean
 }) {
@@ -41,6 +43,7 @@ export default function UploadOverview(props: {
                         <FaTimes />
                     </div>
                     <h1 className="title primary">Overview</h1>
+                    <Notice />
 
                     <div className={styles.settings}>
                         <div className={styles.inline}>
@@ -84,9 +87,10 @@ export default function UploadOverview(props: {
                                     <label>Protect your files with encryption</label>
                                 </div>
                                 <input
-                                    disabled={true || props.locked}
+                                    ref={props.passwordInputRef}
+                                    disabled={props.locked}
                                     type="password"
-                                    placeholder="Feature is currently being developed."
+                                    placeholder="my-supersecret-passwordd"
                                 />
                             </div>
                         </div>

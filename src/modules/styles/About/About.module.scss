@@ -1,5 +1,6 @@
 .landing {
-    height: 500px;
+    height: 100vh;
+    max-height: 1500px;
     background: var(--landing-bg-alt);
     background-size: cover;
     background-position: center;
@@ -33,19 +34,17 @@
             gap: 20px;
             display: flex;
             flex-direction: column;
-
-            & h1,
-            p {
-                color: var(--landing-fg);
-            }
+            color: var(--landing-title-dark);
 
             & h1 {
+                color: var(--landing-title-dark);
                 animation: 400ms var(--transition) popup;
                 font-family: var(--font-title);
                 font-size: 2rem;
             }
 
             & p {
+                color: var(--landing-title-dark);
                 font-weight: 500;
                 animation: 350ms var(--transition) popup;
             }
@@ -84,7 +83,7 @@
             & svg {
                 font-size: 2rem;
                 margin-bottom: 10px;
-                color: var(--accent-light);
+                fill: var(--accent-light);
             }
         }
 
@@ -237,6 +236,7 @@
                     position: relative;
                     list-style-type: none;
                     margin-left: calc($identifierwidth * 2);
+                    color: var(--widget-primary-fg);
 
                     &::before {
                         content: "";

@@ -33,6 +33,7 @@ export default function FileUpload() {
     const [overviewShown, setOverviewShown] = useState<boolean>(false)
     const [uploadTitle, setUploadTitle] = useState<string>()
     const [isLocked, setIsLocked] = useState<boolean>(false)
+    const passwordInputRef = useRef<HTMLInputElement>(null)
     const [fileUploadState, setFileUploadState] = useState<FileUploadState>({
         uploading: false,
         uploaded: false,
@@ -55,6 +56,7 @@ export default function FileUpload() {
 
     async function uploadFiles() {
         if (fileMetas.length == 0 || isLocked) return
+
         setFileUploadState((p) => ({
             ...p,
             uploading: true,
@@ -88,6 +90,8 @@ export default function FileUpload() {
             new File([r], "upload.zip"),
             {
                 title: uploadTitle,
+                encrypted: false,
+                password: passwordInputRef.current?.value,
             },
             reqstream
         )
@@ -111,8 +115,6 @@ export default function FileUpload() {
             },
         }))
     }
-
-    useEffect(() => window.addEventListener("keypress", (ev) => ev.key == "Enter" && uploadFiles()))
 
     function removeFile(nth: number) {
         setFileMetas((prev) => prev.filter((_, i) => nth !== i))
@@ -158,6 +160,7 @@ export default function FileUpload() {
                 files={fileMetas}
                 locked={isLocked}
                 shown={overviewShown}
+                passwordInputRef={passwordInputRef}
                 setShown={setOverviewShown}
                 title={uploadTitle || "Untitled upload"}
                 setTitle={setUploadTitle}
@@ -202,7 +205,6 @@ export default function FileUpload() {
 
                 <input type="file" multiple={true} ref={fileInputRef} />
             </Container>
-            <Notice />
         </div>
     )
 }

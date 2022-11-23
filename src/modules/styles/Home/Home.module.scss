@@ -33,14 +33,10 @@
             margin-bottom: 60px;
             & h1 {
                 animation: 350ms var(--transition) popup;
-                color: var(--landing-title);
                 font-family: var(--font-title);
                 font-size: 2.5rem;
                 width: 100%;
-                color: var(--landing-title-withspecial);
-                & span.special {
-                    color: var(--landing-title-special);
-                }
+                color: var(--landing-title);
                 @media screen and (min-width: 1400px) {
                     font-size: 2.6rem;
                 }
@@ -52,14 +48,6 @@
                 }
             }
 
-            & h2 {
-                font-weight: 400;
-                font-size: 2rem;
-                animation: 400ms var(--transition) popup;
-                @media screen and (max-width: 1400px) {
-                    font-size: 1.3rem;
-                }
-            }
             @media screen and (min-width: 1400px) {
                 width: 800px;
             }
@@ -132,7 +120,7 @@
                         color: var(--form-primary-fg);
                         background-color: var(--form-primary);
                         & svg {
-                            color: var(--form-primary-icon);
+                            fill: var(--form-primary-icon);
                         }
                         &:hover {
                             background-color: var(--form-primary-hover);
@@ -168,10 +156,10 @@
                     margin-top: 40px;
                     & .button {
                         & svg {
-                            color: var(--form-icon);
+                            fill: var(--form-icon);
                         }
                         &:hover svg {
-                            color: var(--form-icon-hover);
+                            fill: var(--form-icon-hover);
                         }
                     }
                 }
@@ -232,7 +220,7 @@
                     }
 
                     & svg {
-                        color: var(--form-icon);
+                        fill: var(--form-icon);
                         font-size: 0.9rem;
                     }
 
@@ -280,7 +268,7 @@
 
                         & svg {
                             font-size: 3.8rem;
-                            color: var(--landing-form-icon);
+                            fill: var(--landing-form-icon);
                         }
                     }
                     @media screen and (max-width: 800px) {
@@ -308,7 +296,7 @@
                         }
 
                         & .loadicon svg {
-                            color: var(--critical-icon);
+                            fill: var(--critical-icon);
                         }
                     }
                 }
@@ -386,7 +374,7 @@
     opacity: 0;
 
     & svg {
-        color: var(--form-icon);
+        fill: var(--form-icon);
     }
 }
 
@@ -503,7 +491,7 @@
                 }
 
                 & svg {
-                    color: var(--form-icon);
+                    fill: var(--form-icon);
                 }
 
                 & .fileicon {

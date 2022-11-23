@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { FaBars, FaTimes } from "react-icons/fa"
+import { FaBars, FaCloud, FaCloudDownloadAlt, FaSmileBeam, FaTimes } from "react-icons/fa"
 import { AnimatePresence, motion } from "framer-motion"
 import Link from "next/link"
 
@@ -48,11 +48,7 @@ export default function Bar() {
             <div className="content">
                 <div className="top">
                     <Link href="/">
-                        <div className="logo">
-                            <div className="first"></div>
-                            <div className="second"></div>
-                            <div className="third"></div>
-                        </div>
+                        <a className="logo">Usva</a>
                     </Link>
                     <div onClick={toggleBar} className="menuicon">
                         {barVisible ? <FaTimes /> : <FaBars />}

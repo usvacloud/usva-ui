@@ -16,7 +16,7 @@
     }
 
     // Colors
-    --tint: 330;
+    --tint: 230;
     --accent-color: hsl(var(--tint), 32%, 17%);
     --accent-light: hsl(var(--tint), 32%, 60%);
 
@@ -33,8 +33,7 @@
     --landing-bg: hsl(var(--tint), 10%, 80%);
     --landing-bg-alt: hsl(var(--tint), 25%, 82%);
 
-    --landing-title: hsl(var(--tint), 33%, 80%);
-    --landing-title-dark: hsl(var(--tint), 33%, 10%);
+    --landing-title: hsl(var(--tint), 33%, 20%);
     --landing-fg: hsla(0, 0%, 0%, 0.859);
     --landing-form-bg: hsl(var(--tint), 0%, 100%);
     --landing-form-bg-hover: hsl(var(--tint), 0%, 90%);
@@ -104,14 +103,14 @@
     --critical-button: hsl(var(--tint), 23%, 23%);
     --critical-button-hover: hsl(var(--tint), 23%, 35%);
 
-    --gradient-start: hsl(calc(var(--tint) + 60), 33%, 57%);
-    --gradient-stop: hsl(var(--tint), 13%, 57%);
+    --gradient-start: hsl(calc(var(--tint) + 30), 33%, 57%);
+    --gradient-stop: hsl(var(--tint), 23%, 57%);
     --box-fg: hsl(0, 0%, 0%);
 
     --landing-bg: hsl(var(--tint), 0%, 5%);
     --landing-bg-alt: linear-gradient(190deg, var(--gradient-start), var(--gradient-stop));
 
-    --landing-title: hsl(var(--tint), 33%, 80%);
+    --landing-title: hsl(var(--tint), 23%, 60%);
     --landing-title-dark: hsl(var(--tint), 33%, 10%);
     --landing-fg: hsl(var(--tint), 10%, 75%);
     --landing-form-bg: hsl(0, 0%, 9%);
@@ -159,7 +158,7 @@
 
     --link-fg: hsl(231, 37%, 26%);
 
-    --widget-primary-bg: hsl(var(--tint), 20%, 50%);
+    --widget-primary-bg: hsl(var(--tint), 10%, 70%);
     --widget-primary-bg-hover: hsl(0, 0%, 15%);
     --widget-primary-fg: hsl(0, 0%, 7%);
     --widget-secondary-bg: hsl(0, 0%, 10%);
@@ -167,7 +166,6 @@
 
 * {
     box-sizing: border-box;
-    color: var(--primaryfg);
 }
 
 html,

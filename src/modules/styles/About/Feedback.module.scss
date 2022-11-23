@@ -19,6 +19,7 @@
                 font-family: var(--font);
                 resize: none;
                 background-color: var(--form-bg);
+                color: var(--form-fg);
                 border-radius: 10px;
                 padding: 5px 10px;
                 width: auto;
@@ -65,13 +66,13 @@
                     font-weight: 400;
 
                     & svg {
-                        color: hsl(170, 20%, 33%);
+                        fill: hsl(170, 20%, 33%);
                         transform: translateY(2px);
                         margin-right: 4px;
                         font-size: 0.95rem;
 
                         &:hover {
-                            color: hsl(170, 20%, 33%);
+                            fill: hsl(170, 20%, 33%);
                         }
                     }
                 }
@@ -101,6 +102,7 @@
             font-family: var(--font);
             outline: none;
             background-color: var(--form-bg);
+            color: var(--form-fg);
             border: none;
             font-size: 1rem;
 

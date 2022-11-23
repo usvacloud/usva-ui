@@ -1,10 +1,11 @@
 import { Stream } from "stream"
-import axios, { AxiosResponse, AxiosRequestConfig } from "axios"
+import axios, { AxiosResponse, AxiosRequestConfig, AxiosError } from "axios"
 import appconfig from "../../../config"
 
 export type FileUploadOptions = {
     encrypted?: boolean
     title?: string
+    password?: string
 }
 
 export type FileInformation = {
@@ -34,8 +35,17 @@ export const Errors = {
 export class ApiWrapper {
     constructor() {}
 
-    async getFileInformation(uuid: string): Promise<FileInformation | Error> {
-        const req = await this.makeRequest(`${appconfig.api_base}/file/info?filename=${uuid}`)
+    async getFileInformation(uuid: string, password: string | undefined): Promise<FileInformation | Error> {
+        let headers = undefined
+
+        if (password)
+            headers = {
+                Authorization: `Bearer ${Buffer.from(password, "base64").toString("hex")}`,
+            }
+
+        const req = await this.makeRequest(`${appconfig.api_base}/file/info?filename=${uuid}`, {
+            headers,
+        })
         if (req instanceof Error) return req
 
         switch (req.status) {
@@ -43,6 +53,7 @@ export class ApiWrapper {
                 break
             case 401:
             case 403:
+                console.log("permissiondenied")
                 return Errors.PermissionDenied
             case 404:
                 return Errors.FileNotFound
@@ -61,9 +72,24 @@ export class ApiWrapper {
         }
     }
 
-    async downloadFile(uuid: string): Promise<AxiosResponse | Error> {
+    async downloadFile(
+        uuid: string,
+        password: string | undefined,
+        reqStream?: Stream
+    ): Promise<AxiosResponse | Error> {
+        let headers = undefined
+
+        if (password)
+            headers = {
+                Authorization: `Bearer ${Buffer.from(password, "base64").toString("hex")}`,
+            }
+
         const req = await this.makeRequest(`${appconfig.api_base}/file/?filename=${uuid}`, {
             responseType: "blob",
+            headers,
+            onDownloadProgress(progressEvent) {
+                reqStream?.emit("progress", progressEvent)
+            },
         })
         if (req instanceof Error) return Error("File could not be downloaded")
         return req
@@ -72,15 +98,17 @@ export class ApiWrapper {
     async newFile(file: File, options?: FileUploadOptions, reqStream?: Stream): Promise<string | Error> {
         const fd = new FormData()
         fd.append("file", file)
+        if (options?.password) console.log(Buffer.from(options.password, "base64").toString("hex"))
 
         if (options?.title) fd.append("title", options.title)
+        if (options?.password) fd.append("password", Buffer.from(options.password, "base64").toString("hex"))
         const req = await this.makeRequest(`${appconfig.api_base}/file/upload`, {
             method: "POST",
             data: fd,
             headers: {
                 "Content-Type": "multipart/form-data",
             },
-            onUploadProgress: (progressEvent) => {
+            onUploadProgress(progressEvent) {
                 reqStream?.emit("progress", progressEvent)
             },
         })
@@ -105,10 +133,10 @@ export class ApiWrapper {
         init?: AxiosRequestConfig | undefined
     ): Promise<AxiosResponse | Error> {
         try {
-            const req = await axios(input, init)
-            if (req.status >= 200 && req.status < 300) return req
-
-            switch (req.status) {
+            return await axios(input, init)
+        } catch (e) {
+            if (!(e instanceof AxiosError)) return Error("API is not available")
+            switch (e.response?.status) {
                 case 401:
                 case 403:
                     return Errors.PermissionDenied
@@ -121,8 +149,6 @@ export class ApiWrapper {
                 default:
                     return Errors.RequestFailed
             }
-        } catch (e) {
-            return Error("API is not available")
         }
     }
 }

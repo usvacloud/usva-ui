@@ -17,18 +17,18 @@ function FeatureList() {
         <div className={styles.list}>
             <Feature
                 title="No footsteps left behind"
-                description={`After a file has been deleted from Usva's servers there is literally
-                no traces about you.`}
+                description={`After a file has been deleted from Usva's servers there is 
+                no traces of you.`}
                 icon={<FaShoePrints />}
             />
             <Feature
-                title="Straightforward workflow"
-                description={`Add your files, press upload, ready.`}
+                title="Straightforward"
+                description={`Add your files, press upload and you're ready.`}
                 icon={<FaClock />}
             />
             <Feature
                 title="Optimized"
-                description={`Usva was designed to be very energy-efficient.`}
+                description={`Usva was designed to be as energy-efficient as possible.`}
                 icon={<FaLeaf />}
             />
         </div>
