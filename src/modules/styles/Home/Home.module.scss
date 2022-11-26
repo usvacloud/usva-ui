@@ -34,7 +34,7 @@
             & h1 {
                 animation: 150ms var(--transition) popup;
                 font-family: var(--font-title);
-                width: 100%;
+                width: 90%;
                 color: var(--landing-title);
             }
 
@@ -42,9 +42,8 @@
                 width: 800px;
             }
             @media screen and (max-width: 800px) {
-                width: 90%;
                 & h1 {
-                    font-size: 1.6rem;
+                    font-size: 1.4rem;
                 }
                 margin-bottom: 40px;
             }
@@ -53,12 +52,13 @@
         & .uploadContainer {
             position: relative;
             animation: 250ms var(--transition) popup;
-            width: 80%;
+            width: 100%;
             display: flex;
             flex-direction: column;
             gap: 10px;
             text-align: left;
             transition: var(--transition);
+            overflow: hidden;
 
             & a {
                 margin: 0 10px;
@@ -180,8 +180,7 @@
                 display: flex;
                 flex-direction: column;
                 gap: 6px;
-                width: auto;
-                height: 100%;
+                max-width: 100%;
 
                 & .tosnt {
                     margin: 20px 0 0;
@@ -207,12 +206,17 @@
                     }
 
                     & .filename {
+                        white-space: nowrap;
+                        overflow: hidden;
+                        max-width: 50vw;
                         margin-right: auto;
+                        text-overflow: ellipsis;
                     }
 
                     & .size {
+                        white-space: nowrap;
                         color: var(--form-fg-alt);
-                        padding: 0px 8px;
+                        padding: 0px 4px;
                     }
 
                     & svg {

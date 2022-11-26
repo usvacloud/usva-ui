@@ -70,9 +70,7 @@ export function Review({
                         className={[styles.fileInfo, isLocked ? styles.disabled : ""].join(" ")}
                     >
                         <IconByExtension type={f.type} />
-                        <span className={styles.filename}>
-                            {f.filename.slice(0, 20) + (f.filename.length > 20 ? "..." : "")}
-                        </span>
+                        <span className={styles.filename}>{f.filename}</span>
                         <span className={styles.size}>{f.size}</span>
                         <FaTimes
                             onClick={(e) => {
