@@ -21,28 +21,6 @@
     }
 }
 
-@media screen and (max-width: 900px) {
-    h1 {
-        font-size: 1.5rem;
-        &.title.primary {
-            font-size: 1.5rem !important;
-        }
-    }
-    h2 {
-        font-size: 1.25rem;
-    }
-    h3 {
-        font-size: 1.05rem;
-        &.title.primary {
-            font-size: 1.05rem !important;
-        }
-    }
-
-    .description.small {
-        font-size: 1rem;
-    }
-}
-
 .special {
     color: var(--accent-color);
 }

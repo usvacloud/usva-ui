@@ -77,6 +77,7 @@
 
     --footer-bg: hsl(0, 0%, 90%);
     --footer-fg: hsl(0, 0%, 10%);
+    --footer-fg-hover: hsl(0, 0%, 90%);
     --footer-link-mail: hsl(219, 47%, 32%);
 
     --link-fg: hsl(231, 37%, 26%);
@@ -102,7 +103,6 @@ body {
     padding: 0;
     margin: 0;
     font-family: var(--font);
-    background-color: var(--primary-bg);
 
     animation: 200ms ease fadein;
 }

@@ -4,7 +4,7 @@ import Header from "../shared/Header"
 function Question(props: { question: string; answer: string }) {
     return (
         <div className={styles.question}>
-            <h2 className="title">{props.question}</h2>
+            <h3 className="title">{props.question}</h3>
             <p className="description small">{props.answer}</p>
         </div>
     )

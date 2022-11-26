@@ -19,7 +19,7 @@ export default function Footer() {
                 <Header title="More information" description={null} />
 
                 <div className="links">
-                    <div className="linksContainer contacts">
+                    <div className="linksContainer left">
                         <h2 className="title">Contacts</h2>
                         <LinkWithLabel
                             link="mailto:sec@usva.cc"
@@ -34,13 +34,16 @@ export default function Footer() {
                             label="Collaboration"
                         />
                     </div>
-                    <div className="linksContainer legal">
-                        <h2 className="title">Legal</h2>
-                        <Link href="/terms-of-service">
-                            <a className="animated">Terms of Service</a>
+                    <div className="linksContainer right">
+                        <h2 className="title">Links</h2>
+                        <Link href="https://paypal.me/tvalkonen">
+                            <a target="_blank">Sponsor</a>
                         </Link>
-                        <Link className="animated" href="/privacy-policy">
-                            <a className="animated">Privacy Policy</a>
+                        <Link href="/terms-of-service">
+                            <a target="_blank">Terms of Service</a>
+                        </Link>
+                        <Link href="/privacy-policy">
+                            <a target="_blank">Privacy Policy</a>
                         </Link>
                     </div>
                 </div>

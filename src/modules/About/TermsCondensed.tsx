@@ -15,7 +15,7 @@ export default function TermsCondensed() {
 
             <div className={styles.content}>
                 <div className={styles.terms}>
-                    <h2 className={styles.title}>Terms of Service</h2>
+                    <h3 className={styles.title}>Terms of Service</h3>
                     <ul>
                         <li>Uploads including any form of pornographic content is strictly prohibited.</li>
                         <li>
@@ -34,7 +34,7 @@ export default function TermsCondensed() {
                     </p>
                 </div>
                 <div className={styles.terms}>
-                    <h2 className={styles.title}>Privacy Policy</h2>
+                    <h3 className={styles.title}>Privacy Policy</h3>
                     <p className={styles.desc}>
                         In nutshell, we save IP addresses of file uploaders as SHA256 hashed strings to make
                         temporary banning of guilty uploaders possible. All personal information is strictly

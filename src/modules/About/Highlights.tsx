@@ -6,7 +6,7 @@ function Feature(props: { title: string; description: string; icon: JSX.Element 
     return (
         <div className={styles.item}>
             {props.icon}
-            <h2 className="title">{props.title}</h2>
+            <h3 className="title">{props.title}</h3>
             <p className="description small">{props.description}</p>
         </div>
     )

@@ -9,14 +9,12 @@ import { MotionConfig } from "framer-motion"
 export default function Home() {
     return (
         <>
-            <MotionConfig transition={{ duration: 0.2, ease: "easeInOut" }} reducedMotion="always">
-                <AboutLanding />
-                <Highlights />
-                <Feedback />
-                <FAQ />
-                <Contribute />
-                <TermsCondensed />
-            </MotionConfig>
+            <AboutLanding />
+            <Highlights />
+            <Feedback />
+            <FAQ />
+            <Contribute />
+            <TermsCondensed />
         </>
     )
 }
