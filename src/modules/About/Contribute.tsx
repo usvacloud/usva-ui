@@ -7,8 +7,7 @@ export default function Contribute() {
                 <Header title="Open for contributions" endChar="!" bigHeader={true} />
                 <p className="description">
                     Usva is open-source software and open to any kinds of contributions. There is a lot of
-                    things you can help with, including for example writing API docs, improving the website or
-                    Usva&apos;s server or even penetration testing (on your own instance!)
+                    things you can help with, including for example writing API docs or improving the website.
                 </p>
                 <div className={styles.links}>
                     <a

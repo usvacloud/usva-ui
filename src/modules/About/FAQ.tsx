@@ -30,7 +30,6 @@ export default function FAQ() {
                 <Question
                     question="Can you know the content of my uploads?"
                     answer={`
-                    If the files are encrypted, Usva can't keep track of what you upload.
                     To keep track of the quality and legality of uploads, 
                     we provide a file reporting feature.
                 `}

@@ -72,8 +72,13 @@ export default function FileUpload() {
                 status: { ...prev.status, current: prev.status.current + info.size / 2 },
             }))
         })
-        const r = await archive(fileHandler.files, stream)
-        setFileUploadState((prev) => ({ ...prev, status: { ...prev.status, total: r.size } }))
+        let r = await archive(fileHandler.files, stream)
+
+        let outsr = await r.arrayBuffer()
+        setFileUploadState((prev) => ({
+            ...prev,
+            status: { ...prev.status, total: outsr.byteLength },
+        }))
 
         const reqstream = new Stream()
         reqstream.on("progress", (info: AxiosProgressEvent) => {
@@ -86,10 +91,9 @@ export default function FileUpload() {
             }))
         })
         const req = await api.newFile(
-            new File([r], "upload.zip"),
+            new File([outsr], "upload.zip"),
             {
                 title: uploadTitle,
-                encrypted: false,
                 password: passwordInputRef.current?.value,
             },
             reqstream

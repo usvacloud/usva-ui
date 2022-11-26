@@ -3,17 +3,15 @@ import axios, { AxiosResponse, AxiosRequestConfig, AxiosError } from "axios"
 import appconfig from "../../../config"
 
 export type FileUploadOptions = {
-    encrypted?: boolean
     title?: string
     password?: string
 }
 
 export type FileInformation = {
-    encrypted: boolean
     filename: string
     locked: boolean
     size: number
-    title: string
+    title: { String: string; Valid: boolean }
     uploadDate: Date
     viewCount: number
 }
@@ -53,7 +51,6 @@ export class ApiWrapper {
                 break
             case 401:
             case 403:
-                console.log("permissiondenied")
                 return Errors.PermissionDenied
             case 404:
                 return Errors.FileNotFound
@@ -62,7 +59,6 @@ export class ApiWrapper {
         }
 
         return {
-            encrypted: req.data["encrypted"],
             filename: req.data["filename"],
             locked: req.data["locked"],
             size: req.data["size"],
@@ -98,7 +94,6 @@ export class ApiWrapper {
     async newFile(file: File, options?: FileUploadOptions, reqStream?: Stream): Promise<string | Error> {
         const fd = new FormData()
         fd.append("file", file)
-        if (options?.password) console.log(Buffer.from(options.password, "base64").toString("hex"))
 
         if (options?.title) fd.append("title", options.title)
         if (options?.password) fd.append("password", Buffer.from(options.password, "base64").toString("hex"))

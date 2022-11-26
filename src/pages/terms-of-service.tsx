@@ -32,9 +32,15 @@ export default function TermsOfService() {
 
                 <div className={styles.section}>
                     <div className={styles.content}>
-                        <h2 className="title">How users can manipulate their own data</h2>
+                        <h2 className="title">User&apos;s seal of approval</h2>
                         <p className="description">
-                            Describes your (user) rights to manipulate your data saved to servers.
+                            Describes user&apos;s rights to manipulate your data saved to servers.
+                        </p>
+                        <p className="description small">
+                            You should only contact with this service through the official website. All
+                            penetration testing is prohibited towards this service. We don&apos;t take any
+                            responsibilities for the content uploaded in this service, and the uploaders are
+                            always responsible for the content they upload.
                         </p>
 
                         <p className="description small">
@@ -43,15 +49,12 @@ export default function TermsOfService() {
                             data. Though, each time there is some changes, they are updated to our official
                             website (both PDF and their abbreviation in landing page, located in the root of
                             this website). <br /> <br />
-                            We save IP Addresses of our content uploaders and downloaders to limit the amount
-                            of unwanted abuse of our services. We have become aware of the fact that this
-                            service can be in theory used for uploading illegal content as far as it&apos;s
-                            properly encrypted (we can NOT know what the files contain in that point), so we
-                            have proceeded to offer a report feature which all users are responsible to use in
-                            case of prohibited content (defined in the first section). In case of many reports
-                            to specific file the given file is deleted from our servers, and the IP Address
-                            linked to the file is banned from uploading again for following 30 days. <br />{" "}
-                            <br />
+                            We save IP Addresses as SHA256 hashed strings of our content uploaders and
+                            downloaders to limit the amount of unwanted abuse of our services. We offer a
+                            report feature which all users are responsible to use, in the limits of terms of
+                            service, in case of prohibited content. In case of many reports to specific file
+                            the given file is deleted from our servers, and the IP Address linked to the file
+                            is banned from uploading again for following 30 days. <br /> <br />
                             To delete all information linked to your upload (which include all forms of
                             personal data defined above), you have the ability to delete the file. In case the
                             file is already deleted by administrator regarding the action of to prevent abuse,

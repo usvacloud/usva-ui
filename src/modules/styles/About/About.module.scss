@@ -1,6 +1,6 @@
 .landing {
-    height: 100vh;
-    max-height: 1500px;
+    height: 500px;
+    padding-top: 25px;
     background: var(--landing-bg-alt);
     background-size: cover;
     background-position: center;
@@ -39,12 +39,11 @@
             & h1 {
                 color: var(--landing-title-dark);
                 animation: 400ms var(--transition) popup;
-                font-family: var(--font-title);
-                font-size: 2rem;
+                font-size: 1.5rem;
             }
 
             & p {
-                color: var(--landing-title-dark);
+                color: var(--landing-title-dark-leipa);
                 font-weight: 500;
                 animation: 350ms var(--transition) popup;
             }

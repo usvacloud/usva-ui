@@ -107,10 +107,11 @@ export default function FileDownload() {
                     {file ? (
                         <>
                             <div className={styles.filemeta}>
-                                <h1 className={file.title ? styles.withname : ""}>
-                                    {file.title ? (
+                                <h1 className={file.title.Valid ? styles.withname : ""}>
+                                    {file.title.Valid ? (
                                         <>
-                                            Download of <span className={styles.special}>{file.title}</span>
+                                            Download of{" "}
+                                            <span className={styles.special}>{file.title.String}</span>
                                         </>
                                     ) : (
                                         "Here's your download."

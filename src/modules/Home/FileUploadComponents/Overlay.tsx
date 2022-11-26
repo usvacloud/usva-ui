@@ -1,12 +1,11 @@
 import { motion } from "framer-motion"
-import React, { Ref, useState } from "react"
+import React, { Ref, useMemo, useState } from "react"
 import { FaRegFrown, FaRegSmileBeam, FaSpinner, FaTimes } from "react-icons/fa"
 import styles from "@/styles/Home/Home.module.scss"
 import overlays from "@/styles/shared/Overlays.module.scss"
 import IconByExtension from "@/components/Home/FileUploadComponents/IconByExtension"
 import { FileInitMeta } from "@/common/filehandler/upload"
 import { humanReadableSize } from "@/common/utils/units"
-import Notice from "@/components/shared/Notice"
 
 export default function UploadOverview(props: {
     shown: boolean
@@ -43,7 +42,6 @@ export default function UploadOverview(props: {
                         <FaTimes />
                     </div>
                     <h1 className="title primary">Overview</h1>
-                    <Notice />
 
                     <div className={styles.settings}>
                         <div className={styles.inline}>
@@ -75,7 +73,7 @@ export default function UploadOverview(props: {
                                         setTimeout(() => {
                                             props.setTitle(e.target.value)
                                             setRenaming(false)
-                                        }, 100)
+                                        }, 20)
                                     }}
                                     disabled={props.locked}
                                     type="text"
@@ -84,7 +82,7 @@ export default function UploadOverview(props: {
                             </div>
                             <div className={styles.inputSetting}>
                                 <div className={styles.inline}>
-                                    <label>Protect your files with encryption</label>
+                                    <label>Protect your files with a password</label>
                                 </div>
                                 <input
                                     ref={props.passwordInputRef}
@@ -92,11 +90,11 @@ export default function UploadOverview(props: {
                                         setRenaming(true)
                                         setTimeout(() => {
                                             setRenaming(false)
-                                        }, 100)
+                                        }, 20)
                                     }}
                                     disabled={props.locked}
                                     type="password"
-                                    placeholder="my-supersecret-passwordd"
+                                    placeholder="my-supersecret-password"
                                 />
                             </div>
                         </div>
