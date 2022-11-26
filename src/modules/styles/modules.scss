@@ -57,18 +57,11 @@
         }
     }
     @media screen and (max-width: 650px) {
-        padding: 25px 20px;
+        background-color: var(--primary-bg);
+        padding: 15px 10px;
         & .content {
             flex-direction: column;
 
-            & .logo {
-                & .first,
-                .second,
-                .third {
-                    width: 15px;
-                    height: 3px;
-                }
-            }
             & .links {
                 gap: 5px;
                 flex-direction: column;
@@ -77,7 +70,7 @@
                 justify-content: center;
 
                 & .animated {
-                    width: var(--basewidth);
+                    width: 100%;
                     padding: 3px 0px;
                     &::before {
                         display: none;

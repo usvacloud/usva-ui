@@ -2,7 +2,7 @@
     display: grid;
     height: 100vh;
     max-height: 1300px;
-    min-height: 800px;
+    min-height: 650px;
     background: var(--landing-bg);
     background-size: cover;
     background-position: center;
@@ -12,12 +12,12 @@
 
     @media screen and (max-width: 700px) {
         height: auto;
-        padding: 100px 0;
+        padding: 150px 0;
     }
 
     @media screen and (max-height: 700px) {
         height: auto;
-        padding: 100px 0;
+        padding: 50px 0;
     }
 
     & .centerContainer {
@@ -30,22 +30,12 @@
             width: 100%;
             height: fit-content;
             color: var(--landing-fg);
-            margin-bottom: 60px;
+            margin-bottom: 70px;
             & h1 {
-                animation: 350ms var(--transition) popup;
+                animation: 150ms var(--transition) popup;
                 font-family: var(--font-title);
-                font-size: 2.5rem;
                 width: 100%;
                 color: var(--landing-title);
-                @media screen and (min-width: 1400px) {
-                    font-size: 2.6rem;
-                }
-                @media screen and (max-width: 900px) {
-                    font-size: 2rem;
-                }
-                @media screen and (max-width: 600px) {
-                    font-size: 1.5rem;
-                }
             }
 
             @media screen and (min-width: 1400px) {
@@ -53,13 +43,17 @@
             }
             @media screen and (max-width: 800px) {
                 width: 90%;
+                & h1 {
+                    font-size: 1.6rem;
+                }
+                margin-bottom: 40px;
             }
         }
 
         & .uploadContainer {
             position: relative;
-            animation: 550ms var(--transition) popup;
-            width: 100%;
+            animation: 250ms var(--transition) popup;
+            width: 80%;
             display: flex;
             flex-direction: column;
             gap: 10px;
@@ -136,6 +130,7 @@
             }
 
             & .finished {
+                transition: var(--transition);
                 padding: 5px;
                 color: var(--form-fg-alt);
 
@@ -181,6 +176,7 @@
             }
 
             & .fileContainer {
+                transition: var(--transition);
                 display: flex;
                 flex-direction: column;
                 gap: 6px;
@@ -231,6 +227,7 @@
             }
 
             & .fileUpload {
+                transition: var(--transition);
                 background-color: var(--landing-form-bg);
                 transition: var(--transition);
                 max-width: 600px;
@@ -272,9 +269,6 @@
                         }
                     }
                     @media screen and (max-width: 800px) {
-                        & .uploadDescription {
-                            font-size: 1.15rem;
-                        }
                         & .loadicon svg {
                             font-size: 3rem;
                         }

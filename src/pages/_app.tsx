@@ -10,7 +10,7 @@ import { useEffect } from "react"
 function MyApp({ Component, pageProps }: AppProps) {
     return (
         <>
-            <MotionConfig transition={{ duration: 0.2, ease: "easeInOut" }}>
+            <MotionConfig transition={{ duration: 0.5, bounce: 0.5, type: "spring" }}>
                 <Bar />
                 <Component {...pageProps} />
                 <Footer />
