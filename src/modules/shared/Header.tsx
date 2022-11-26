@@ -7,7 +7,7 @@ export default function Header(props: {
     bigHeader?: boolean
 }) {
     function Title({ children, className }: { children: JSX.Element[]; className: string }) {
-        if (props.bigHeader) return <h1 className={className}>{children}</h1>
+        if (props.bigHeader) return <h2 className={className}>{children}</h2>
         else return <h2 className={className}>{children}</h2>
     }
     return (

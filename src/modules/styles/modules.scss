@@ -95,10 +95,10 @@
 .header {
     max-width: 75%;
     & .title.primary {
-        font-size: 2em;
+        font-size: 1.7em;
 
         @media screen and (max-width: 900px) {
-            font-size: 1.6em;
+            font-size: 1.5em;
         }
     }
 
