@@ -113,7 +113,7 @@ export class ApiWrapper {
         return req.data["filename"]
     }
 
-    async sendFeedback(body: { comment: string | null; boxes: number[] }): Promise<void | Error> {
+    async sendFeedback(body: { message: string | null; boxes: number[] }): Promise<void | Error> {
         const req = await this.makeRequest(`${appconfig.api_base}/feedback/`, {
             method: "POST",
             data: JSON.stringify(body),

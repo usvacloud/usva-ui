@@ -65,7 +65,7 @@ export default function Feedback() {
         }
 
         const req = await defaultWrapper.sendFeedback({
-            comment: textarearef?.current?.value || null,
+            message: textarearef?.current?.value || null,
             boxes: checks,
         })
         if (req instanceof Error) {
