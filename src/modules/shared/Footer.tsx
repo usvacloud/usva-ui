@@ -22,16 +22,10 @@ export default function Footer() {
                     <div className="linksContainer left">
                         <h2 className="title">Contacts</h2>
                         <LinkWithLabel
-                            link="mailto:sec@usva.cc"
-                            linktext="sec@usva.cc"
+                            link="mailto:"
+                            linktext="touko (at) testausserveri fi"
                             linkclass="mail"
-                            label="Security Contact"
-                        />
-                        <LinkWithLabel
-                            link="mailto:collaboration@usva.cc"
-                            linktext="collaboration@usva.cc"
-                            linkclass="mail"
-                            label="Collaboration"
+                            label="Developer mail"
                         />
                     </div>
                     <div className="linksContainer right">
