@@ -1,8 +1,8 @@
 .errormain {
     position: relative;
     height: 100vh;
-    min-height: 600px;
-    background: var(--landing-bg-alt);
+    min-height: 500px;
+    background: var(--landing-bg);
 
     & .middle {
         padding: 0 var(--section-horizontal-padding);
@@ -14,7 +14,7 @@
         transform: translate(-50%, -50%);
         color: var(--landing-fg);
         & h1 {
-            color: var(--landing-title-dark);
+            color: var(--landing-title);
             font-size: 3rem;
             font-family: var(--font-title);
             margin: 0px 0 20px;
@@ -24,7 +24,7 @@
             }
         }
         & h2 {
-            color: var(--landing-title-dark);
+            color: var(--landing-title);
             font-weight: 400;
             margin: 0;
             width: 80%;
@@ -35,14 +35,14 @@
             transition: var(--transition);
             font-size: 1rem;
             padding: 5px 20px;
-            color: var(--critical-fg);
+            color: var(--landing-form-fg);
             cursor: pointer;
             border: 0;
             border-radius: var(--global-border-radius);
 
-            background: var(--critical);
+            background: var(--landing-form-bg);
             &:hover {
-                background: var(--critical-hover);
+                background: var(--landing-form-bg-hover);
             }
         }
     }

@@ -39,7 +39,6 @@
             & h1 {
                 color: var(--landing-title-dark);
                 animation: 400ms var(--transition) popup;
-                font-size: 1.5rem;
             }
 
             & p {
@@ -98,7 +97,7 @@
 
 .faq {
     width: var(--basewidth);
-    padding: 150px var(--section-horizontal-padding) 150px;
+    padding: 70px var(--section-horizontal-padding) 70px;
     max-width: var(--maximum-content-width);
     margin: auto;
 
@@ -121,7 +120,7 @@
 
 .box {
     position: relative;
-    margin: 30px auto 90px;
+    margin: 30px auto 30px;
     padding: 0 10px;
 
     & .boxcontent {
