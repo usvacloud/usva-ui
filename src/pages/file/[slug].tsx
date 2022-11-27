@@ -6,10 +6,9 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { defaultWrapper, Errors, FileInformation } from "@/common/apiwrapper/main"
 import { humanReadableDate, humanReadableSize } from "src/common/utils/units"
 import { CircularProgressbar } from "react-circular-progressbar"
-import { Stream } from "stream"
-import { AxiosProgressEvent } from "axios"
-import { FaSpinner, FaTimes } from "react-icons/fa"
+import { FaSpinner } from "react-icons/fa"
 import { motion } from "framer-motion"
+import config from "config"
 
 export default function FileDownload() {
     const { slug } = useRouter().query
@@ -28,28 +27,7 @@ export default function FileDownload() {
 
     async function download() {
         if (!filename || downloaded || error || typeof window === "undefined") return
-
-        const fstream = new Stream()
-        fstream.on("progress", (event: AxiosProgressEvent) => {
-            setProgress({
-                t: event.total || 0,
-                c: event.loaded,
-            })
-        })
-
-        const file = await defaultWrapper.downloadFile(filename, passwordRef.current?.value, fstream)
-        if (file instanceof Error) return setError(file)
-        if (!file.data) return setError(Error("Failed to parse body"))
-
-        const downloadFilename = filename.substring(0, 4).concat(".zip")
-
-        const streamsaver = require("streamsaver")
-        const writeStream: WritableStream = streamsaver.createWriteStream(downloadFilename)
-        window.onunload = writeStream.abort
-
-        if (file.data) await new Response(file.data).body?.pipeTo(writeStream)
-        else writeStream.close()
-        setDownloaded(true)
+        window.location.replace(`${config.api_base}/file?filename=${filename}`)
     }
 
     const fetchData = useCallback(async () => {
@@ -57,9 +35,9 @@ export default function FileDownload() {
 
         const f = await defaultWrapper.getFileInformation(filename, passwordRef.current?.value)
         if (f instanceof Error) {
+            console.error(f)
             if (f === Errors.PermissionDenied) setPasswordRequired(true)
             else if (window) window.location.replace("/not-found")
-
             return
         }
         setFile(f)
@@ -86,7 +64,7 @@ export default function FileDownload() {
                     className={ovstyles.contentbox}
                 >
                     <div className={styles.overlayheader}>
-                        <h2>This upload has been protected.</h2>
+                        <h3>This download has been protected.</h3>
                         <p>Please authorize yourself before viewing this file!</p>
                     </div>
                     <div className={styles.form}>
