@@ -1,11 +1,9 @@
 import { useRouter } from "next/router"
 import styles from "@/styles/File/SpecificFile.module.scss"
 import ovstyles from "@/styles/shared/Overlays.module.scss"
-import pbstyles from "@/styles/shared/CircularPB.module.scss"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { defaultWrapper, Errors, FileInformation } from "@/common/apiwrapper/main"
 import { humanReadableDate, humanReadableSize } from "src/common/utils/units"
-import { CircularProgressbar } from "react-circular-progressbar"
 import { FaSpinner } from "react-icons/fa"
 import { motion } from "framer-motion"
 import config from "config"
@@ -14,9 +12,7 @@ export default function FileDownload() {
     const { slug } = useRouter().query
     const [file, setFile] = useState<FileInformation>()
     const [passwordRequired, setPasswordRequired] = useState<boolean>(false)
-    const [progress, setProgress] = useState<{ c: number; t: number }>({ c: 0, t: 0 })
     const [downloaded, setDownloaded] = useState<boolean>(false)
-    const [error, setError] = useState<Error>()
     const passwordRef = useRef<HTMLInputElement>(null)
     const filename = useMemo(() => slug && (typeof slug === "string" ? slug : slug[0]), [slug])
 
@@ -26,7 +22,7 @@ export default function FileDownload() {
     }, [downloaded])
 
     async function download() {
-        if (!filename || downloaded || error || typeof window === "undefined") return
+        if (!filename || downloaded || typeof window === "undefined") return
         window.location.replace(`${config.api_base}/file?filename=${filename}`)
     }
 
@@ -64,7 +60,7 @@ export default function FileDownload() {
                     className={ovstyles.contentbox}
                 >
                     <div className={styles.overlayheader}>
-                        <h3>This download has been protected.</h3>
+                        <h3>This download was protected.</h3>
                         <p>Please authorize yourself before viewing this file!</p>
                     </div>
                     <div className={styles.form}>
@@ -104,7 +100,6 @@ export default function FileDownload() {
                                         {file.viewCount !== 1 ? "s" : ""}
                                     </li>
                                 </ul>
-                                {error ? <p>{error.message}</p> : <></>}
                             </div>
                             <div className={styles.buttons}>
                                 <button
@@ -112,18 +107,10 @@ export default function FileDownload() {
                                     className={[
                                         styles.button,
                                         styles.primary,
-                                        error || downloaded ? styles.critical : "",
+                                        downloaded ? styles.critical : "",
                                     ].join(" ")}
                                 >
-                                    {progress.c > 0 && progress.c < progress.t ? (
-                                        <CircularProgressbar
-                                            className={pbstyles.progress}
-                                            value={progress.c}
-                                            maxValue={progress.t}
-                                        />
-                                    ) : (
-                                        <>Download</>
-                                    )}
+                                    Download
                                 </button>
                             </div>
                         </>
