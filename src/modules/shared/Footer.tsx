@@ -16,7 +16,7 @@ export default function Footer() {
     return (
         <div className="footer">
             <div className="content">
-                <Header title="More information" description={null} />
+                <Header title="More about us" bigHeader={true} description={null} />
 
                 <div className="links">
                     <div className="linksContainer left">
