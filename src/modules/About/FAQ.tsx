@@ -23,22 +23,22 @@ export default function FAQ() {
                 <Question
                     question="How do I upload my file or files?"
                     answer={`
-                    To upload a file, navigate to the website landing page and .
+                    Navigate to the website root, drop the files to the box (or add them manually) and follow the steps.
                     We are constantly improving our service to make uploads easier and faster.
                 `}
                 />
                 <Question
-                    question="Can you know the content of my uploads?"
+                    question="Can I protect my files somehow?"
                     answer={`
-                    To keep track of the quality and legality of uploads, 
-                    we provide a file reporting feature.
+                    Yes. This service provides an optional password protection for every upload. 
+                    For more advanced protection at bit level, you can encrypt your files with asymmetric or symmetric encryption before uploading them.
                 `}
                 />
                 <Question
                     question="What is the main concept of Usva?"
                     answer={`
                     The ideology behind Usva is to offer a service for extremely simple bulk file
-                    uploads securely. Usva is completely free and we run it with users' donations.
+                    uploads securely. Usva is completely free for the users.
                 `}
                 />
             </div>
