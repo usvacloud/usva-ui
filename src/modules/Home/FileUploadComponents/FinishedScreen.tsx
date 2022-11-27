@@ -18,7 +18,7 @@ export function FinishedScreen(props: {
                 type="text"
                 onSelect={(e) => e.currentTarget.select()}
                 className={styles.manualcopylink}
-                value={`${typeof window !== "undefined" ? window.location.protocol + "://" : ""}${typeof window !== "undefined" ? window.location.host : ""}/file/${props.filename}`}
+                value={`${typeof window !== "undefined" ? window.location.protocol + "//" : ""}${typeof window !== "undefined" ? window.location.host : ""}/file/${props.filename}`}
                 onChange={() => {}}
             />
 
