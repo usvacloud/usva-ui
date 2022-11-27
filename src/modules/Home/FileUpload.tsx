@@ -65,20 +65,24 @@ export default function FileUpload() {
             },
         }))
 
-        const stream = new Stream()
-        stream.on("add", (info: File) => {
-            setFileUploadState((prev) => ({
-                ...prev,
-                status: { ...prev.status, current: prev.status.current + info.size / 2 },
-            }))
-        })
-        let r = await archive(fileHandler.files, stream)
-
-        let outsr = await r.arrayBuffer()
-        setFileUploadState((prev) => ({
-            ...prev,
-            status: { ...prev.status, total: outsr.byteLength },
-        }))
+        let file = {
+            filename: "upload.zip",
+            content: new Blob(),
+        }
+        const willZip = fileHandler.files.length > 1
+        if (willZip) {
+            const stream = new Stream()
+            stream.on("add", (info: File) => {
+                setFileUploadState((prev) => ({
+                    ...prev,
+                    status: { ...prev.status, current: prev.status.current + info.size / 2 },
+                }))
+            })
+            file.content = await archive(fileHandler.files, stream)
+        } else {
+            file.content = fileHandler.files[0]
+            file.filename = fileHandler.files[0].name
+        }
 
         const reqstream = new Stream()
         reqstream.on("progress", (info: AxiosProgressEvent) => {
@@ -90,8 +94,9 @@ export default function FileUpload() {
                 },
             }))
         })
+
         const req = await api.newFile(
-            new File([outsr], "upload.zip"),
+            new File([await file.content.arrayBuffer()], file.filename),
             {
                 title: uploadTitle,
                 password: passwordInputRef.current?.value,
