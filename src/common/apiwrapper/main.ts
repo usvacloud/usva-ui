@@ -42,6 +42,7 @@ export class ApiWrapper {
             }
 
         const req = await this.makeRequest(`${appconfig.api_base}/file/info?filename=${uuid}`, {
+            withCredentials: true,
             headers,
         })
         if (req instanceof Error) return req
