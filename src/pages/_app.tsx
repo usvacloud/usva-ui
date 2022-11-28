@@ -5,12 +5,13 @@ import "@/styles/modules.scss"
 import "@/styles/textstyles.scss"
 import type { AppProps } from "next/app"
 import { MotionConfig } from "framer-motion"
-import { useEffect } from "react"
+import CookieNotice from "@/components/shared/CookieNotice"
 
 function MyApp({ Component, pageProps }: AppProps) {
     return (
         <>
             <MotionConfig transition={{ duration: 0.5, bounce: 0.5, type: "spring" }}>
+                <CookieNotice />
                 <Bar />
                 <Component {...pageProps} />
                 <Footer />

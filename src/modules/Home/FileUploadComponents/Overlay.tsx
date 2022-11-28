@@ -1,6 +1,18 @@
 import { motion } from "framer-motion"
 import React, { Ref, useMemo, useState } from "react"
-import { FaRegFrown, FaRegSmileBeam, FaSpinner, FaTimes } from "react-icons/fa"
+import {
+    FaFolder,
+    FaFolderOpen,
+    FaLock,
+    FaLockOpen,
+    FaRegFrown,
+    FaRegSmileBeam,
+    FaSpinner,
+    FaTimes,
+    FaUnlock,
+    FaUnlockAlt,
+    FaUserLock,
+} from "react-icons/fa"
 import styles from "@/styles/Home/Home.module.scss"
 import overlays from "@/styles/shared/Overlays.module.scss"
 import IconByExtension from "@/components/Home/FileUploadComponents/IconByExtension"
@@ -24,6 +36,8 @@ export default function UploadOverview(props: {
     }
 
     const [renaming, setRenaming] = useState(false)
+    const [passwordSaving, setPasswordSaving] = useState(false)
+    const [passwordValid, setPasswordValid] = useState(false)
 
     return (
         <>
@@ -46,27 +60,27 @@ export default function UploadOverview(props: {
                     <div className={styles.settings}>
                         <div className={styles.inline}>
                             <h3 className="title">General settings</h3>
-                            <div className={styles.status}>
-                                {renaming ? (
-                                    <div className="spinner">
-                                        <FaSpinner />
-                                    </div>
-                                ) : props.isTitleValidCallback(props.title) ? (
-                                    <>
-                                        <span>Changes were saved</span>
-                                        <FaRegSmileBeam className={styles.check} />
-                                    </>
-                                ) : (
-                                    <>
-                                        <span>Title is invalid</span>
-                                        <FaRegFrown className={styles.times} />
-                                    </>
-                                )}
-                            </div>
                         </div>
                         <div className={styles.inputfields}>
                             <div className={styles.inputSetting}>
-                                <label>Name your upload</label>
+                                <div className={styles.inline}>
+                                    <label>Name your upload</label>
+                                    <div className={styles.status}>
+                                        {renaming ? (
+                                            <div className="spinner">
+                                                <FaSpinner className={styles.spinner} />
+                                            </div>
+                                        ) : props.isTitleValidCallback(props.title) ? (
+                                            <>
+                                                <FaRegSmileBeam className={styles.check} />
+                                            </>
+                                        ) : (
+                                            <>
+                                                <FaRegFrown className={styles.times} />
+                                            </>
+                                        )}
+                                    </div>
+                                </div>
                                 <input
                                     onChange={(e) => {
                                         setRenaming(true)
@@ -82,14 +96,30 @@ export default function UploadOverview(props: {
                             </div>
                             <div className={styles.inputSetting}>
                                 <div className={styles.inline}>
-                                    <label>Protect your files with a password</label>
+                                    <label>Protect your upload</label>
+                                    <div className={styles.status}>
+                                        {passwordSaving ? (
+                                            <div className="spinner">
+                                                <FaSpinner />
+                                            </div>
+                                        ) : passwordValid ? (
+                                            <>
+                                                <FaLock className={styles.check} />
+                                            </>
+                                        ) : (
+                                            <>
+                                                <FaUnlockAlt className={styles.times} />
+                                            </>
+                                        )}
+                                    </div>
                                 </div>
                                 <input
                                     ref={props.passwordInputRef}
-                                    onChange={() => {
-                                        setRenaming(true)
+                                    onChange={(e) => {
+                                        setPasswordSaving(true)
+                                        setPasswordValid(e.target.value != "")
                                         setTimeout(() => {
-                                            setRenaming(false)
+                                            setPasswordSaving(false)
                                         }, 20)
                                     }}
                                     disabled={props.locked}

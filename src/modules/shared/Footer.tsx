@@ -1,5 +1,6 @@
 import Header from "@/components/shared/Header"
 import Link from "next/link"
+import { FaHeart } from "react-icons/fa"
 
 function LinkWithLabel(props: { link: string; label: string; linktext: string; linkclass: string | null }) {
     return (
@@ -23,10 +24,13 @@ export default function Footer() {
                         <h2 className="title">Contacts</h2>
                         <LinkWithLabel
                             link="mailto:"
-                            linktext="touko (at) testausserveri fi"
+                            linktext="touko at testausserveri fi"
                             linkclass="mail"
                             label="Developer mail"
                         />
+                        <span>
+                            Made with <FaHeart /> in Finland
+                        </span>
                     </div>
                     <div className="linksContainer right">
                         <h2 className="title">Links</h2>

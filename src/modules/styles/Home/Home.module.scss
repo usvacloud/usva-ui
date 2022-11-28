@@ -59,6 +59,7 @@
             text-align: left;
             transition: var(--transition);
             overflow: hidden;
+            min-height: 200px;
 
             & a {
                 margin: 0 10px;
@@ -317,8 +318,6 @@
                 }
 
                 @media screen and (max-width: 700px) {
-                    padding: 10px 10px;
-
                     & .fileDescription {
                         font-size: 1rem;
                     }
@@ -395,13 +394,15 @@
 .overview {
     color: var(--form-fg);
     & .contentbox {
+        & h1 {
+            font-size: 1.6rem;
+        }
         & .settings {
             margin: 30px 0;
 
             & .inline {
                 display: flex;
                 justify-content: space-between;
-                align-items: center;
 
                 & .status {
                     position: relative;
@@ -423,6 +424,10 @@
 
                     & .times {
                         color: var(--negative-icon);
+                    }
+
+                    & .spinner {
+                        float: left;
                     }
                 }
             }
