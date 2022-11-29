@@ -90,7 +90,7 @@ export default function FileUpload() {
                 ...prev,
                 status: {
                     ...prev.status,
-                    current: prev.status.current + info.bytes / 2,
+                    current: prev.status.current + (willZip ? info.bytes / 2 : info.bytes),
                 },
             }))
         })

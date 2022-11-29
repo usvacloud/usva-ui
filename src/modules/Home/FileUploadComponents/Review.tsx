@@ -3,7 +3,7 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar"
 import { filterProps, motion } from "framer-motion"
 import Link from "next/link"
 import { Dispatch, SetStateAction } from "react"
-import { FaTimes, FaEllipsisH, FaPlusCircle, FaArrowUp, FaRedoAlt, FaSpinner } from "react-icons/fa"
+import { FaTimes, FaEllipsisH, FaPlusCircle, FaArrowUp, FaRedoAlt, FaSpinner, FaWrench } from "react-icons/fa"
 import { FileUploadState } from "../FileUpload"
 import IconByExtension from "./IconByExtension"
 import styles from "@/styles/Home/Home.module.scss"
@@ -91,13 +91,19 @@ export function Review({
             })}
 
             <p className={styles.tosnt}>
-                As you proceed you accept our <Link href="/terms-of-service">Terms</Link> and{" "}
-                <Link href="/privacy-policy">Privacy Policy</Link>
+                As you proceed you accept our{" "}
+                <Link target="_blank" href="/terms-of-service">
+                    Terms
+                </Link>{" "}
+                and{" "}
+                <Link target="_blank" href="/privacy-policy">
+                    Privacy Policy
+                </Link>
             </p>
             <div className={styles.buttons}>
                 <div className={styles.icons}>
                     <button className={styles.icon} onClick={() => setOverviewShown(true)}>
-                        <FaEllipsisH />
+                        <FaWrench />
                     </button>
 
                     <button className={styles.icon} onClick={addFile}>
