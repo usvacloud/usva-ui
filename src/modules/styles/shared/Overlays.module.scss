@@ -1,6 +1,6 @@
 .fullscreenform,
 .overview {
-    position: absolute;
+    position: fixed;
     backdrop-filter: blur(var(--default-bg-blur));
     background: hsla(0, 0%, 10%, 0.346);
     top: 0;

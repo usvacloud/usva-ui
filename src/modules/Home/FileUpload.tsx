@@ -13,6 +13,7 @@ import Container from "./FileUploadComponents/Container"
 import { useEffect } from "react"
 import { Stream } from "stream"
 import { AxiosProgressEvent } from "axios"
+import JSZip from "jszip"
 
 export type FileUploadState = {
     uploading: boolean
@@ -78,7 +79,15 @@ export default function FileUpload() {
                     status: { ...prev.status, current: prev.status.current + info.size / 2 },
                 }))
             })
-            file.content = await archive(fileHandler.files, stream)
+
+            try {
+                file.content = await archive(fileHandler.files, stream)
+            } catch (e) {
+                setFileUploadState((prev) => ({
+                    ...prev,
+                    error: new Error("Error occured while zipping your files"),
+                }))
+            }
         } else {
             file.content = fileHandler.files[0]
             file.filename = fileHandler.files[0].name
@@ -90,6 +99,7 @@ export default function FileUpload() {
                 ...prev,
                 status: {
                     ...prev.status,
+                    total: info.total || prev.status.total,
                     current: prev.status.current + (willZip ? info.bytes / 2 : info.bytes),
                 },
             }))

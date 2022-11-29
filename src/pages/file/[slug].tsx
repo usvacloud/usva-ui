@@ -13,6 +13,7 @@ export default function FileDownload() {
     const [file, setFile] = useState<FileInformation>()
     const [passwordRequired, setPasswordRequired] = useState<boolean>(false)
     const [downloaded, setDownloaded] = useState<boolean>(false)
+    const [opened, setOpened] = useState<boolean>(false)
     const passwordRef = useRef<HTMLInputElement>(null)
     const filename = useMemo(() => slug && (typeof slug === "string" ? slug : slug[0]), [slug])
 
@@ -26,23 +27,36 @@ export default function FileDownload() {
         window.location.replace(`${config.api_base}/file?filename=${filename}`)
     }
 
+    const [failedRequests, setFailedRequests] = useState(0)
     const fetchData = useCallback(async () => {
-        if (!filename) return
+        if (!filename || opened) return
 
         const f = await defaultWrapper.getFileInformation(filename, passwordRef.current?.value)
         if (f instanceof Error) {
-            console.error(f)
+            setFailedRequests((prev) => prev + 1)
             if (f === Errors.PermissionDenied) setPasswordRequired(true)
-            else if (window) window.location.replace("/not-found")
+            //else if (window) window.location.replace("/not-found")
             return
         }
+
         setFile(f)
         setPasswordRequired(false)
-    }, [filename])
+        setOpened(true)
+    }, [filename, opened])
 
     useEffect(() => {
+        if (typeof window === "undefined") return
+
+        window.addEventListener("keydown", (ev: KeyboardEvent) => {
+            if (ev.key === "Enter") fetchData()
+        })
+
         fetchData()
     }, [fetchData])
+
+    useEffect(() => {
+        if (passwordRequired) setTimeout(() => passwordRef.current?.focus(), 200)
+    }, [passwordRequired])
 
     return (
         <>
@@ -64,6 +78,7 @@ export default function FileDownload() {
                         <p>Please authorize yourself before viewing this file!</p>
                     </div>
                     <div className={styles.form}>
+                        {failedRequests > 1 && <span className={styles.err}>Invalid password.</span>}
                         <input
                             type="password"
                             placeholder="File password"

@@ -72,6 +72,14 @@
     &:hover {
         background: var(--form-bg-hover);
     }
+
+    &.primary {
+        color: var(--form-primary-fg);
+        background-color: var(--form-primary);
+        &:hover {
+            background: var(--form-primary-hover);
+        }
+    }
 }
 .overlayheader {
     margin-bottom: 30px;

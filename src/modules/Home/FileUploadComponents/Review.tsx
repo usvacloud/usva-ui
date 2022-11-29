@@ -3,10 +3,11 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar"
 import { filterProps, motion } from "framer-motion"
 import Link from "next/link"
 import { Dispatch, SetStateAction } from "react"
-import { FaTimes, FaEllipsisH, FaPlusCircle, FaArrowUp, FaRedoAlt, FaSpinner, FaWrench } from "react-icons/fa"
+import { FaTimes, FaPlusCircle, FaWrench, FaThumbsUp } from "react-icons/fa"
 import { FileUploadState } from "../FileUpload"
 import IconByExtension from "./IconByExtension"
 import styles from "@/styles/Home/Home.module.scss"
+import { humanReadableSize } from "@/common/utils/units"
 import pgstyles from "@/styles/shared/CircularPB.module.scss"
 
 type UploadPreviewProps = {
@@ -24,7 +25,7 @@ function ProgressButton(props: { percent: number; children: JSX.Element | JSX.El
     return (
         <>
             {props.children}
-            {props.percent > 0 && (
+            {props.percent > 0 && props.percent < 100 && (
                 <CircularProgressbar className={pgstyles.progress} value={props.percent} maxValue={100} />
             )}
         </>
@@ -118,7 +119,21 @@ export function Review({
                     <ProgressButton
                         percent={(fileUploadState.status.current / fileUploadState.status.total) * 100}
                     >
-                        <span>Upload file{fileMetas.length > 1 ? "s" : ""}</span>
+                        {fileUploadState.status.current == 0 ? (
+                            <span>Upload file{fileMetas.length > 1 ? "s" : ""}</span>
+                        ) : fileUploadState.status.current == fileUploadState.status.total ? (
+                            <>
+                                <span>Finishing... </span>
+                                <span className="spinner">
+                                    <FaThumbsUp />
+                                </span>
+                            </>
+                        ) : (
+                            <span>
+                                {humanReadableSize(fileUploadState.status.current)} of{" "}
+                                {humanReadableSize(fileUploadState.status.total)}
+                            </span>
+                        )}
                     </ProgressButton>
                 </button>
             </div>

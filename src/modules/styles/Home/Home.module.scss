@@ -17,7 +17,7 @@
 
     @media screen and (max-height: 700px) {
         height: auto;
-        padding: 50px 0;
+        padding: 120px 0;
     }
 
     & .centerContainer {
@@ -104,6 +104,7 @@
 
                     & svg {
                         font-size: 0.7rem;
+                        transform: translateY(-1px);
                         transition: var(--transition);
                     }
 
@@ -115,6 +116,7 @@
                         color: var(--form-primary-fg);
                         background-color: var(--form-primary);
                         & svg {
+                            font-size: 1rem;
                             fill: var(--form-primary-icon);
                         }
                         &:hover {
