@@ -28,7 +28,7 @@ export class FileHandler {
     add(file: File | null | undefined): FileInitMeta | undefined {
         if (!file) return
 
-        const st = this.files.filter((f) => f.lastModified === file.lastModified).length > 0
+        const st = this.files.filter((f) => f === file).length > 0
         if (st) return
 
         this.files = this.files.concat(file)
