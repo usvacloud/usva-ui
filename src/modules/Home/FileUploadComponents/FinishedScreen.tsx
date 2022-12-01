@@ -8,7 +8,7 @@ export function FinishedScreen(props: {
 }) {
     return (
         <div className={styles.finished}>
-            <h3 className="title">Congratulations, your upload was processed!</h3>
+            <h3 className="title">Congratulations, your files were uploaded!</h3>
             <p>
                 Thank you! Your files have now been processed and uploaded successfully. This means that you
                 can now send your files forward. Just copy the link to your files below!

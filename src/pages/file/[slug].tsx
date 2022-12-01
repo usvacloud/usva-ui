@@ -1,7 +1,7 @@
 import { useRouter } from "next/router"
 import styles from "@/styles/File/SpecificFile.module.scss"
 import ovstyles from "@/styles/shared/Overlays.module.scss"
-import { useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { KeyboardEventHandler, useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { defaultWrapper, Errors, FileInformation } from "@/common/apiwrapper/main"
 import { humanReadableDate, humanReadableSize } from "src/common/utils/units"
 import { FaSpinner } from "react-icons/fa"
@@ -29,28 +29,26 @@ export default function FileDownload() {
 
     const [failedRequests, setFailedRequests] = useState(0)
     const fetchData = useCallback(async () => {
-        if (!filename || opened) return
+        if (!filename) return
 
         const f = await defaultWrapper.getFileInformation(filename, passwordRef.current?.value)
         if (f instanceof Error) {
             setFailedRequests((prev) => prev + 1)
-            if (f === Errors.PermissionDenied) setPasswordRequired(true)
-            //else if (window) window.location.replace("/not-found")
+            if (f === Errors.PermissionDenied) {
+                setPasswordRequired(true)
+            } else if (window) window.location.replace("/not-found")
             return
         }
 
         setFile(f)
         setPasswordRequired(false)
-        setOpened(true)
-    }, [filename, opened])
+    }, [filename])
+
+    function enterHandler(ev: any) {
+        if (ev.code === "Enter") fetchData()
+    }
 
     useEffect(() => {
-        if (typeof window === "undefined") return
-
-        window.addEventListener("keydown", (ev: KeyboardEvent) => {
-            if (ev.key === "Enter") fetchData()
-        })
-
         fetchData()
     }, [fetchData])
 
@@ -84,6 +82,7 @@ export default function FileDownload() {
                             placeholder="File password"
                             ref={passwordRef}
                             className={styles.password}
+                            onKeyDown={enterHandler}
                         />
                         <button onClick={fetchData} className={styles.button}>
                             Open this file
