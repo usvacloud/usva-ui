@@ -1,5 +1,5 @@
 const config = {
-    api_base: "http://localhost:8080",
+    api_base: "https://api.usva.cc",
 }
 
 export default config
