@@ -13,9 +13,6 @@ function Links() {
                 <Link href="/about" className="animated">
                     <a className="animated">About Usva</a>
                 </Link>
-                <Link href="/file">
-                    <a className="animated">Download a file</a>
-                </Link>
             </div>
         </>
     )
