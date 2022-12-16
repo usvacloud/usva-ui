@@ -30,24 +30,24 @@
     --gradient-start: hsl(var(--tint), 43%, 83%);
     --gradient-stop: hsl(calc(var(--tint) + 50), 33%, 83%);
 
-    --landing-bg: hsl(var(--tint), 10%, 80%);
-    --landing-bg-alt: hsl(var(--tint), 20%, 10%);
+    --landing-bg: hsl(var(--tint), 10%, 10%);
+    --landing-bg-alt: hsl(var(--tint), 20%, 20%);
 
-    --landing-title: hsl(var(--tint), 33%, 20%);
-    --landing-title-dark: hsl(var(--tint), 20%, 70%);
+    --landing-title: hsl(var(--tint), 33%, 70%);
+    --landing-title-dark: hsl(var(--tint), 20%, 80%);
     --landing-title-dark-leipa: hsl(var(--tint), 10%, 50%);
     --landing-fg: hsla(0, 0%, 0%, 0.859);
-    --landing-form-bg: hsl(var(--tint), 0%, 100%);
-    --landing-form-bg-hover: hsl(var(--tint), 0%, 90%);
-    --landing-form-icon: hsl(var(--tint), 47%, 10%);
-    --landing-form-fg: hsl(var(--tint), 33%, 30%);
+    --landing-form-bg: hsl(var(--tint), 10%, 20%);
+    --landing-form-bg-hover: hsl(var(--tint), 10%, 15%);
+    --landing-form-icon: hsl(var(--tint), 27%, 70%);
+    --landing-form-fg: hsl(var(--tint), 23%, 70%);
 
-    --primary-bg: hsl(0, 0%, 95%);
-    --primary-fg: hsl(0, 0%, 7%);
-    --secondary-bg: hsl(0, 0%, 93%);
-    --secondary-fg: hsl(0, 0%, 21%);
-    --bar-bg: hsla(0, 0%, 100%, 0.8);
-    --bar-fg: hsl(0, 0%, 0%);
+    --primary-bg: hsl(0, 0%, 5%);
+    --primary-fg: hsl(0, 0%, 75%);
+    --secondary-bg: hsl(0, 0%, 8%);
+    --secondary-fg: hsl(0, 0%, 93%);
+    --bar-bg: hsla(0, 0%, 0%, 0.9);
+    --bar-fg: hsl(0, 0%, 70%);
     --bar-fg-hover: hsl(0, 0%, 50%);
     --bar-icon: var(--bar-fg);
     --list-identifier: hsla(0, 0%, 0%, 0.3);
@@ -60,14 +60,15 @@
     --negative-icon: hsl(0, 58%, 58%);
     --neutral-icon: var(--widget-secondary-bg);
 
-    --form-bg: hsl(0, 0%, 88%);
-    --form-fg: hsl(0, 0%, 0%);
+    --form-bg: hsl(0, 0%, 12%);
+    --form-fg: hsl(0, 0%, 80%);
     --form-fg-alt: hsl(0, 0%, 54%);
     --form-disabled-bg: hsl(0, 0%, 80%);
     --form-disabled-fg: hsl(0, 0%, 72%);
     --form-disabled-img: hsl(0, 0%, 67%);
-    --form-bg-hover: hsl(0, 0%, 80%);
+    --form-bg-hover: hsl(0, 0%, 20%);
     --form-icon: hsl(0, 0%, 62%);
+    --form-icon-hover: hsl(var(--tint), 20%, 58%);
 
     --form-primary: hsl(var(--tint), 29%, 36%);
     --form-primary-fg: hsl(0, 0%, 88%);
@@ -75,17 +76,19 @@
     --form-primary-hover: hsl(var(--tint), 29%, 46%);
     --form-primary-disabled: hsl(var(--tint), 29%, 26%);
 
-    --footer-bg: hsl(0, 0%, 90%);
-    --footer-fg: hsl(0, 0%, 10%);
-    --footer-fg-hover: hsl(0, 0%, 90%);
-    --footer-link-mail: hsl(219, 47%, 32%);
+    --footer-bg: hsl(var(--tint), 10%, 10%);
+    --footer-fg: hsl(var(--tint), 30%, 80%);
+    --footer-fg-hover: hsl(0, 0%, 80%);
+    --footer-link-mail: hsl(219, 47%, 62%);
 
     --link-fg: hsl(231, 37%, 26%);
 
-    --widget-primary-bg: hsl(0, 0%, 91%);
-    --widget-primary-bg-hover: hsl(0, 0%, 71%);
-    --widget-secondary-bg: hsl(0, 0%, 83%);
-    --widget-primary-fg: hsl(0, 0%, 13%);
+    --widget-primary-bg: hsl(0, 0%, 1%);
+    --widget-primary-bg-hover: hsl(0, 0%, 11%);
+    --widget-secondary-bg: hsl(0, 0%, 13%);
+    --widget-primary-fg: hsl(0, 0%, 93%);
+
+    --box-fg: hsl(0, 0%, 10%);
 
     // Switch colors from light when user prefers dark color scheme
     @media screen and (max-width: 700px) {
@@ -103,6 +106,7 @@ body {
     padding: 0;
     margin: 0;
     font-family: var(--font);
+    background: var(--primary-bg);
 
     animation: 200ms ease fadein;
 }

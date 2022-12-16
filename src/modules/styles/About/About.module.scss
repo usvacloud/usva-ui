@@ -1,10 +1,14 @@
 .landing {
-    height: 500px;
+    min-height: 500px;
+    height: 100vh;
     padding-top: 25px;
     background: var(--landing-bg-alt);
     background-size: cover;
     background-position: center;
     position: relative;
+
+    display: flex;
+    justify-content: center;
 
     @media screen and (max-height: 700px) {
         height: auto;
@@ -23,7 +27,7 @@
 
         display: flex;
 
-        padding: 20px var(--section-horizontal-padding);
+        padding: 0px var(--section-horizontal-padding);
         gap: 50px;
 
         margin: auto;
@@ -139,7 +143,7 @@
             padding: 25px var(--section-horizontal-padding);
         }
 
-        & h1,
+        & h2,
         p {
             color: var(--box-fg);
         }
