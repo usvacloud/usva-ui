@@ -117,7 +117,11 @@ export default function UploadOverview(props: {
                                     ref={props.passwordInputRef}
                                     onChange={(e) => {
                                         setPasswordSaving(true)
-                                        setPasswordValid(e.target.value != "")
+                                        setPasswordValid(
+                                            e.target.value != "" &&
+                                                e.target.value.length >= 6 &&
+                                                e.target.value.length <= 128
+                                        )
                                         setTimeout(() => {
                                             setPasswordSaving(false)
                                         }, 20)

@@ -5,7 +5,7 @@ export function ErrorScreen(props: { error: Error | undefined; resetUpload: () =
     if (!err) err = Error("We are terribly sorry. Your upload failed for an unkonown reason.")
     return (
         <div className={[styles.finished, styles.critical].join(" ")}>
-            <h3 className="title">{err.message}</h3>
+            <h2 className="title">{err.message}</h2>
             <p>
                 {err.cause
                     ? `${err.cause}`

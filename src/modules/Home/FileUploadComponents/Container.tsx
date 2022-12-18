@@ -35,7 +35,7 @@ export default function Container(props: {
                 e.preventDefault()
                 e.currentTarget.style.transform = "none"
             }}
-            className={styles.uploadContainer}
+            className={styles.uploader}
         >
             <div
                 onClick={fileMetas.length <= 0 ? addFile : () => {}}

@@ -2,11 +2,12 @@
 :root {
     // General
     --transition: 150ms cubic-bezier(0.25, 0.5, 0.25, 1);
-    --font: Mukta, Cantarell, "Open Sans", sans-serif;
-    --font-title: Sen, var(--font);
+    --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+        "Open Sans", "Helvetica Neue", sans-serif;
+
     --font-titles: var(--font);
     --maximum-content-width: 950px;
-    --global-border-radius: 10px;
+    --global-border-radius: 0px;
     --default-bg-blur: 30px;
     --basewidth: 90%;
     --section-horizontal-padding: 20px;
@@ -16,7 +17,7 @@
     }
 
     // Colors
-    --tint: 330;
+    --tint: 300;
     --accent-color: hsl(var(--tint), 32%, 17%);
     --accent-light: hsl(var(--tint), 32%, 60%);
 
@@ -30,17 +31,22 @@
     --gradient-start: hsl(var(--tint), 43%, 83%);
     --gradient-stop: hsl(calc(var(--tint) + 50), 33%, 83%);
 
-    --landing-bg: hsl(var(--tint), 10%, 10%);
-    --landing-bg-alt: hsl(var(--tint), 20%, 20%);
+    --landing-bg: hsl(var(--tint), 0%, 5%);
+    --landing-bg-alt: hsl(var(--tint), 20%, 60%);
 
-    --landing-title: hsl(var(--tint), 33%, 70%);
-    --landing-title-dark: hsl(var(--tint), 20%, 80%);
-    --landing-title-dark-leipa: hsl(var(--tint), 10%, 50%);
-    --landing-fg: hsla(0, 0%, 0%, 0.859);
-    --landing-form-bg: hsl(var(--tint), 10%, 20%);
-    --landing-form-bg-hover: hsl(var(--tint), 10%, 15%);
-    --landing-form-icon: hsl(var(--tint), 27%, 70%);
-    --landing-form-fg: hsl(var(--tint), 23%, 70%);
+    --landing-title: hsl(var(--tint), 43%, 50%);
+    --landing-fg: hsl(0, 0%, 80%);
+
+    --landing-form-bg: hsl(var(--tint), 30%, 40%);
+    --landing-form-second: hsl(var(--tint), 30%, 30%);
+    --landing-form-bg-hover: hsl(var(--tint), 30%, 55%);
+    --landing-form-icon: hsl(var(--tint), 27%, 0%);
+    --landing-form-fg: hsl(var(--tint), 0%, 0%);
+    --landing-form-icon: hsl(var(--tint), 50%, 40%);
+
+    --landing-first: hsl(0, 0%, 100%);
+    --landing-hfirst: hsl(0, 0%, 80%);
+    --landing-second: hsl(0, 0%, 0%);
 
     --primary-bg: hsl(0, 0%, 5%);
     --primary-fg: hsl(0, 0%, 75%);
@@ -164,14 +170,4 @@ input {
 ::-moz-selection {
     color: var(--accent-light);
     background-color: hsla(var(--tint), 10%, 58%, 0.253);
-}
-
-@font-face {
-    font-family: Mukta;
-    src: url(/assets/fonts/mukta/Mukta-Regular.ttf);
-}
-
-@font-face {
-    font-family: Sen;
-    src: url(/assets/fonts/dm-sans/DMSans-Regular.ttf);
 }
