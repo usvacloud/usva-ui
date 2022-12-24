@@ -1,0 +1,12 @@
+.progress {
+    transition: var(--transition);
+    width: 100%;
+    max-width: 23px;
+    & path[class="CircularProgressbar-trail"] {
+        stroke: var(--accent-color);
+        transition: var(--transition);
+    }
+    & path[class="CircularProgressbar-path"] {
+        stroke: var(--accent-light);
+    }
+}

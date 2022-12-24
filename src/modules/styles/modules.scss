@@ -1,0 +1,197 @@
+.bar {
+    position: fixed;
+    z-index: 10;
+    backdrop-filter: blur(2px);
+    background: var(--bar-bg);
+    top: 0;
+    width: 100%;
+    padding: 15px 20px;
+    display: flex;
+    font-size: 1.1em;
+
+    & .content {
+        transition: var(--transition);
+        display: flex;
+        justify-content: space-between;
+        width: var(--basewidth);
+        max-width: calc(var(--maximum-content-width) + 100px);
+        margin: auto;
+
+        & .links {
+            margin: 0 10px 0 auto;
+            gap: 40px;
+            display: flex;
+            & a {
+                transition: var(--transition);
+                color: var(--bar-fg);
+                &:hover {
+                    color: var(--bar-fg-hover);
+                }
+            }
+        }
+        & .top {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        & .logo {
+            transition: var(--transition);
+            color: var(--bar-fg);
+            &:hover {
+                color: var(--bar-fg-hover);
+            }
+            cursor: pointer;
+        }
+
+        & .menuicon {
+            position: relative;
+            cursor: pointer;
+            & svg {
+                color: var(--bar-icon);
+                position: absolute;
+                top: 50%;
+                right: 0px;
+                transform: translateY(-50%);
+            }
+            display: none;
+        }
+    }
+    @media screen and (max-width: 650px) {
+        background-color: var(--primary-bg);
+        padding: 15px 10px;
+        & .content {
+            flex-direction: column;
+
+            & .links {
+                gap: 5px;
+                flex-direction: column;
+                margin: 30px 0 0 0;
+                align-items: center;
+                justify-content: center;
+
+                & .animated {
+                    width: 100%;
+                    padding: 3px 0px;
+                    &::before {
+                        display: none;
+                    }
+                }
+            }
+
+            & .menuicon {
+                display: inherit;
+            }
+        }
+    }
+}
+
+.header {
+    max-width: 75%;
+    & .title.primary {
+        font-size: 1.7em;
+
+        @media screen and (max-width: 900px) {
+            font-size: 1.5em;
+        }
+    }
+
+    @media screen and (max-width: 700px) {
+        max-width: var(--basewidth);
+    }
+}
+
+.footer {
+    background-color: var(--footer-bg);
+    width: 100%;
+    padding: 50px var(--section-horizontal-padding);
+    margin: auto;
+
+    & .content {
+        color: var(--footer-fg);
+        width: var(--basewidth);
+        max-width: var(--maximum-content-width);
+        margin: auto;
+    }
+    & .header {
+        margin-bottom: 30px;
+    }
+    & h2 {
+        color: var(--footer-fg-titles);
+    }
+    & .links {
+        display: grid;
+        grid-template-columns: auto auto;
+        gap: 30px;
+        @media screen and (max-width: 900px) {
+            grid-template-columns: auto auto;
+        }
+
+        & .linksContainer {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+
+            & a,
+            span {
+                font-size: 1.2rem;
+
+                & svg {
+                    font-size: 0.9rem;
+                    width: 20px;
+                    transform: translateY(1px);
+                    animation: 2s infinite scaleupdown;
+                }
+            }
+
+            & .linkwithlabel {
+                display: flex;
+                flex-direction: column;
+
+                & span {
+                    margin: 0;
+                    padding: 0;
+                    color: var(--footer-fg);
+                }
+
+                a.mail {
+                    color: var(--footer-link-mail);
+                }
+            }
+        }
+
+        & .right {
+            text-align: right;
+        }
+
+        @media screen and (max-width: 1000px) {
+            & h2 {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media screen and (max-width: 700px) {
+            grid-template-columns: auto;
+            gap: 30px;
+
+            & .linksContainer {
+                font-size: 0.9rem;
+            }
+
+            & .right {
+                align-items: flex-start;
+            }
+        }
+    }
+}
+
+@keyframes scaleupdown {
+    0% {
+        scale: 1;
+    }
+    50% {
+        scale: 1.2;
+    }
+    100% {
+        scale: 1;
+    }
+}

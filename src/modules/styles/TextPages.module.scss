@@ -1,0 +1,27 @@
+.main {
+    margin: 20px auto 90px;
+    .header {
+        padding: 120px var(--section-horizontal-padding) 40px;
+        width: var(--basewidth);
+        max-width: var(--maximum-content-width);
+        margin: auto;
+
+        & h1 {
+            font-size: 2.5em;
+            background: -webkit-linear-gradient(250deg, rgb(53, 121, 184), rgb(84, 150, 167));
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    }
+
+    .section {
+        padding: 40px 0;
+        & .content {
+            max-width: var(--maximum-content-width);
+            width: var(--basewidth);
+            padding: 0 var(--section-horizontal-padding);
+            margin: auto;
+        }
+    }
+}

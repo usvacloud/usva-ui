@@ -1,0 +1,21 @@
+.title {
+    margin: 5px 0;
+    font-family: var(--font-titles);
+    color: var(--primary-fg);
+}
+
+.description {
+    font-weight: 400;
+    color: var(--secondary-fg);
+
+    &.small {
+        font-family: var(--font);
+    }
+    &.nomargin {
+        margin: 0;
+    }
+}
+
+.special {
+    color: var(--accent-color);
+}

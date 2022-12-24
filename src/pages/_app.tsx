@@ -10,7 +10,7 @@ import CookieNotice from "@/components/shared/CookieNotice"
 function MyApp({ Component, pageProps }: AppProps) {
     return (
         <>
-            <MotionConfig transition={{ duration: 0.5, bounce: 0.2, type: "spring" }}>
+            <MotionConfig transition={{ duration: 0.5, bounce: 0.5, type: "spring" }}>
                 <CookieNotice />
                 <Bar />
                 <Component {...pageProps} />

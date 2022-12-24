@@ -1,0 +1,136 @@
+.content {
+    & .form {
+        transition: var(--transition);
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        color: var(--form-fg);
+
+        & .container {
+            display: flex;
+            flex-direction: column;
+
+            & input[type="text"],
+            input[type="password"],
+            textarea {
+                transition: var(--transition);
+                font-size: 1rem;
+                font-family: var(--font);
+                resize: none;
+                background-color: var(--form-bg);
+                color: var(--form-fg);
+                border-radius: 10px;
+                padding: 5px 10px;
+                width: auto;
+                border: 0;
+                outline: 0;
+            }
+
+            & textarea {
+                padding: 8px 10px;
+                height: fit-content;
+            }
+        }
+
+        & .checkboxes {
+            margin: 20px 0;
+
+            display: grid;
+            grid-template-columns: auto auto auto;
+
+            gap: 5px;
+            justify-content: left;
+
+            @media screen and (max-width: 900px) {
+                grid-template-columns: auto auto;
+            }
+
+            @media screen and (max-width: 700px) {
+                grid-template-columns: auto;
+            }
+
+            & .checkbox {
+                display: flex;
+            }
+
+            & .checkbox input[type="checkbox"] {
+                display: none;
+
+                & + label {
+                    width: 100%;
+                    transition: var(--transition);
+                    border-radius: var(--global-border-radius);
+                    padding: 2px 15px;
+                    cursor: pointer;
+                    font-weight: 400;
+
+                    & svg {
+                        fill: hsl(170, 20%, 33%);
+                        transform: translateY(2px);
+                        margin-right: 4px;
+                        font-size: 0.95rem;
+
+                        &:hover {
+                            fill: hsl(170, 20%, 33%);
+                        }
+                    }
+                }
+
+                &:focus + label,
+                + label:hover {
+                    color: hsl(170, 20%, 33%);
+                }
+
+                &:checked + label {
+                    background: var(--form-bg);
+                }
+            }
+        }
+
+        & h3 {
+            margin-bottom: 0;
+        }
+
+        & .button {
+            width: 100%;
+            font-weight: 400;
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 5px 2px;
+            border-radius: var(--global-border-radius);
+            font-family: var(--font);
+            outline: none;
+            background-color: var(--form-bg);
+            color: var(--form-fg);
+            border: none;
+            font-size: 1rem;
+
+            &:hover {
+                background-color: var(--form-bg-hover);
+            }
+        }
+
+        @media screen and (max-width: 700px) {
+            & .checkboxes .container input[type="checkbox"] {
+                padding: 30px 0;
+            }
+
+            & .close,
+            .button {
+                padding: 5px;
+            }
+        }
+    }
+
+    @media screen and (max-width: 700px) {
+        & .form .checkboxes {
+            gap: 5px;
+            justify-content: unset;
+        }
+
+        margin-top: 0;
+        max-height: 100%;
+        overflow: auto;
+    }
+}

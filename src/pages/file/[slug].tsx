@@ -13,6 +13,7 @@ export default function FileDownload() {
     const [file, setFile] = useState<FileInformation>()
     const [passwordRequired, setPasswordRequired] = useState<boolean>(false)
     const [downloaded, setDownloaded] = useState<boolean>(false)
+    const [opened, setOpened] = useState<boolean>(false)
     const passwordRef = useRef<HTMLInputElement>(null)
     const filename = useMemo(() => slug && (typeof slug === "string" ? slug : slug[0]), [slug])
 
@@ -33,7 +34,6 @@ export default function FileDownload() {
         const f = await defaultWrapper.getFileInformation(filename, passwordRef.current?.value)
         if (f instanceof Error) {
             setFailedRequests((prev) => prev + 1)
-
             if (f === Errors.PermissionDenied) {
                 setPasswordRequired(true)
             } else if (window) window.location.replace("/not-found")

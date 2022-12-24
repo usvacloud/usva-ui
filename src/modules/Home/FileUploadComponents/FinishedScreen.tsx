@@ -8,7 +8,7 @@ export function FinishedScreen(props: {
 }) {
     return (
         <div className={styles.finished}>
-            <h2 className="title">Congratulations, your files were uploaded!</h2>
+            <h3 className="title">Congratulations, your files were uploaded!</h3>
             <p>
                 Thank you! Your files have now been processed and uploaded successfully. This means that you
                 can now send your files forward. Just copy the link to your files below!
@@ -25,6 +25,11 @@ export function FinishedScreen(props: {
             />
 
             <div className={styles.buttons}>
+                <div className={styles.icons}>
+                    <button onClick={() => props.switchOverlay(true)} className={styles.icon}>
+                        <FaEllipsisH />
+                    </button>
+                </div>
                 <button onClick={props.resetForm} className={styles.button}>
                     Upload a new file <FaRedoAlt />
                 </button>
