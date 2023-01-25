@@ -120,14 +120,6 @@ export default function UploadOverview(props: {
                                     placeholder="my-supersecret-password"
                                 />
                             </div>
-                            <div className={styles.checkbox}>
-                                <input
-                                    type="checkbox"
-                                    id="1"
-                                    onChangeCapture={(e) => props.setEncrypt(e.currentTarget.checked)}
-                                />
-                                <label htmlFor="1">Encrypt this upload</label>
-                            </div>
                         </div>
                     </div>
 
