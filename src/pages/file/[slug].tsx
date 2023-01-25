@@ -1,7 +1,7 @@
 import { useRouter } from "next/router"
 import styles from "@/styles/File/SpecificFile.module.scss"
 import ovstyles from "@/styles/shared/Overlays.module.scss"
-import { KeyboardEventHandler, useCallback, useEffect, useMemo, useRef, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { defaultWrapper, Errors, FileInformation } from "@/common/apiwrapper/main"
 import { humanReadableDate, humanReadableSize } from "src/common/utils/units"
 import { FaSpinner } from "react-icons/fa"
@@ -13,7 +13,6 @@ export default function FileDownload() {
     const [file, setFile] = useState<FileInformation>()
     const [passwordRequired, setPasswordRequired] = useState<boolean>(false)
     const [downloaded, setDownloaded] = useState<boolean>(false)
-    const [opened, setOpened] = useState<boolean>(false)
     const passwordRef = useRef<HTMLInputElement>(null)
     const filename = useMemo(() => slug && (typeof slug === "string" ? slug : slug[0]), [slug])
 

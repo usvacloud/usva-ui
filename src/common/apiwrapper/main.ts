@@ -5,6 +5,7 @@ import appconfig from "../../../config"
 export type FileUploadOptions = {
     title?: string
     password?: string
+    encrypt?: boolean
 }
 
 export type FileInformation = {
@@ -69,34 +70,12 @@ export class ApiWrapper {
         }
     }
 
-    async downloadFile(
-        uuid: string,
-        password: string | undefined,
-        reqStream?: Stream
-    ): Promise<AxiosResponse | Error> {
-        let headers = undefined
-
-        if (password)
-            headers = {
-                Authorization: `Bearer ${Buffer.from(password, "base64").toString("hex")}`,
-            }
-
-        const req = await this.makeRequest(`${appconfig.api_base}/file/?filename=${uuid}`, {
-            responseType: "blob",
-            headers,
-            onDownloadProgress(progressEvent) {
-                reqStream?.emit("progress", progressEvent)
-            },
-        })
-        if (req instanceof Error) return Error("File could not be downloaded")
-        return req
-    }
-
     async newFile(file: File, options?: FileUploadOptions, reqStream?: Stream): Promise<string | Error> {
         const fd = new FormData()
         fd.append("file", file)
 
         if (options?.title) fd.append("title", options.title)
+        if (options?.encrypt) fd.append("can_encrypt", "yes")
         if (options?.password) fd.append("password", Buffer.from(options.password, "base64").toString("hex"))
         const req = await this.makeRequest(`${appconfig.api_base}/file/upload`, {
             method: "POST",

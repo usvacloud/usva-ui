@@ -14,6 +14,7 @@ import { useEffect } from "react"
 import { Stream } from "stream"
 import { AxiosProgressEvent } from "axios"
 import JSZip from "jszip"
+import Head from "next/head"
 
 export type FileUploadState = {
     uploading: boolean
@@ -33,6 +34,7 @@ export default function FileUpload() {
     const [overviewShown, setOverviewShown] = useState<boolean>(false)
     const [uploadTitle, setUploadTitle] = useState<string>()
     const [isLocked, setIsLocked] = useState<boolean>(false)
+    const [encryptFile, setEncryptFile] = useState<boolean>(false)
     const passwordInputRef = useRef<HTMLInputElement>(null)
     const [fileUploadState, setFileUploadState] = useState<FileUploadState>({
         uploading: false,
@@ -110,6 +112,7 @@ export default function FileUpload() {
             {
                 title: uploadTitle,
                 password: passwordInputRef.current?.value,
+                encrypt: encryptFile,
             },
             reqstream
         )
@@ -172,57 +175,86 @@ export default function FileUpload() {
     }
 
     return (
-        <div>
-            {/* The box itself */}
-            <Container
-                addFile={addFile}
-                fileHandler={fileHandler}
-                fileMetas={fileMetas}
-                fileUploadState={fileUploadState}
-            >
-                <motion.div animate={animation(fileMetas.length < 1)}>
-                    <UploadWaiting fileUploadState={fileUploadState} />
-                </motion.div>
+        <>
+            <Head>
+                <title>Usva | Upload your files</title>
+                <meta name="title" content="Usva | Upload your files" />
+                <meta
+                    name="description"
+                    content="With usva you can share your files easily and securely all around the internet."
+                />
 
-                <motion.div animate={animation(fileMetas.length >= 1 && !fileUploadState.error)}>
-                    <Review
-                        addFile={addFile}
-                        removeFile={removeFile}
-                        fileMetas={fileMetas}
-                        fileUploadState={fileUploadState}
-                        isLocked={isLocked}
-                        resetForm={resetForm}
-                        setOverviewShown={setOverviewShown}
-                        uploadFiles={uploadFiles}
-                    />
-                </motion.div>
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content="https://usva.cc/" />
+                <meta property="og:title" content="Usva | Upload your files" />
+                <meta
+                    property="og:description"
+                    content="With usva you can share your files easily and securely all around the internet."
+                />
+                <meta property="og:image" content="" />
 
-                <motion.div animate={animation(!fileUploadState.error && fileUploadState.uploaded)}>
-                    <FinishedScreen
-                        filename={uploadedUUID || ""}
-                        switchOverlay={setOverviewShown}
-                        resetForm={resetForm}
-                    />
-                </motion.div>
+                <meta property="twitter:card" content="summary_large_image" />
+                <meta property="twitter:url" content="https://usva.cc/" />
+                <meta property="twitter:title" content="Usva | Upload your files" />
+                <meta
+                    property="twitter:description"
+                    content="With usva you can share your files easily and securely all around the internet."
+                />
+                <meta property="twitter:image" content="" />
+            </Head>
+            <div>
+                {/* The box itself */}
+                <Container
+                    addFile={addFile}
+                    fileHandler={fileHandler}
+                    fileMetas={fileMetas}
+                    fileUploadState={fileUploadState}
+                >
+                    <motion.div animate={animation(fileMetas.length < 1)}>
+                        <UploadWaiting fileUploadState={fileUploadState} />
+                    </motion.div>
 
-                <motion.div animate={animation(fileUploadState.error)}>
-                    <ErrorScreen error={fileUploadState.error} resetUpload={resetForm} />
-                </motion.div>
+                    <motion.div animate={animation(fileMetas.length >= 1 && !fileUploadState.error)}>
+                        <Review
+                            addFile={addFile}
+                            removeFile={removeFile}
+                            fileMetas={fileMetas}
+                            fileUploadState={fileUploadState}
+                            isLocked={isLocked}
+                            resetForm={resetForm}
+                            setOverviewShown={setOverviewShown}
+                            uploadFiles={uploadFiles}
+                        />
+                    </motion.div>
 
-                <input type="file" multiple={true} ref={fileInputRef} />
-            </Container>
+                    <motion.div animate={animation(!fileUploadState.error && fileUploadState.uploaded)}>
+                        <FinishedScreen
+                            filename={uploadedUUID || ""}
+                            switchOverlay={setOverviewShown}
+                            resetForm={resetForm}
+                        />
+                    </motion.div>
 
-            <UploadOverlay
-                removeFile={removeFile}
-                files={fileMetas}
-                locked={isLocked}
-                shown={false || overviewShown}
-                passwordInputRef={passwordInputRef}
-                setShown={setOverviewShown}
-                title={uploadTitle || "Untitled upload"}
-                setTitle={setUploadTitle}
-                isTitleValidCallback={isTitleValidCallback}
-            />
-        </div>
+                    <motion.div animate={animation(fileUploadState.error)}>
+                        <ErrorScreen error={fileUploadState.error} resetUpload={resetForm} />
+                    </motion.div>
+
+                    <input type="file" multiple={true} ref={fileInputRef} />
+                </Container>
+
+                <UploadOverlay
+                    removeFile={removeFile}
+                    files={fileMetas}
+                    setEncrypt={setEncryptFile}
+                    locked={isLocked}
+                    shown={false || overviewShown}
+                    passwordInputRef={passwordInputRef}
+                    setShown={setOverviewShown}
+                    title={uploadTitle || "Untitled upload"}
+                    setTitle={setUploadTitle}
+                    isTitleValidCallback={isTitleValidCallback}
+                />
+            </div>
+        </>
     )
 }

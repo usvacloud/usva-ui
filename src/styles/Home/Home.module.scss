@@ -249,6 +249,39 @@
                     margin: 5px 0;
                 }
             }
+
+            & .checkbox input[type="checkbox"] {
+                display: none;
+
+                & + label {
+                    width: 100%;
+                    transition: var(--transition);
+                    border-radius: var(--global-border-radius);
+                    padding: 2px 15px;
+                    cursor: pointer;
+                    font-weight: 400;
+
+                    & svg {
+                        fill: hsl(170, 20%, 33%);
+                        transform: translateY(2px);
+                        margin-right: 4px;
+                        font-size: 0.95rem;
+
+                        &:hover {
+                            fill: hsl(170, 20%, 33%);
+                        }
+                    }
+                }
+
+                &:focus + label,
+                + label:hover {
+                    color: hsl(170, 20%, 33%);
+                }
+
+                &:checked + label {
+                    background: var(--form-bg);
+                }
+            }
         }
 
         & .filesAdvanced {

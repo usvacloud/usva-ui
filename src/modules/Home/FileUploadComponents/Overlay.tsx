@@ -1,18 +1,6 @@
 import { motion } from "framer-motion"
-import React, { Ref, useMemo, useState } from "react"
-import {
-    FaFolder,
-    FaFolderOpen,
-    FaLock,
-    FaLockOpen,
-    FaRegFrown,
-    FaRegSmileBeam,
-    FaSpinner,
-    FaTimes,
-    FaUnlock,
-    FaUnlockAlt,
-    FaUserLock,
-} from "react-icons/fa"
+import React, { Ref, useState } from "react"
+import { FaLock, FaRegFrown, FaRegSmileBeam, FaSpinner, FaTimes, FaUnlockAlt } from "react-icons/fa"
 import styles from "@/styles/Home/Home.module.scss"
 import overlays from "@/styles/shared/Overlays.module.scss"
 import IconByExtension from "@/components/Home/FileUploadComponents/IconByExtension"
@@ -23,6 +11,7 @@ export default function UploadOverview(props: {
     shown: boolean
     setShown: (x: boolean) => void
     locked: boolean
+    setEncrypt: (i: boolean) => void
     files: FileInitMeta[]
     removeFile: (i: number) => void
     title: string
@@ -47,6 +36,10 @@ export default function UploadOverview(props: {
                     opacity: props.shown ? 1 : 0,
                 }}
                 className={[styles.overview, overlays.overview].join(" ")}
+                initial={{
+                    opacity: 0,
+                    transform: "scaleY(0)",
+                }}
             >
                 <div className={[styles.contentbox, overlays.contentbox].join(" ")}>
                     <div
@@ -117,7 +110,7 @@ export default function UploadOverview(props: {
                                     ref={props.passwordInputRef}
                                     onChange={(e) => {
                                         setPasswordSaving(true)
-                                        setPasswordValid(e.target.value != "")
+                                        setPasswordValid(e.target.value.length > 6 && e.target.value.length < 128)
                                         setTimeout(() => {
                                             setPasswordSaving(false)
                                         }, 20)
@@ -126,6 +119,14 @@ export default function UploadOverview(props: {
                                     type="password"
                                     placeholder="my-supersecret-password"
                                 />
+                            </div>
+                            <div className={styles.checkbox}>
+                                <input
+                                    type="checkbox"
+                                    id="1"
+                                    onChangeCapture={(e) => props.setEncrypt(e.currentTarget.checked)}
+                                />
+                                <label htmlFor="1">Encrypt this upload</label>
                             </div>
                         </div>
                     </div>

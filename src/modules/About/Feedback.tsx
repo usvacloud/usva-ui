@@ -15,10 +15,7 @@ import {
     FaTimes,
 } from "react-icons/fa"
 import { defaultWrapper, Errors } from "src/common/apiwrapper/main"
-import { useEffect } from "react"
-import { useRef } from "react"
-import { useMemo } from "react"
-import { useCallback } from "react"
+import { useEffect, useRef } from "react"
 
 const choices = [
     {
