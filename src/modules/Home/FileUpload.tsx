@@ -81,7 +81,7 @@ export default function FileUpload() {
                     ...prev,
                     status: {
                         ...prev.status,
-                        current: prev.status.current + info.size,
+                        current: prev.status.current + info.size / 2,
                     },
                 }))
             })
