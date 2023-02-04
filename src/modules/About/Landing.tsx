@@ -9,10 +9,9 @@ export default function Landing() {
                         Usva is an open-source temporary file cloud with multiple features.
                     </h1>
                     <p className="description">
-                        Usva&apos;s primary destination is to provide everyone a trustworthy and anonymous
-                        file sharing service with built-in security controls for every user. Usva isn&apos;t
-                        tracking you down or showing you annoying ads which means that Usva is hosted with
-                        basically no profit.
+                        Usva&apos;s primary goal is to provide everyone a trustworthy and anonymous file
+                        sharing service with built-in security controls for every user. Usva isn&apos;t
+                        tracking you down, or showing you annoying ads. Usva is hosted without any profit.
                     </p>
                 </div>
             </div>

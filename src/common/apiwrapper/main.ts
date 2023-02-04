@@ -17,6 +17,24 @@ export type FileInformation = {
     viewCount: number
 }
 
+export type RestrictionSizes = {
+    bytes: number
+    gigabytes: number
+    kilobytes: number
+    megabytes: number
+}
+
+export type Restrictions = {
+    filePersistDuration: {
+        days: number
+        hours: number
+        seconds: number
+    }
+    maxDailyUploadSize: RestrictionSizes
+    maxEncryptedFileSize: RestrictionSizes
+    maxSingleUploadSize: RestrictionSizes
+}
+
 export const Errors = {
     FileNotCreated: Error("File was not uploaded"),
     FileNotFound: Error("File was not found"),
@@ -33,6 +51,15 @@ export const Errors = {
 
 export class ApiWrapper {
     constructor() {}
+
+    async getRestrictions(): Promise<Restrictions | Error> {
+        const restrictions = await this.makeRequest(`${appconfig.api_base}/restrictions`)
+        if (restrictions instanceof Error) {
+            return restrictions
+        }
+
+        return restrictions.data
+    }
 
     async getFileInformation(uuid: string, password: string | undefined): Promise<FileInformation | Error> {
         let headers = undefined

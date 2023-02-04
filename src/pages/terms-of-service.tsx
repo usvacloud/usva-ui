@@ -50,10 +50,10 @@ export default function TermsOfService() {
                             </p>
 
                             <p className="description small">
-                                There is, of course, changes to our way of acting touching specific area of
-                                mode of operation, which also includes changes to our way of acting to user
-                                specific data. Each time there is any changes the new terms or policies are
-                                updated to our website at https://usva.cc. <br /> <br />
+                                There may be changes to our way of processing certain operations, which also
+                                includes changes to our way of processing user specific data. Each time there
+                                is any changes the new terms or policies are updated to our website at
+                                https://usva.cc. <br /> <br />
                                 We save uploaders&apos; and downloaders&apos; IP-Addresses as SHA256 hashed
                                 strings to limit the amount of unwanted abuse of our services. In case a file
                                 seems suspicious certain checks automatic or manuals checks may be done. If

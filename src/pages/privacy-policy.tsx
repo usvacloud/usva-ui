@@ -22,8 +22,8 @@ export default function PrivacyPolicy() {
                         <p className="description small">
                             The data is saved in the database connected to the backend. The country locations
                             may vary, but for the primary production instance, accessible at https://usva.cc/,
-                            all servers are located in the Europe Union. Therefore, GDPR applies, and you can
-                            make any legal requests to email found in the bottom of each page.
+                            all servers are located in the European Union. Therefore, GDPR applies, and you
+                            can make any legal requests to email found in the bottom of each page.
                         </p>
 
                         <p className="description small">

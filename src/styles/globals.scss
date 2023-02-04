@@ -2,13 +2,12 @@
 :root {
     // General
     --transition: 150ms cubic-bezier(0.25, 0.5, 0.25, 1);
-    --font: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
-        "Open Sans", "Helvetica Neue", sans-serif;
-
+    --font: Mukta, Cantarell, "Open Sans", sans-serif;
+    --font-title: Sen, var(--font);
     --font-titles: var(--font);
     --maximum-content-width: 950px;
-    --global-border-radius: 0px;
-    --default-bg-blur: 30px;
+    --global-border-radius: 8px;
+    --default-bg-blur: 4px;
     --basewidth: 90%;
     --section-horizontal-padding: 20px;
 
@@ -17,7 +16,7 @@
     }
 
     // Colors
-    --tint: 300;
+    --tint: 140;
     --accent-color: hsl(var(--tint), 32%, 17%);
     --accent-light: hsl(var(--tint), 32%, 60%);
 
@@ -31,29 +30,24 @@
     --gradient-start: hsl(var(--tint), 43%, 83%);
     --gradient-stop: hsl(calc(var(--tint) + 50), 33%, 83%);
 
-    --landing-bg: hsl(var(--tint), 0%, 5%);
-    --landing-bg-alt: hsl(var(--tint), 20%, 60%);
+    --landing-bg: hsl(var(--tint), 30%, 80%);
+    --landing-bg-alt: hsl(var(--tint), 20%, 10%);
 
-    --landing-title: hsl(var(--tint), 43%, 50%);
-    --landing-fg: hsl(0, 0%, 80%);
+    --landing-title: hsl(var(--tint), 33%, 20%);
+    --landing-title-dark: hsl(var(--tint), 20%, 70%);
+    --landing-title-dark-leipa: hsl(var(--tint), 10%, 50%);
+    --landing-fg: hsla(0, 0%, 0%, 0.859);
+    --landing-form-bg: hsl(var(--tint), 0%, 100%);
+    --landing-form-bg-hover: hsl(var(--tint), 0%, 90%);
+    --landing-form-icon: hsl(var(--tint), 47%, 10%);
+    --landing-form-fg: hsl(var(--tint), 33%, 30%);
 
-    --landing-form-bg: hsl(var(--tint), 30%, 40%);
-    --landing-form-second: hsl(var(--tint), 30%, 30%);
-    --landing-form-bg-hover: hsl(var(--tint), 30%, 55%);
-    --landing-form-icon: hsl(var(--tint), 27%, 0%);
-    --landing-form-fg: hsl(var(--tint), 0%, 0%);
-    --landing-form-icon: hsl(var(--tint), 50%, 40%);
-
-    --landing-first: hsl(0, 0%, 100%);
-    --landing-hfirst: hsl(0, 0%, 80%);
-    --landing-second: hsl(0, 0%, 0%);
-
-    --primary-bg: hsl(0, 0%, 5%);
-    --primary-fg: hsl(0, 0%, 75%);
-    --secondary-bg: hsl(0, 0%, 8%);
-    --secondary-fg: hsl(0, 0%, 93%);
-    --bar-bg: hsla(0, 0%, 0%, 0.9);
-    --bar-fg: hsl(0, 0%, 70%);
+    --primary-bg: hsl(0, 0%, 95%);
+    --primary-fg: hsl(0, 0%, 7%);
+    --secondary-bg: hsl(0, 0%, 93%);
+    --secondary-fg: hsl(0, 0%, 21%);
+    --bar-bg: hsla(0, 0%, 100%, 0.8);
+    --bar-fg: hsl(0, 0%, 0%);
     --bar-fg-hover: hsl(0, 0%, 50%);
     --bar-icon: var(--bar-fg);
     --list-identifier: hsla(0, 0%, 0%, 0.3);
@@ -66,15 +60,16 @@
     --negative-icon: hsl(0, 58%, 58%);
     --neutral-icon: var(--widget-secondary-bg);
 
-    --form-bg: hsl(0, 0%, 12%);
-    --form-fg: hsl(0, 0%, 80%);
+    --form-bg: hsl(0, 0%, 88%);
+    --form-bg-alt: hsl(0, 0%, 70%);
+    --form-fg: hsl(0, 0%, 0%);
     --form-fg-alt: hsl(0, 0%, 54%);
     --form-disabled-bg: hsl(0, 0%, 80%);
     --form-disabled-fg: hsl(0, 0%, 72%);
     --form-disabled-img: hsl(0, 0%, 67%);
-    --form-bg-hover: hsl(0, 0%, 20%);
+    --form-bg-hover: hsl(0, 0%, 80%);
+    --form-bg-selected: hsl(0, 0%, 20%);
     --form-icon: hsl(0, 0%, 62%);
-    --form-icon-hover: hsl(var(--tint), 20%, 58%);
 
     --form-primary: hsl(var(--tint), 29%, 36%);
     --form-primary-fg: hsl(0, 0%, 88%);
@@ -82,19 +77,17 @@
     --form-primary-hover: hsl(var(--tint), 29%, 46%);
     --form-primary-disabled: hsl(var(--tint), 29%, 26%);
 
-    --footer-bg: hsl(var(--tint), 10%, 10%);
-    --footer-fg: hsl(var(--tint), 30%, 80%);
-    --footer-fg-hover: hsl(0, 0%, 80%);
-    --footer-link-mail: hsl(219, 47%, 62%);
+    --footer-bg: hsl(0, 0%, 90%);
+    --footer-fg: hsl(0, 0%, 10%);
+    --footer-fg-hover: hsl(0, 0%, 90%);
+    --footer-link-mail: hsl(219, 47%, 32%);
 
     --link-fg: hsl(231, 37%, 26%);
 
-    --widget-primary-bg: hsl(0, 0%, 1%);
-    --widget-primary-bg-hover: hsl(0, 0%, 11%);
-    --widget-secondary-bg: hsl(0, 0%, 13%);
-    --widget-primary-fg: hsl(0, 0%, 93%);
-
-    --box-fg: hsl(0, 0%, 10%);
+    --widget-primary-bg: hsl(0, 0%, 91%);
+    --widget-primary-bg-hover: hsl(0, 0%, 71%);
+    --widget-secondary-bg: hsl(0, 0%, 83%);
+    --widget-primary-fg: hsl(0, 0%, 13%);
 
     // Switch colors from light when user prefers dark color scheme
     @media screen and (max-width: 700px) {
@@ -112,7 +105,6 @@ body {
     padding: 0;
     margin: 0;
     font-family: var(--font);
-    background: var(--primary-bg);
 
     animation: 200ms ease fadein;
 }
@@ -170,4 +162,14 @@ input {
 ::-moz-selection {
     color: var(--accent-light);
     background-color: hsla(var(--tint), 10%, 58%, 0.253);
+}
+
+@font-face {
+    font-family: Mukta;
+    src: url(/assets/fonts/mukta/Mukta-Regular.ttf);
+}
+
+@font-face {
+    font-family: Sen;
+    src: url(/assets/fonts/dm-sans/DMSans-Regular.ttf);
 }

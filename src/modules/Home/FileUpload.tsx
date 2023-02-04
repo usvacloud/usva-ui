@@ -13,7 +13,6 @@ import Container from "./FileUploadComponents/Container"
 import { useEffect } from "react"
 import { Stream } from "stream"
 import { AxiosProgressEvent } from "axios"
-import JSZip from "jszip"
 import Head from "next/head"
 
 export type FileUploadState = {
@@ -35,6 +34,7 @@ export default function FileUpload() {
     const [uploadTitle, setUploadTitle] = useState<string>()
     const [isLocked, setIsLocked] = useState<boolean>(false)
     const [encryptFile, setEncryptFile] = useState<boolean>(false)
+    const [passwordValid, setPasswordValid] = useState(false)
     const passwordInputRef = useRef<HTMLInputElement>(null)
     const [fileUploadState, setFileUploadState] = useState<FileUploadState>({
         uploading: false,
@@ -72,13 +72,17 @@ export default function FileUpload() {
             filename: "upload.zip",
             content: new Blob(),
         }
+
         const willZip = fileHandler.files.length > 1
         if (willZip) {
             const stream = new Stream()
             stream.on("add", (info: File) => {
                 setFileUploadState((prev) => ({
                     ...prev,
-                    status: { ...prev.status, current: prev.status.current + info.size / 2 },
+                    status: {
+                        ...prev.status,
+                        current: prev.status.current + info.size,
+                    },
                 }))
             })
 
@@ -144,6 +148,7 @@ export default function FileUpload() {
 
     function resetForm() {
         if (fileUploadState.uploading) return
+
         setFileUploadState({
             uploaded: false,
             uploading: false,
@@ -153,6 +158,10 @@ export default function FileUpload() {
                 total: 0,
             },
         })
+
+        setEncryptFile(false)
+        if (passwordInputRef.current) passwordInputRef.current.value = ""
+        setPasswordValid(false)
         setFileMetas([])
         fileHandler.reset()
     }
@@ -208,13 +217,19 @@ export default function FileUpload() {
                     addFile={addFile}
                     fileHandler={fileHandler}
                     fileMetas={fileMetas}
+                    setFileMetas={setFileMetas}
                     fileUploadState={fileUploadState}
                 >
-                    <motion.div animate={animation(fileMetas.length < 1)}>
+                    <motion.div animate={animation(fileMetas.length == 0)}>
                         <UploadWaiting fileUploadState={fileUploadState} />
                     </motion.div>
 
-                    <motion.div animate={animation(fileMetas.length >= 1 && !fileUploadState.error)}>
+                    <motion.div
+                        initial={{
+                            display: "none",
+                        }}
+                        animate={animation(fileMetas.length >= 1 && !fileUploadState.error)}
+                    >
                         <Review
                             addFile={addFile}
                             removeFile={removeFile}
@@ -227,7 +242,12 @@ export default function FileUpload() {
                         />
                     </motion.div>
 
-                    <motion.div animate={animation(!fileUploadState.error && fileUploadState.uploaded)}>
+                    <motion.div
+                        initial={{
+                            display: "none",
+                        }}
+                        animate={animation(!fileUploadState.error && fileUploadState.uploaded)}
+                    >
                         <FinishedScreen
                             filename={uploadedUUID || ""}
                             switchOverlay={setOverviewShown}
@@ -235,7 +255,12 @@ export default function FileUpload() {
                         />
                     </motion.div>
 
-                    <motion.div animate={animation(fileUploadState.error)}>
+                    <motion.div
+                        initial={{
+                            display: "none",
+                        }}
+                        animate={animation(fileUploadState.error)}
+                    >
                         <ErrorScreen error={fileUploadState.error} resetUpload={resetForm} />
                     </motion.div>
 
@@ -246,6 +271,7 @@ export default function FileUpload() {
                     removeFile={removeFile}
                     files={fileMetas}
                     setEncrypt={setEncryptFile}
+                    encrypt={encryptFile}
                     locked={isLocked}
                     shown={false || overviewShown}
                     passwordInputRef={passwordInputRef}
@@ -253,6 +279,8 @@ export default function FileUpload() {
                     title={uploadTitle || "Untitled upload"}
                     setTitle={setUploadTitle}
                     isTitleValidCallback={isTitleValidCallback}
+                    passwordValid={passwordValid}
+                    setPasswordValid={setPasswordValid}
                 />
             </div>
         </>

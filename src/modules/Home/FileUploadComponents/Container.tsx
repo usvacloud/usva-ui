@@ -5,11 +5,12 @@ import { FileUploadState } from "../FileUpload"
 export default function Container(props: {
     fileHandler: FileHandler
     fileMetas: FileInitMeta[]
+    setFileMetas: (i: FileInitMeta[]) => void
     addFile: () => void
     fileUploadState: FileUploadState
     children: JSX.Element[]
 }) {
-    const { fileHandler, fileMetas, addFile, fileUploadState, children } = props
+    const { fileHandler, fileMetas, setFileMetas, addFile, fileUploadState, children } = props
 
     return (
         <div
@@ -20,7 +21,8 @@ export default function Container(props: {
                 if (e.dataTransfer.items) {
                     Array.from(e.dataTransfer.items).map((item) => {
                         if (item.kind !== "file") return
-                        fileHandler.add(item.getAsFile())
+                        const file = fileHandler.add(item.getAsFile())
+                        if (file) setFileMetas([...fileMetas, file])
                     })
                     return
                 }

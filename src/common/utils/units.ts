@@ -7,7 +7,7 @@ export function humanReadableSize(bytes: number): string {
     }
 
     let added = false
-    let sz = "Unknown size"
+    let sz = `${bytes} Bytes`
     Object.entries(sizes).map((val) => {
         if (added) return
         if (bytes / val[1] >= 1) {

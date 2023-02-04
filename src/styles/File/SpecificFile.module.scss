@@ -5,7 +5,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    background: var(--primary-bg);
+    background: var(--landing-bg);
     background-size: cover;
     background-position: center;
     background-blend-mode: overlay;
@@ -15,6 +15,7 @@
         width: var(--basewidth);
         max-width: var(--maximum-content-width);
         margin: 0 auto;
+        color: var(--landing-fg);
 
         & h1 {
             animation: 250ms ease up;
@@ -22,6 +23,9 @@
                 overflow: hidden;
                 width: 50vw;
                 text-overflow: ellipsis;
+                & span {
+                    color: var(--landing-title-special);
+                }
             }
         }
 

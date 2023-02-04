@@ -1,14 +1,10 @@
 .landing {
-    min-height: 500px;
-    height: 100vh;
+    height: 500px;
     padding-top: 25px;
     background: var(--landing-bg-alt);
     background-size: cover;
     background-position: center;
     position: relative;
-
-    display: flex;
-    justify-content: center;
 
     @media screen and (max-height: 700px) {
         height: auto;
@@ -27,7 +23,7 @@
 
         display: flex;
 
-        padding: 0px var(--section-horizontal-padding);
+        padding: 20px var(--section-horizontal-padding);
         gap: 50px;
 
         margin: auto;
@@ -41,6 +37,7 @@
             color: var(--landing-title-dark);
 
             & h1 {
+                font-size: 1.6rem;
                 color: var(--landing-title-dark);
                 animation: 400ms var(--transition) popup;
             }
@@ -143,7 +140,7 @@
             padding: 25px var(--section-horizontal-padding);
         }
 
-        & h2,
+        & h1,
         p {
             color: var(--box-fg);
         }
