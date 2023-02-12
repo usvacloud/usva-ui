@@ -228,9 +228,9 @@ export default function UploadOverview(props: {
                                     secure.
                                 </li>
                                 <li>
-                                    You shouldn&apos;t ever trust third party to encrypt your files. If you
-                                    are going to upload something sensitive, it&apos;s more than recommended
-                                    that you encrypt the files yourself.
+                                    If you are going to upload something very sensitive, it&apos;s recommended
+                                    that you encrypt your files properly before upload, even though we do
+                                    provide an encrypt feature.
                                 </li>
                             </ul>
                         )}

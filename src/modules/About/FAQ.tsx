@@ -31,7 +31,7 @@ export default function FAQ() {
                     question="Can I protect my files somehow?"
                     answer={`
                     Yes. This service provides an optional password protection for every upload. 
-                    For more advanced protection at bit level, you can encrypt your files with asymmetric or symmetric encryption before uploading them.
+                    For more advanced protection you can choose to encrypt your files in the upload process.
                 `}
                 />
                 <Question
