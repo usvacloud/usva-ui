@@ -115,8 +115,8 @@ export default function FileDownload() {
                                 </ul>
                             </div>
                             <div className={styles.buttons}>
-                                <button
-                                    onClick={download}
+                                <a
+                                    href={`${config.api_base}/file?filename=${filename}`}
                                     className={[
                                         styles.button,
                                         styles.primary,
@@ -124,7 +124,7 @@ export default function FileDownload() {
                                     ].join(" ")}
                                 >
                                     Download
-                                </button>
+                                </a>
                             </div>
                         </>
                     ) : (
