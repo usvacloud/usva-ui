@@ -52,6 +52,7 @@ export class FileHandler {
             if (file) fm.push(file)
         }
 
+        if (ref.current) ref.current.value = ""
         return fm
     }
 
