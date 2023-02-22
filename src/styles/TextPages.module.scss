@@ -1,5 +1,11 @@
 .main {
     margin: 20px auto 90px;
+    h1,
+    h2,
+    h3 {
+        font-weight: 400;
+    }
+
     .header {
         padding: 120px var(--section-horizontal-padding) 40px;
         width: var(--basewidth);
@@ -7,8 +13,8 @@
         margin: auto;
 
         & h1 {
-            font-size: 2.5em;
-            background: -webkit-linear-gradient(250deg, rgb(53, 121, 184), rgb(84, 150, 167));
+            font-size: 2em;
+            background: -webkit-linear-gradient(250deg, rgb(50, 121, 184), rgb(90, 150, 167));
             background-clip: text;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -16,12 +22,16 @@
     }
 
     .section {
-        padding: 40px 0;
+        padding: 20px 0;
         & .content {
             max-width: var(--maximum-content-width);
             width: var(--basewidth);
             padding: 0 var(--section-horizontal-padding);
             margin: auto;
+
+            & h3 {
+                margin-top: 40px;
+            }
         }
     }
 }

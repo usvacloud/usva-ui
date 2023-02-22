@@ -169,6 +169,16 @@ export default function PrivacyPolicy() {
                         </p>
                     </div>
                 </div>
+                <div className={styles.section}>
+                    <div className={styles.content}>
+                        <h2 className="title">Registrar</h2>
+                        <p>
+                            Touko Valkonen
+                            <br />
+                            <a href="mailto:touko@testausserveri">touko.valkonen (at) testausserveri.fi</a>
+                        </p>
+                    </div>
+                </div>
             </div>
         </>
     )
