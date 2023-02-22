@@ -3,7 +3,7 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar"
 import { filterProps, motion } from "framer-motion"
 import Link from "next/link"
 import { Dispatch, SetStateAction } from "react"
-import { FaTimes, FaPlusCircle, FaWrench, FaThumbsUp } from "react-icons/fa"
+import { FaTimes, FaPlusCircle, FaWrench, FaThumbsUp, FaSpinner } from "react-icons/fa"
 import { FileUploadState } from "../FileUpload"
 import IconByExtension from "./IconByExtension"
 import styles from "@/styles/Home/Home.module.scss"
@@ -62,6 +62,16 @@ export function Review({
 
             {fileMetas.map((f, i) => {
                 if (!f || i >= 3) return
+
+                const maxsize = 25
+
+                const splitFilename = f.filename.split(".")
+                const trimFilename = splitFilename[Math.min(0, splitFilename.length - 1)]
+
+                const filename: string = (
+                    trimFilename.length > maxsize ? trimFilename.substr(0, maxsize) : trimFilename
+                ).trim()
+
                 return (
                     <motion.div
                         animate={{
@@ -71,7 +81,7 @@ export function Review({
                         className={[styles.fileInfo, isLocked ? styles.disabled : ""].join(" ")}
                     >
                         <IconByExtension type={f.type} />
-                        <span className={styles.filename}>{f.filename}</span>
+                        <span className={styles.filename}>{filename}</span>
                         <span className={styles.size}>{f.size}</span>
                         <FaTimes
                             onClick={(e) => {
@@ -93,13 +103,13 @@ export function Review({
 
             <p className={styles.tosnt}>
                 As you proceed you accept our{" "}
-                <Link target="_blank" href="/terms-of-service">
+                <a target="_blank" href="/terms-of-service">
                     Terms
-                </Link>{" "}
+                </a>{" "}
                 and{" "}
-                <Link target="_blank" href="/privacy-policy">
+                <a target="_blank" href="/privacy-policy">
                     Privacy Policy
-                </Link>
+                </a>
             </p>
             <div className={styles.buttons}>
                 <div className={styles.icons}>
@@ -123,9 +133,9 @@ export function Review({
                             <span>Upload file{fileMetas.length > 1 ? "s" : ""}</span>
                         ) : fileUploadState.status.current == fileUploadState.status.total ? (
                             <>
-                                <span>Finishing... </span>
+                                <span>Getting your link </span>
                                 <span className="spinner">
-                                    <FaThumbsUp />
+                                    <FaSpinner />
                                 </span>
                             </>
                         ) : (
