@@ -168,12 +168,16 @@ export default function FileUpload() {
 
     function addFile() {
         if (isLocked || !fileInputRef.current) return
+        fileInputRef.current.click()
+    }
+
+    useEffect(() => {
+        if (!fileInputRef.current) return
         fileInputRef.current.onchange = () => {
             const metas = fileHandler.sync(fileInputRef)
             if (metas) setFileMetas((prev) => prev.concat(metas))
         }
-        fileInputRef.current.click()
-    }
+    }, [fileInputRef, fileHandler])
 
     const animation = (x: any): TargetAndTransition => {
         return {
