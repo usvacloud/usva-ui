@@ -1,19 +1,12 @@
 .landing {
-    height: 500px;
-    padding-top: 25px;
+    height: max(90vh, 400px);
+    max-height: 600px;
     background: var(--landing-bg-alt);
     background-size: cover;
     background-position: center;
     position: relative;
 
-    @media screen and (max-height: 700px) {
-        height: auto;
-        padding: 100px 0;
-    }
-    @media screen and (max-width: 700px) {
-        height: auto;
-        padding: 100px 0;
-    }
+    animation: 1200ms ease scaling;
 
     & .centerContainer {
         width: var(--basewidth);
@@ -37,15 +30,12 @@
             color: var(--landing-title-dark);
 
             & h1 {
-                font-size: 1.6rem;
+                font-size: 1.5rem;
                 color: var(--landing-title-dark);
-                animation: 400ms var(--transition) popup;
             }
 
             & p {
                 color: var(--landing-title-dark-leipa);
-                font-weight: 500;
-                animation: 350ms var(--transition) popup;
             }
             @media screen and (max-width: 900px) {
                 text-align: left;
@@ -258,14 +248,28 @@
 }
 @keyframes popup {
     0% {
-        transform: translateY(10px);
+        transform: translateY(90px);
         overflow: hidden;
-        opacity: 0;
     }
 
     100% {
         transform: translateY(0px);
         overflow: initial;
-        opacity: 1;
+    }
+}
+
+@keyframes scaling {
+    0% {
+        height: 100vh;
+        max-height: 100vh;
+        background: hsl(0, 0%, 0%);
+    }
+    40% {
+        height: 100vh;
+        max-height: 100vh;
+        background: hsl(0, 0%, 0%);
+    }
+    100% {
+        height: max(90vh, 400px);
     }
 }
