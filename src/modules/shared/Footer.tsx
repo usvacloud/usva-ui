@@ -38,10 +38,10 @@ export default function Footer() {
                             <a target="_blank">Sponsor</a>
                         </Link>
                         <Link href="/terms-of-service">
-                            <a target="_blank">Terms of Service</a>
+                            <a>Terms of Service</a>
                         </Link>
                         <Link href="/privacy-policy">
-                            <a target="_blank">Privacy Policy</a>
+                            <a>Privacy Policy</a>
                         </Link>
                     </div>
                 </div>
