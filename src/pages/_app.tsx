@@ -6,10 +6,12 @@ import "@/styles/textstyles.scss"
 import type { AppProps } from "next/app"
 import { MotionConfig } from "framer-motion"
 import CookieNotice from "@/components/shared/CookieNotice"
+import NoScriptScreen from "@/components/shared/NoScriptScreen"
 
 function MyApp({ Component, pageProps }: AppProps) {
     return (
         <>
+            <NoScriptScreen />
             <MotionConfig transition={{ duration: 0.5, bounce: 0.5, type: "spring" }}>
                 <CookieNotice />
                 <Bar />
