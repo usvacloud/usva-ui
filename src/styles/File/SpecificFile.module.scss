@@ -36,6 +36,7 @@
         }
 
         & .button {
+            max-width: fit-content;
             margin-top: 50px;
             animation: 450ms ease up;
         }

@@ -134,7 +134,7 @@ export function Review({
                         ) : fileUploadState.status.current == fileUploadState.status.total ? (
                             <>
                                 <span>Getting your link </span>
-                                <span className="spinner">
+                                <span className="spinner" style={{ height: "unset", width: "unset" }}>
                                     <FaSpinner />
                                 </span>
                             </>
