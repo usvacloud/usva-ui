@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState } from "react"
+import { Ref, RefObject, useMemo, useRef, useState } from "react"
 import UploadOverlay from "./FileUploadComponents/Overlay"
 import { motion, TargetAndTransition } from "framer-motion"
 import { archive } from "@/common/utils/archiver"
@@ -25,7 +25,101 @@ export type FileUploadState = {
     error: Error | undefined
 }
 
-//TODO: get rid of the damn useState-hell
+async function upload(
+    fileMetas: FileInitMeta[],
+    isLocked: boolean,
+    fileHandler: FileHandler,
+    uploadTitle: string | undefined,
+    setUploadedUUID: (x: string) => void,
+    encryptFile: boolean,
+    passwordInputRef: RefObject<HTMLInputElement>,
+
+    setFileUploadState: (x: FileUploadState | ((o: FileUploadState) => FileUploadState)) => void
+) {
+    if (fileMetas.length == 0 || isLocked) return
+
+    setFileUploadState((p) => ({
+        ...p,
+        uploading: true,
+        status: {
+            total: fileHandler.getTotalSize(),
+            current: 0,
+        },
+    }))
+
+    let file = {
+        filename: "upload.zip",
+        content: new Blob(),
+    }
+
+    const willZip = fileHandler.files.length > 1
+    if (willZip) {
+        const stream = new Stream()
+        stream.on("add", (info: File) => {
+            setFileUploadState((prev) => ({
+                ...prev,
+                status: {
+                    ...prev.status,
+                    current: prev.status.current + info.size / 2,
+                },
+            }))
+        })
+
+        try {
+            file.content = await archive(fileHandler.files, stream)
+        } catch (e) {
+            setFileUploadState((prev) => ({
+                ...prev,
+                error: new Error("Error occured while zipping your files"),
+            }))
+        }
+    } else {
+        file.content = fileHandler.files[0]
+        file.filename = fileHandler.files[0].name
+    }
+
+    const reqstream = new Stream()
+    reqstream.on("progress", (info: AxiosProgressEvent) => {
+        setFileUploadState((prev) => ({
+            ...prev,
+            status: {
+                ...prev.status,
+                total: info.total || prev.status.total,
+                current: prev.status.current + (willZip ? info.bytes / 2 : info.bytes),
+            },
+        }))
+    })
+
+    const req = await api.newFile(
+        new File([await file.content.arrayBuffer()], file.filename),
+        {
+            title: uploadTitle,
+            password: passwordInputRef.current?.value,
+            encrypt: encryptFile,
+        },
+        reqstream
+    )
+
+    if (req instanceof Error)
+        return setFileUploadState((prev) => ({
+            ...prev,
+            uploaded: true,
+            uploading: false,
+            error: req,
+        }))
+    else setUploadedUUID(req)
+
+    setFileUploadState((prev) => ({
+        ...prev,
+        uploading: false,
+        uploaded: true,
+        status: {
+            ...prev.status,
+            current: prev.status.total,
+        },
+    }))
+}
+
 export default function FileUpload() {
     // Initialize overview and files states
     const [fileMetas, setFileMetas] = useState<FileInitMeta[]>([])
@@ -56,91 +150,6 @@ export default function FileUpload() {
         setIsLocked(stmt)
     }, [fileUploadState])
 
-    async function uploadFiles() {
-        if (fileMetas.length == 0 || isLocked) return
-
-        setFileUploadState((p) => ({
-            ...p,
-            uploading: true,
-            status: {
-                total: fileHandler.getTotalSize(),
-                current: 0,
-            },
-        }))
-
-        let file = {
-            filename: "upload.zip",
-            content: new Blob(),
-        }
-
-        const willZip = fileHandler.files.length > 1
-        if (willZip) {
-            const stream = new Stream()
-            stream.on("add", (info: File) => {
-                setFileUploadState((prev) => ({
-                    ...prev,
-                    status: {
-                        ...prev.status,
-                        current: prev.status.current + info.size / 2,
-                    },
-                }))
-            })
-
-            try {
-                file.content = await archive(fileHandler.files, stream)
-            } catch (e) {
-                setFileUploadState((prev) => ({
-                    ...prev,
-                    error: new Error("Error occured while zipping your files"),
-                }))
-            }
-        } else {
-            file.content = fileHandler.files[0]
-            file.filename = fileHandler.files[0].name
-        }
-
-        const reqstream = new Stream()
-        reqstream.on("progress", (info: AxiosProgressEvent) => {
-            setFileUploadState((prev) => ({
-                ...prev,
-                status: {
-                    ...prev.status,
-                    total: info.total || prev.status.total,
-                    current: prev.status.current + (willZip ? info.bytes / 2 : info.bytes),
-                },
-            }))
-        })
-
-        const req = await api.newFile(
-            new File([await file.content.arrayBuffer()], file.filename),
-            {
-                title: uploadTitle,
-                password: passwordInputRef.current?.value,
-                encrypt: encryptFile,
-            },
-            reqstream
-        )
-
-        if (req instanceof Error)
-            return setFileUploadState((prev) => ({
-                ...prev,
-                uploaded: true,
-                uploading: false,
-                error: req,
-            }))
-        else setUploadedUUID(req)
-
-        setFileUploadState((prev) => ({
-            ...prev,
-            uploading: false,
-            uploaded: true,
-            status: {
-                ...prev.status,
-                current: prev.status.total,
-            },
-        }))
-    }
-
     function removeFile(nth: number) {
         setFileMetas((prev) => prev.filter((_, i) => nth !== i))
         fileHandler.removeFile(nth)
@@ -164,6 +173,19 @@ export default function FileUpload() {
         setPasswordValid(false)
         setFileMetas([])
         fileHandler.reset()
+    }
+
+    async function uploadFiles() {
+        return upload(
+            fileMetas,
+            isLocked,
+            fileHandler,
+            uploadTitle,
+            setUploadedUUID,
+            encryptFile,
+            passwordInputRef,
+            setFileUploadState
+        )
     }
 
     function addFile() {
