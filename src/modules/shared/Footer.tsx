@@ -34,14 +34,14 @@ export default function Footer() {
                     </div>
                     <div className="linksContainer right">
                         <h2 className="title">Links</h2>
-                        <Link href="https://paypal.me/tvalkonen">
-                            <a target="_blank">Sponsor</a>
+                        <Link href="https://paypal.me/tvalkonen" target="_blank">
+                            Sponsor
                         </Link>
                         <Link href="/terms-of-service">
-                            <a>Terms of Service</a>
+                            Terms of Service
                         </Link>
                         <Link href="/privacy-policy">
-                            <a>Privacy Policy</a>
+                            Privacy Policy
                         </Link>
                     </div>
                 </div>
