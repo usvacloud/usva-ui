@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { FaBars, FaCloud, FaCloudDownloadAlt, FaSmileBeam, FaTimes } from "react-icons/fa"
+import { FaBars, FaTimes } from "react-icons/fa"
 import { AnimatePresence, motion } from "framer-motion"
 import Link from "next/link"
 
@@ -11,7 +11,7 @@ function Links() {
                     For developers
                 </a>
                 <Link href="/about" className="animated">
-                    <a className="animated">About Usva</a>
+                    About Usva
                 </Link>
             </div>
         </>
@@ -20,7 +20,7 @@ function Links() {
 
 export default function Bar() {
     const [barVisible, setBarVisible] = useState(false)
-    const [windowWidth, setWindowWidth] = useState<Number>()
+    const [windowWidth, setWindowWidth] = useState<number>()
 
     const updateBarState = () => {
         if (typeof window !== "undefined") {
@@ -44,8 +44,8 @@ export default function Bar() {
         <div className="bar">
             <div className="content">
                 <div className="top">
-                    <Link href="/">
-                        <a className="logo">Usva</a>
+                    <Link href="/" className="logo">
+                        Usva
                     </Link>
                     <div onClick={toggleBar} className="menuicon">
                         {barVisible ? <FaTimes /> : <FaBars />}

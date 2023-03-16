@@ -14,8 +14,8 @@ export default function NotFound() {
                         You seem a bit lost. This page was not found or you don&apos;t have enough permissions
                         to access it. Would you like for me to help you a bit?
                     </h2>
-                    <Link href="/">
-                        <a className={styles.button}>Yes please, take me home!</a>
+                    <Link href="/" className={styles.button}>
+                        Yes please, take me home!
                     </Link>
                 </div>
             </div>
