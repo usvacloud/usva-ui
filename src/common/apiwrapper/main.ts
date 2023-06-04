@@ -66,7 +66,7 @@ export class ApiWrapper {
 
         if (password)
             headers = {
-                Authorization: `Bearer ${Buffer.from(password, "base64").toString("hex")}`,
+                Authorization: `Bearer ${Buffer.from(password).toString("base64")}`,
             }
 
         const req = await this.makeRequest(`${appconfig.api_base}/file/info?filename=${uuid}`, {
@@ -74,18 +74,6 @@ export class ApiWrapper {
             headers,
         })
         if (req instanceof Error) return req
-
-        switch (req.status) {
-            case 200:
-                break
-            case 401:
-            case 403:
-                return Errors.PermissionDenied
-            case 404:
-                return Errors.FileNotFound
-            default:
-                return Errors.RequestFailed
-        }
 
         return {
             filename: req.data["filename"],
@@ -103,7 +91,7 @@ export class ApiWrapper {
 
         if (options?.title) fd.append("title", options.title)
         if (options?.encrypt) fd.append("can_encrypt", "yes")
-        if (options?.password) fd.append("password", Buffer.from(options.password, "base64").toString("hex"))
+        if (options?.password) fd.append("password", Buffer.from(options.password).toString("base64"))
         const req = await this.makeRequest(`${appconfig.api_base}/file/upload`, {
             method: "POST",
             data: fd,

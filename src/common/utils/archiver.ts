@@ -7,7 +7,11 @@ export async function archive(files: File[], stream: Stream): Promise<Blob> {
         jsStream.file(file.name, await file.arrayBuffer())
         stream.emit("add", file)
     })
-    await Promise.all(f)
+    try {
+        await Promise.all(f)
+    } catch (e) {
+        console.error(e)
+    }
 
     const conte = await jsStream.generateAsync({ type: "blob" })
     return conte
